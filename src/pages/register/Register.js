@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useUserAuthContextValue } from "../../contexts/userAuthContext";
+import styles from "./Register.module.css";
 
 const Register = () => {
     const inputEmail = useRef();
@@ -26,14 +27,14 @@ const Register = () => {
     }
 
     return (
-        <>
-            <h2>Register Page</h2>
+        <div className={ styles.formContainer }>
             <form onSubmit={ handleSignUp }>
-                <input type="email" placeholder="Email" ref={ inputEmail } />
-                <input type="password" placeholder="Password" ref={ inputPassword } />
+                <h2>Sign Up</h2>
+                <input type="email" placeholder="Enter Email" ref={ inputEmail } />
+                <input type="password" placeholder="Enter Password" ref={ inputPassword } />
                 <button>Sign Up</button>
             </form>
-        </>
+        </div>
     )
 };
 

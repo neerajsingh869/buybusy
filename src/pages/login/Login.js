@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useUserAuthContextValue } from "../../contexts/userAuthContext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const inputEmail = useRef();
@@ -32,6 +33,7 @@ const Login = () => {
                 <input type="email" placeholder="Email" ref={ inputEmail } />
                 <input type="password" placeholder="Password" ref={ inputPassword } />
                 <button>Sign In</button>
+                <Link to="/signin">Or SignUp instead</Link>
             </form>
         </>
     )
