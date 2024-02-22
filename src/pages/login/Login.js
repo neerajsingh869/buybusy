@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 
 const Login = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
+    const { setIsSignedIn } = useUserAuthContextValue();
 
     const auth = getAuth();
 
@@ -15,9 +17,11 @@ const Login = () => {
             const password = inputPassword.current.value;
 
             await signInWithEmailAndPassword(auth, email, password);
+            setIsSignedIn(true);
             console.log("User signed in successfully!")
         } catch (err) {
             alert(err.message);
+            setIsSignedIn(false);
         }
     }
 
