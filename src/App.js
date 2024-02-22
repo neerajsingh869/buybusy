@@ -12,6 +12,7 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Orders from './pages/orders/Orders';
 import Cart from './pages/cart/Cart';
+import PrivateRoute from './components/secure/PrivateRoute';
 
 function App() {
   const routes = createRoutesFromElements(
@@ -19,8 +20,10 @@ function App() {
       <Route index={ true } element={ <Home /> } />
       <Route path="signin" element={ <Login /> } />
       <Route path="signup" element={ <Register /> } />
-      <Route path="myorders" element={ <Orders /> } />
-      <Route path="cart" element={ <Cart /> } />
+      <PrivateRoute>
+        <Route path="myorders" element={ <Orders /> } />
+        <Route path="cart" element={ <Cart /> } />
+      </PrivateRoute>
     </Route>
   );
 
