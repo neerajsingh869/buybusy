@@ -20,10 +20,16 @@ function App() {
       <Route index={ true } element={ <Home /> } />
       <Route path="signin" element={ <Login /> } />
       <Route path="signup" element={ <Register /> } />
-      <PrivateRoute>
-        <Route path="myorders" element={ <Orders /> } />
-        <Route path="cart" element={ <Cart /> } />
-      </PrivateRoute>
+      <Route path="myorders" element={ 
+        <PrivateRoute>
+          <Orders />
+        </PrivateRoute>
+       } />
+       <Route path="cart" element={ 
+        <PrivateRoute>
+          <Cart />
+        </PrivateRoute>
+       } />
     </Route>
   );
 
