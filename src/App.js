@@ -1,4 +1,5 @@
 import './App.css';
+import { app } from "./configs/firebase";
 import { 
   createRoutesFromElements, 
   createBrowserRouter, 
