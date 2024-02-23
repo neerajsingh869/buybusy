@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import { Link } from "react-router-dom";
+import styles from "./Login.module.css";
 
 const Login = () => {
     const inputEmail = useRef();
@@ -27,15 +28,15 @@ const Login = () => {
     }
 
     return (
-        <>
-            <h2>Login Page</h2>
+        <div className={ styles.formContainer }>
             <form onSubmit={ handleSignIn }>
-                <input type="email" placeholder="Email" ref={ inputEmail } />
-                <input type="password" placeholder="Password" ref={ inputPassword } />
+                <h2>Sign In</h2>
+                <input type="email" placeholder="Enter Email" ref={ inputEmail } />
+                <input type="password" placeholder="Enter Password" ref={ inputPassword } />
                 <button>Sign In</button>
-                <Link to="/signin">Or SignUp instead</Link>
+                <Link to="/signup">Or SignUp instead</Link>
             </form>
-        </>
+        </div>
     )
 };
 
