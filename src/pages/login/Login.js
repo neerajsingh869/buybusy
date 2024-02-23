@@ -1,13 +1,14 @@
 import { useRef } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useUserAuthContextValue } from "../../contexts/userAuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
 const Login = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
     const { setIsSignedIn } = useUserAuthContextValue();
+    const navigate = useNavigate();
 
     const auth = getAuth();
 
@@ -19,6 +20,7 @@ const Login = () => {
             const password = inputPassword.current.value;
 
             await signInWithEmailAndPassword(auth, email, password);
+            navigate("/");
             setIsSignedIn(true);
             console.log("User signed in successfully!")
         } catch (err) {
