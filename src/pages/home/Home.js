@@ -16,9 +16,9 @@ const Home = () => {
             </aside>
             <div className={ styles.prductsContainer }>
                 {
-                    productsData.map((product, index) => {
+                    productsData.map(product => {
                         return (
-                            <ProductCard product={ product } homeOrCart="home" />
+                            <ProductCard key={ product.id } product={ product } homeOrCart="home" />
                         )
                     })
                 }
