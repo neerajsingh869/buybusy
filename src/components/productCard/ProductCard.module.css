@@ -24,6 +24,9 @@
 
 .productPriceContainer {
     font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .productTitleContainer, 
@@ -35,6 +38,15 @@
 .productPriceContainer,
 .productActionBtn {
     font-size: 1.25rem;
+}
+
+.productQtyChangerContainer {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.productQtyChangerContainer > img {
+    cursor: pointer;
 }
 
 .productActionBtn {

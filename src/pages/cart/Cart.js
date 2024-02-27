@@ -25,7 +25,10 @@ const Cart = () => {
                 {
                     cart.map(product => {
                         return (
-                            <ProductCard key={ product.id } product={ product } homeOrCart="cart" />
+                            <ProductCard 
+                                key={ product.id } 
+                                product={ product } 
+                                homeOrCart="cart" />
                         )
                     })
                 }
