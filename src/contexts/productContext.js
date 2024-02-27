@@ -39,8 +39,40 @@ const CustomProductContext = ({ children }) => {
         setCart(updatedCart);
     }
 
+    const incrementCartProductCount = (product) => {
+        const updatedCart = cart.map(item => {
+            if (item.id === product.id) {
+                item.qty++;
+            }
+            return item;
+        });
+
+        setCart(updatedCart);
+    }
+
+    const decrementCartProductCount = (product) => {
+        if (product.qty === 1) {
+            handleRemoveFromCart(product);
+            return;
+        }
+
+        const updatedCart = cart.map(item => {
+            if (item.id === product.id) {
+                item.qty--;
+            }
+            return item;
+        });
+
+        setCart(updatedCart);
+    }
+
     return (
-        <productContext.Provider value={{ cart, setCart, handleAddToCart, handleRemoveFromCart }}>
+        <productContext.Provider value={{ cart, 
+                                            setCart, 
+                                            handleAddToCart, 
+                                            handleRemoveFromCart,
+                                            incrementCartProductCount,
+                                            decrementCartProductCount }}>
             { children }
         </productContext.Provider>
     )

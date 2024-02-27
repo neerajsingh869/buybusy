@@ -6,7 +6,8 @@ import plusButtonImage from "../../assets/plus.png";
 import minusButtonImage from "../../assets/minus.png";
 
 const ProductCard = ({ product, homeOrCart }) => {
-    const { handleAddToCart, handleRemoveFromCart } = useProductContextValue();
+    const { handleAddToCart, handleRemoveFromCart, 
+            incrementCartProductCount, decrementCartProductCount } = useProductContextValue();
     const { isSignedIn } = useUserAuthContextValue();
     const navigate = useNavigate();
 
@@ -35,9 +36,11 @@ const ProductCard = ({ product, homeOrCart }) => {
                 <p>&#8377; { product.price }</p>
                 { homeOrCart === "cart" && (
                     <div className={ styles.productQtyChangerContainer }>
-                        <img src={ plusButtonImage } alt="Plus Button" />
+                        <img src={ minusButtonImage } alt="Minus Button" 
+                            onClick={ () => decrementCartProductCount(product) } />
                         <span>{ product.qty }</span>
-                        <img src={ minusButtonImage } alt="Minus Button" />
+                        <img src={ plusButtonImage } alt="Plus Button" 
+                            onClick={ () => incrementCartProductCount(product) } />
                     </div>
                 ) }
             </div>
