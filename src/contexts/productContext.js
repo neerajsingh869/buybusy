@@ -11,7 +11,7 @@ const CustomProductContext = ({ children }) => {
 
     const handleAddToCart = (product) => {
         const isCartExists = cart.find(item => item.id === product.id);
-        
+
         if (isCartExists) {
             const updatedCart = cart.map(item => {
                 if (item.id === isCartExists.id) {
@@ -34,7 +34,9 @@ const CustomProductContext = ({ children }) => {
     }
 
     const handleRemoveFromCart = (product) => {
+        const updatedCart = cart.filter(item => item.id !== product.id);
 
+        setCart(updatedCart);
     }
 
     return (
