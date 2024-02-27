@@ -5,6 +5,14 @@ import styles from "./Cart.module.css";
 const Cart = () => {
     const { cart } = useProductContextValue();
 
+    if (cart.length === 0) {
+        return (
+            <div className={ styles.emptyCart }>
+                <h2>Cart is Empty!</h2>
+            </div>
+        )
+    }
+
     return (
         <div>
             <aside className={ styles.filterAside }>
