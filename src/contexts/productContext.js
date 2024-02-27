@@ -9,7 +9,9 @@ const useProductContextValue = () => {
 const CustomProductContext = ({ children }) => {
     const [cart, setCart] = useState([]);
 
-    const handleAddToCart = (product) => {const isCartExists = cart.find(item => item.id === product.id);
+    const handleAddToCart = (product) => {
+        const isCartExists = cart.find(item => item.id === product.id);
+        
         if (isCartExists) {
             const updatedCart = cart.map(item => {
                 if (item.id === isCartExists.id) {
