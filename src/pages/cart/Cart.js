@@ -17,9 +17,9 @@ const Cart = () => {
         <div>
             <aside className={ styles.filterAside }>
                 <h2>Total Price:- { total }</h2>
-                <form>
-
-                </form>
+                <button className={ styles.purchaseBtn }>
+                    Purchase
+                </button>
             </aside>
             <div className={ styles.prductsContainer }>
                 {
