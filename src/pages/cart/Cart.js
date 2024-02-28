@@ -3,7 +3,7 @@ import ProductCard from "../../components/productCard/ProductCard";
 import styles from "./Cart.module.css";
 
 const Cart = () => {
-    const { cart } = useProductContextValue();
+    const { cart, total } = useProductContextValue();
 
     if (cart.length === 0) {
         return (
@@ -16,7 +16,7 @@ const Cart = () => {
     return (
         <div>
             <aside className={ styles.filterAside }>
-                <h2>Total Price:- </h2>
+                <h2>Total Price:- { total }</h2>
                 <form>
 
                 </form>

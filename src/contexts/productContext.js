@@ -8,6 +8,7 @@ const useProductContextValue = () => {
 
 const CustomProductContext = ({ children }) => {
     const [cart, setCart] = useState([]);
+    const [total, setTotal] = useState(0);
 
     const handleAddToCart = (product) => {
         const isCartExists = cart.find(item => item.id === product.id);
@@ -31,12 +32,16 @@ const CustomProductContext = ({ children }) => {
 
             setCart(updatedCart);
         }
+        
+        setTotal(total + product.price);
     }
 
     const handleRemoveFromCart = (product) => {
+        const itemToRemoveFromCart = cart.find(item => item.id === product.id);
         const updatedCart = cart.filter(item => item.id !== product.id);
 
         setCart(updatedCart);
+        setTotal(total - itemToRemoveFromCart.qty * itemToRemoveFromCart.price);
     }
 
     const incrementCartProductCount = (product) => {
@@ -48,6 +53,7 @@ const CustomProductContext = ({ children }) => {
         });
 
         setCart(updatedCart);
+        setTotal(total + product.price);
     }
 
     const decrementCartProductCount = (product) => {
@@ -55,7 +61,7 @@ const CustomProductContext = ({ children }) => {
             handleRemoveFromCart(product);
             return;
         }
-
+        
         const updatedCart = cart.map(item => {
             if (item.id === product.id) {
                 item.qty--;
@@ -64,6 +70,7 @@ const CustomProductContext = ({ children }) => {
         });
 
         setCart(updatedCart);
+        setTotal(total - product.price);
     }
 
     return (
@@ -72,7 +79,8 @@ const CustomProductContext = ({ children }) => {
                                             handleAddToCart, 
                                             handleRemoveFromCart,
                                             incrementCartProductCount,
-                                            decrementCartProductCount }}>
+                                            decrementCartProductCount,
+                                            total }}>
             { children }
         </productContext.Provider>
     )
