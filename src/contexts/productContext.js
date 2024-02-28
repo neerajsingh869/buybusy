@@ -9,6 +9,7 @@ const useProductContextValue = () => {
 const CustomProductContext = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
+    const [orders, setOrders] = useState([]);
 
     const handleAddToCart = (product) => {
         const isCartExists = cart.find(item => item.id === product.id);
@@ -32,7 +33,7 @@ const CustomProductContext = ({ children }) => {
 
             setCart(updatedCart);
         }
-        
+
         setTotal(total + product.price);
     }
 
@@ -73,6 +74,26 @@ const CustomProductContext = ({ children }) => {
         setTotal(total - product.price);
     }
 
+    const purchaseProductsFromCart = (cart) => {
+        const orderToPlace = {
+            id: new Date().getTime(),
+            orderedOn: new Date().toISOString().split('T')[0],
+            products: [
+                ...cart
+            ],
+            totalPrice: total
+        };
+
+        const newOrders = [
+            orderToPlace, 
+            ...orders
+        ];
+
+        console.log(newOrders);
+
+        setOrders(newOrders);
+    }
+
     return (
         <productContext.Provider value={{ cart, 
                                             setCart, 
@@ -80,7 +101,10 @@ const CustomProductContext = ({ children }) => {
                                             handleRemoveFromCart,
                                             incrementCartProductCount,
                                             decrementCartProductCount,
-                                            total }}>
+                                            total,
+                                            setTotal,
+                                            purchaseProductsFromCart,
+                                            orders }}>
             { children }
         </productContext.Provider>
     )

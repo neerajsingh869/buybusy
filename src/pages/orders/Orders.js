@@ -1,8 +1,29 @@
+import Order from "../../components/order/Order";
+import { useProductContextValue } from "../../contexts/productContext";
+import styles from "./Orders.module.css";
+
 const Orders = () => {
+    const { orders } = useProductContextValue();
+
+    if (orders.length === 0) {
+        return (
+            <div className={ styles.emptyOrdersPage }>
+                <h2>No orders found!</h2>
+            </div>
+        )
+    }
+
     return (
-        <>
-            <h2>Orders Page</h2>
-        </>
+        <div>
+            <h2>Your Orders</h2>
+            {
+                orders.map(order => {
+                    return (
+                        <Order key={ order.id } order={ order } />
+                    )
+                })
+            }
+        </div>
     )
 };
 

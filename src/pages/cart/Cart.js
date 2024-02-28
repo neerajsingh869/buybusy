@@ -1,23 +1,37 @@
 import { useProductContextValue } from "../../contexts/productContext";
 import ProductCard from "../../components/productCard/ProductCard";
 import styles from "./Cart.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-    const { cart, total } = useProductContextValue();
+    const { cart, setCart, total, setTotal, purchaseProductsFromCart } = useProductContextValue();
+    const navigate = useNavigate();
 
     if (cart.length === 0) {
         return (
-            <div className={ styles.emptyCart }>
+            <div className={ styles.emptyCartPage }>
                 <h2>Cart is Empty!</h2>
             </div>
         )
+    }
+
+    const resetCartPage = () => {
+        setCart([]);
+        setTotal(0);
     }
 
     return (
         <div>
             <aside className={ styles.filterAside }>
                 <h2>Total Price:- { total }</h2>
-                <button className={ styles.purchaseBtn }>
+                <button className={ styles.purchaseBtn }
+                        onClick={ (e) => {
+                            e.preventDefault();
+
+                            purchaseProductsFromCart(cart);
+                            navigate("/myorders");
+                            resetCartPage();
+                        } }>
                     Purchase
                 </button>
             </aside>
