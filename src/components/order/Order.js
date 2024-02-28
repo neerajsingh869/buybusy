@@ -1,8 +1,10 @@
+import styles from "./Order.module.css";
+
 const Order = ({ order }) => {
     return (
-        <div>
+        <div className={ styles.orderContainer }>
             <p>Ordered On:- { order.orderedOn}</p>
-            <table>
+            <table className={ styles.orderTable }>
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -17,17 +19,17 @@ const Order = ({ order }) => {
                             return (
                                <tr key={ product.id }>
                                 <td>{ product.title }</td>
-                                <td>{ product.price }</td>
+                                <td>&#8377; { product.price }</td>
                                 <td>{ product.qty }</td>
-                                <td>{ product.price * product.qty }</td>
+                                <td>&#8377; { product.price * product.qty }</td>
                                </tr> 
                             )
                         })
                     }
                 </tbody>
-                <tfoot>
+                <tfoot className={ styles.orderTableFooter }>
                     <tr>
-                        <td>{ order.totalPrice }</td>
+                        <td colSpan={4}>&#8377; { order.totalPrice }</td>
                     </tr>
                 </tfoot>
             </table>

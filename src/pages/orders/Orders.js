@@ -14,8 +14,8 @@ const Orders = () => {
     }
 
     return (
-        <div>
-            <h2>Your Orders</h2>
+        <div className={ styles.ordersContainer }>
+            <h1>Your Orders</h1>
             {
                 orders.map(order => {
                     return (

@@ -1,0 +1,31 @@
+.orderContainer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.orderContainer > p {
+    font-size: 1.25rem;
+    color: #224957;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.orderTable {
+    border: none;
+}
+
+.orderTable tr {
+    background-color: #d9d9d936;
+}
+
+.orderTable th {
+    border-bottom: 2px solid black;
+}
+
+.orderTable td, .orderTable th {
+    padding: 1rem;
+}
+
+.orderTableFooter tr {
+    text-align: right;
+}
