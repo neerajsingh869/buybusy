@@ -1,14 +1,13 @@
 import { createContext, useContext, useState } from "react";
 
-const productContext = createContext();
+const cartContext = createContext();
 
-const useProductContextValue = () => {
-    return useContext(productContext);
+const useCartContextValue = () => {
+    return useContext(cartContext);
 }
 
-const CustomProductContextProvider = ({ children }) => {
+const CustomCartContextProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
-    const [orders, setOrders] = useState([]);
 
     const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
 
@@ -70,45 +69,22 @@ const CustomProductContextProvider = ({ children }) => {
         setCart(updatedCart);
     }
 
-    const purchaseProductsFromCart = (cart) => {
-        const orderToPlace = {
-            id: new Date().getTime(),
-            orderedOn: new Date().toISOString().split('T')[0],
-            products: [
-                ...cart
-            ],
-            totalPrice: total
-        };
-
-        const newOrders = [
-            orderToPlace, 
-            ...orders
-        ];
-
-        console.log(newOrders);
-
-        setOrders(newOrders);
-        resetCartPage();
-    }
-
     const resetCartPage = () => {
         setCart([]);
     }
     
-
     return (
-        <productContext.Provider value={{ cart, 
+        <cartContext.Provider value={{ cart, 
                                             handleAddToCart, 
                                             handleRemoveFromCart,
                                             incrementCartProductCount,
                                             decrementCartProductCount,
                                             total,
-                                            purchaseProductsFromCart,
-                                            orders }}>
+                                            resetCartPage }}>
             { children }
-        </productContext.Provider>
+        </cartContext.Provider>
     )
 }
 
-export { useProductContextValue };
-export default CustomProductContextProvider;
+export { useCartContextValue };
+export default CustomCartContextProvider;

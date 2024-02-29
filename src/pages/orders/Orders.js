@@ -1,9 +1,9 @@
 import Order from "../../components/order/Order";
-import { useProductContextValue } from "../../contexts/productContext";
+import { useOrdersContextValue } from "../../contexts/ordersContext";
 import styles from "./Orders.module.css";
 
 const Orders = () => {
-    const { orders } = useProductContextValue();
+    const { orders } = useOrdersContextValue();
 
     if (orders.length === 0) {
         return (

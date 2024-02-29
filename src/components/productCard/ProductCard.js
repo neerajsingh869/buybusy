@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useProductContextValue } from "../../contexts/productContext";
+import { useCartContextValue } from "../../contexts/cartContext";
 import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./ProductCard.module.css";
 import plusButtonImage from "../../assets/plus.png";
@@ -7,7 +7,8 @@ import minusButtonImage from "../../assets/minus.png";
 
 const ProductCard = ({ product, homeOrCart }) => {
     const { handleAddToCart, handleRemoveFromCart, 
-            incrementCartProductCount, decrementCartProductCount } = useProductContextValue();
+            incrementCartProductCount, decrementCartProductCount } = useCartContextValue();
+
     const { isSignedIn } = useUserAuthContextValue();
     const navigate = useNavigate();
 

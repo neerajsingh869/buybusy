@@ -1,10 +1,13 @@
-import { useProductContextValue } from "../../contexts/productContext";
+import { useCartContextValue } from "../../contexts/cartContext";
 import ProductCard from "../../components/productCard/ProductCard";
 import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
+import { useOrdersContextValue } from "../../contexts/ordersContext";
 
 const Cart = () => {
-    const { cart, total, purchaseProductsFromCart } = useProductContextValue();
+    const { cart, total } = useCartContextValue();
+    const { purchaseProductsFromCart } = useOrdersContextValue();
+
     const navigate = useNavigate();
 
     if (cart.length === 0) {

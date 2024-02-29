@@ -15,7 +15,8 @@ import Orders from './pages/orders/Orders';
 import Cart from './pages/cart/Cart';
 import PrivateRoute from './components/secure/PrivateRoute';
 import CustomUserAuthContextProvider from './contexts/userAuthContext';
-import CustomProductContextProvider from './contexts/productContext';
+import CustomCartContextProvider from './contexts/cartContext';
+import CustomOrdersContextProvider from './contexts/ordersContext';
 
 function App() {
   const routes = createRoutesFromElements(
@@ -40,9 +41,11 @@ function App() {
 
   return (
     <CustomUserAuthContextProvider>
-      <CustomProductContextProvider>
-        <RouterProvider router={ router } />
-      </CustomProductContextProvider>
+      <CustomCartContextProvider>
+        <CustomOrdersContextProvider>
+          <RouterProvider router={ router } />
+        </CustomOrdersContextProvider>
+      </CustomCartContextProvider>
     </CustomUserAuthContextProvider>
   );
 }
