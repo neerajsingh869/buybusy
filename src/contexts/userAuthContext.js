@@ -6,7 +6,7 @@ const useUserAuthContextValue = () => {
     return useContext(userAuthContext);
 }
 
-const CustomUserAuthContext = ({ children }) => {
+const CustomUserAuthContextProvider = ({ children }) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
 
     return (
@@ -17,4 +17,4 @@ const CustomUserAuthContext = ({ children }) => {
 }
 
 export { useUserAuthContextValue };
-export default CustomUserAuthContext;
+export default CustomUserAuthContextProvider;

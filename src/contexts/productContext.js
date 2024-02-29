@@ -6,7 +6,7 @@ const useProductContextValue = () => {
     return useContext(productContext);
 }
 
-const CustomProductContext = ({ children }) => {
+const CustomProductContextProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
     const [orders, setOrders] = useState([]);
@@ -111,4 +111,4 @@ const CustomProductContext = ({ children }) => {
 }
 
 export { useProductContextValue };
-export default CustomProductContext;
+export default CustomProductContextProvider;
