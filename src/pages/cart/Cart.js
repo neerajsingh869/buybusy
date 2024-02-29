@@ -4,7 +4,7 @@ import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-    const { cart, setCart, total, setTotal, purchaseProductsFromCart } = useProductContextValue();
+    const { cart, total, purchaseProductsFromCart } = useProductContextValue();
     const navigate = useNavigate();
 
     if (cart.length === 0) {
@@ -13,11 +13,6 @@ const Cart = () => {
                 <h2>Cart is Empty!</h2>
             </div>
         )
-    }
-
-    const resetCartPage = () => {
-        setCart([]);
-        setTotal(0);
     }
 
     return (
@@ -30,7 +25,6 @@ const Cart = () => {
 
                             purchaseProductsFromCart(cart);
                             navigate("/myorders");
-                            resetCartPage();
                         } }>
                     Purchase
                 </button>

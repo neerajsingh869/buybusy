@@ -8,8 +8,9 @@ const useProductContextValue = () => {
 
 const CustomProductContextProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
-    const [total, setTotal] = useState(0);
     const [orders, setOrders] = useState([]);
+
+    const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
 
     const handleAddToCart = (product) => {
         const isCartExists = cart.find(item => item.id === product.id);
@@ -34,15 +35,12 @@ const CustomProductContextProvider = ({ children }) => {
             setCart(updatedCart);
         }
 
-        setTotal(total + product.price);
     }
 
     const handleRemoveFromCart = (product) => {
-        const itemToRemoveFromCart = cart.find(item => item.id === product.id);
         const updatedCart = cart.filter(item => item.id !== product.id);
 
         setCart(updatedCart);
-        setTotal(total - itemToRemoveFromCart.qty * itemToRemoveFromCart.price);
     }
 
     const incrementCartProductCount = (product) => {
@@ -54,7 +52,6 @@ const CustomProductContextProvider = ({ children }) => {
         });
 
         setCart(updatedCart);
-        setTotal(total + product.price);
     }
 
     const decrementCartProductCount = (product) => {
@@ -71,7 +68,6 @@ const CustomProductContextProvider = ({ children }) => {
         });
 
         setCart(updatedCart);
-        setTotal(total - product.price);
     }
 
     const purchaseProductsFromCart = (cart) => {
@@ -92,17 +88,21 @@ const CustomProductContextProvider = ({ children }) => {
         console.log(newOrders);
 
         setOrders(newOrders);
+        resetCartPage();
     }
+
+    const resetCartPage = () => {
+        setCart([]);
+    }
+    
 
     return (
         <productContext.Provider value={{ cart, 
-                                            setCart, 
                                             handleAddToCart, 
                                             handleRemoveFromCart,
                                             incrementCartProductCount,
                                             decrementCartProductCount,
                                             total,
-                                            setTotal,
                                             purchaseProductsFromCart,
                                             orders }}>
             { children }
