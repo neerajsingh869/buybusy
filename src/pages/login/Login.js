@@ -7,7 +7,7 @@ import styles from "./Login.module.css";
 const Login = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
-    const { setIsSignedIn } = useUserAuthContextValue();
+    const { setIsSignedIn, setUserUid } = useUserAuthContextValue();
     const navigate = useNavigate();
 
     const auth = getAuth();
@@ -19,9 +19,10 @@ const Login = () => {
             const email = inputEmail.current.value;
             const password = inputPassword.current.value;
 
-            await signInWithEmailAndPassword(auth, email, password);
+            const res = await signInWithEmailAndPassword(auth, email, password);
             navigate("/");
             setIsSignedIn(true);
+            setUserUid(res.user.uid);
             console.log("User signed in successfully!")
         } catch (err) {
             alert(err.message);

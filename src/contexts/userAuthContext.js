@@ -8,9 +8,10 @@ const useUserAuthContextValue = () => {
 
 const CustomUserAuthContextProvider = ({ children }) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
+    const [userUid, setUserUid] = useState(null);
 
     return (
-        <userAuthContext.Provider value={{ isSignedIn, setIsSignedIn }}>
+        <userAuthContext.Provider value={{ isSignedIn, setIsSignedIn, userUid, setUserUid }}>
             { children }
         </userAuthContext.Provider>
     )

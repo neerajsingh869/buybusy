@@ -2,11 +2,13 @@ import { useRef } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./Register.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
-    const { setIsSignedIn } = useUserAuthContextValue();
+    const { setIsSignedIn, setUserUid } = useUserAuthContextValue();
+    const navigate = useNavigate();
 
     const auth = getAuth();
 
@@ -17,8 +19,10 @@ const Register = () => {
             const email = inputEmail.current.value;
             const password = inputPassword.current.value;
 
-            await createUserWithEmailAndPassword(auth, email, password);
+            const res = await createUserWithEmailAndPassword(auth, email, password);
+            navigate("/");
             setIsSignedIn(true);
+            setUserUid(res.user.uid);
             console.log("User signed up successfully!")
         } catch (err) {
             alert(err.message);
