@@ -1,5 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useCartContextValue } from "./cartContext";
+import { collection, doc, setDoc, getDoc } from "firebase/firestore"; 
+import { db } from "../configs/firebase";
+import { useUserAuthContextValue } from "./userAuthContext";
 
 const ordersContext = createContext();
 
@@ -11,8 +14,27 @@ const CustomOrdersContextProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
 
     const { total, resetCartPage } = useCartContextValue();
+    const { userUid } = useUserAuthContextValue();
 
-    const purchaseProductsFromCart = (cart) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            if (userUid) {
+                const docRef = doc(db, "usersOrders", userUid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    setOrders(docSnap.data().orders);
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    setOrders([]);
+                }
+            }
+        }
+
+        fetchData();
+    }, [userUid]);
+
+    const purchaseProductsFromCart = async (cart) => {
         const orderToPlace = {
             id: new Date().getTime(),
             orderedOn: new Date().toISOString().split('T')[0],
@@ -30,6 +52,12 @@ const CustomOrdersContextProvider = ({ children }) => {
         console.log(newOrders);
 
         setOrders(newOrders);
+
+        const usersOrdersRef = collection(db, "usersOrders");
+        await setDoc(doc(usersOrdersRef, userUid), {
+            orders: newOrders
+        });
+
         resetCartPage();
     }
     
