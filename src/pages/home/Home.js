@@ -3,9 +3,12 @@ import styles from "./Home.module.css";
 import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../configs/firebase";
 import { useEffect, useState } from "react";
+import clearImage from "../../assets/clear.png";
 
 const Home = () => {
     const [productsData, setProductsData] = useState([]);
+    const [searchInputState, setSearchInputState] = useState("");
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,15 +27,37 @@ const Home = () => {
             });
 
             setProductsData(data);
+            setFilteredProducts(data);
         }
 
         fetchData();
     }, []);
 
+    useEffect(() => {
+        setFilteredProducts(productsData
+                                .filter(product => 
+                                        product.title.toLowerCase().includes(searchInputState.toLowerCase())));
+    }, [searchInputState, productsData]);
+
     return (
         <div>
             <form className={ styles.searchForm }>
-                <input type="text" placeholder="Search By Name" />
+                <input 
+                    type="text" 
+                    placeholder="Search By Name"
+                    value={ searchInputState }
+                    onChange={ (e) => setSearchInputState(e.target.value) } />
+                { searchInputState && <img  style={{ 
+                                                cursor: "pointer",
+                                                width:"25px",
+                                                position: "absolute",
+                                                marginLeft: "-32px",
+                                                top: "25%"   
+                                            }}
+                                            src={ clearImage } 
+                                            alt="Clear Search"
+                                            onClick={ () => setSearchInputState("") } /> }
+                
             </form>
             <aside className={ styles.filterAside }>
                 <h2>Filter</h2>
@@ -42,7 +67,7 @@ const Home = () => {
             </aside>
             <div className={ styles.prductsContainer }>
                 {
-                    productsData.map(product => {
+                    filteredProducts.map(product => {
                         return (
                             <ProductCard key={ product.id } product={ product } homeOrCart="home" />
                         )

@@ -1,6 +1,7 @@
 .searchForm {
     width: 25%;
     margin: 1rem auto;
+    position: relative;
 }
 
 .searchForm > input {
