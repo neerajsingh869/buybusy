@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore"; 
 import { db } from "../configs/firebase";
 import { useUserAuthContextValue } from "./userAuthContext";
+import toast, { Toaster } from 'react-hot-toast';
 
 const cartContext = createContext();
 
@@ -37,6 +38,15 @@ const CustomCartContextProvider = ({ children }) => {
         const isCartExists = cart.find(item => item.id === product.id);
 
         if (isCartExists) {
+            toast.success('Increase Product Count!', {
+                duration: 1000,
+                style: {
+                    width: "18rem",
+                    height: "3.5rem",
+                    marginTo: "2rem"
+                }
+            });
+
             const updatedCart = cart.map(item => {
                 if (item.id === isCartExists.id) {
                     item.qty++;
@@ -51,6 +61,15 @@ const CustomCartContextProvider = ({ children }) => {
                 cart: updatedCart
             });
         } else {
+            toast.success('Product Added Successfully!', {
+                duration: 1000,
+                style: {
+                    width: "18rem",
+                    height: "3.5rem",
+                    marginTo: "2rem"
+                }
+            });
+
             const cartProduct = {
                 ...product,
                 qty: 1
@@ -69,6 +88,15 @@ const CustomCartContextProvider = ({ children }) => {
     }
 
     const handleRemoveFromCart = async (product) => {
+        toast.success('Product Removed Successfully!', {
+            duration: 1000,
+            style: {
+                width: "18rem",
+                height: "3.5rem",
+                marginTo: "2rem"
+            }
+        });
+
         const updatedCart = cart.filter(item => item.id !== product.id);
 
         setCart(updatedCart);
@@ -80,6 +108,15 @@ const CustomCartContextProvider = ({ children }) => {
     }
 
     const incrementCartProductCount = async (product) => {
+        toast.success('Product Count Incremented!', {
+            duration: 1000,
+            style: {
+                width: "18rem",
+                height: "3.5rem",
+                marginTo: "2rem"
+            }
+        });
+
         const updatedCart = cart.map(item => {
             if (item.id === product.id) {
                 item.qty++;
@@ -100,6 +137,15 @@ const CustomCartContextProvider = ({ children }) => {
             handleRemoveFromCart(product);
             return;
         }
+
+        toast.success('Product Count Decremented.', {
+            duration: 1000,
+            style: {
+                width: "18rem",
+                height: "3.5rem",
+                marginTo: "2rem"
+            }
+        });
         
         const updatedCart = cart.map(item => {
             if (item.id === product.id) {
@@ -134,6 +180,7 @@ const CustomCartContextProvider = ({ children }) => {
                                             total,
                                             resetCartPage }}>
             { children }
+            <Toaster position="top-right" />
         </cartContext.Provider>
     )
 }

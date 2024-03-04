@@ -3,6 +3,7 @@ import { useCartContextValue } from "./cartContext";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore"; 
 import { db } from "../configs/firebase";
 import { useUserAuthContextValue } from "./userAuthContext";
+import toast, { Toaster } from 'react-hot-toast';
 
 const ordersContext = createContext();
 
@@ -35,6 +36,15 @@ const CustomOrdersContextProvider = ({ children }) => {
     }, [userUid]);
 
     const purchaseProductsFromCart = async (cart) => {
+        toast.success('Orders Purchases Successfull.', {
+            duration: 1000,
+            style: {
+                width: "18rem",
+                height: "3.5rem",
+                marginTo: "2rem"
+            }
+        });
+
         const orderToPlace = {
             id: new Date().getTime(),
             orderedOn: new Date().toISOString().split('T')[0],
@@ -64,6 +74,7 @@ const CustomOrdersContextProvider = ({ children }) => {
     return (
         <ordersContext.Provider value={{ purchaseProductsFromCart, orders }}>
             { children }
+            <Toaster position="top-right" />
         </ordersContext.Provider>
     )
 }
