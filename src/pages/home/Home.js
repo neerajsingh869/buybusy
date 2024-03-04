@@ -4,11 +4,13 @@ import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../configs/firebase";
 import { useEffect, useState } from "react";
 import clearImage from "../../assets/clear.png";
+import { DotLoader } from "react-spinners";
 
 const Home = () => {
     const [productsData, setProductsData] = useState([]);
     const [searchInputState, setSearchInputState] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,6 +30,7 @@ const Home = () => {
 
             setProductsData(data);
             setFilteredProducts(data);
+            setLoading(false);
         }
 
         fetchData();
@@ -38,6 +41,19 @@ const Home = () => {
                                 .filter(product => 
                                         product.title.toLowerCase().includes(searchInputState.toLowerCase())));
     }, [searchInputState, productsData]);
+
+    if (loading) {
+        return (
+            <div className={ styles.pageLoader }>
+                <DotLoader
+                    color="#7064e5"
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </div>
+        )
+    }
 
     return (
         <div>
