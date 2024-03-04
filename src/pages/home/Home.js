@@ -44,7 +44,7 @@ const Home = () => {
 
     if (loading) {
         return (
-            <div className={ styles.pageLoader }>
+            <div className="pageLoader">
                 <DotLoader
                     color="#7064e5"
                     size={70}

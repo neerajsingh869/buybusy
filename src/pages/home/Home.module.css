@@ -1,11 +1,3 @@
-.pageLoader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: calc(100vh - 5rem);
-}
-
 .searchForm {
     width: 25%;
     margin: 1rem auto;

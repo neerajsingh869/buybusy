@@ -13,6 +13,7 @@ const useOrdersContextValue = () => {
 
 const CustomOrdersContextProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const { total, resetCartPage } = useCartContextValue();
     const { userUid } = useUserAuthContextValue();
@@ -29,6 +30,8 @@ const CustomOrdersContextProvider = ({ children }) => {
                     // docSnap.data() will be undefined in this case
                     setOrders([]);
                 }
+
+                setLoading(false);
             }
         }
 
@@ -72,7 +75,7 @@ const CustomOrdersContextProvider = ({ children }) => {
     }
     
     return (
-        <ordersContext.Provider value={{ purchaseProductsFromCart, orders }}>
+        <ordersContext.Provider value={{ purchaseProductsFromCart, orders, loading }}>
             { children }
             <Toaster position="top-right" />
         </ordersContext.Provider>

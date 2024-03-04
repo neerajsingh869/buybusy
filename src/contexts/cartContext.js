@@ -12,6 +12,7 @@ const useCartContextValue = () => {
 
 const CustomCartContextProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
     const { userUid } = useUserAuthContextValue();
@@ -28,6 +29,8 @@ const CustomCartContextProvider = ({ children }) => {
                     // docSnap.data() will be undefined in this case
                     setCart([]);
                 }
+
+                setLoading(false);
             }
         }
 
@@ -138,7 +141,7 @@ const CustomCartContextProvider = ({ children }) => {
             return;
         }
 
-        toast.success('Product Count Decremented.', {
+        toast.success('Product Count Decremented!', {
             duration: 1000,
             style: {
                 width: "18rem",
@@ -178,7 +181,8 @@ const CustomCartContextProvider = ({ children }) => {
                                             incrementCartProductCount,
                                             decrementCartProductCount,
                                             total,
-                                            resetCartPage }}>
+                                            resetCartPage,
+                                            loading }}>
             { children }
             <Toaster position="top-right" />
         </cartContext.Provider>

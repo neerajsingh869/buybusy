@@ -1,9 +1,23 @@
 import Order from "../../components/order/Order";
 import { useOrdersContextValue } from "../../contexts/ordersContext";
 import styles from "./Orders.module.css";
+import { DotLoader } from "react-spinners";
 
 const Orders = () => {
-    const { orders } = useOrdersContextValue();
+    const { orders, loading } = useOrdersContextValue();
+
+    if (loading) {
+        return (
+            <div className="pageLoader">
+                <DotLoader
+                    color="#7064e5"
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </div>
+        )
+    }
 
     if (orders.length === 0) {
         return (
