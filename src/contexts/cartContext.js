@@ -44,8 +44,8 @@ const CustomCartContextProvider = ({ children }) => {
             toast.success('Increase Product Count!', {
                 duration: 1000,
                 style: {
-                    width: "18rem",
-                    height: "3.5rem",
+                    minWidth: "18rem",
+                    minHeight: "3.5rem",
                     marginTo: "2rem"
                 }
             });
@@ -67,8 +67,8 @@ const CustomCartContextProvider = ({ children }) => {
             toast.success('Product Added Successfully!', {
                 duration: 1000,
                 style: {
-                    width: "18rem",
-                    height: "3.5rem",
+                    minWidth: "18rem",
+                    minHeight: "3.5rem",
                     marginTo: "2rem"
                 }
             });
@@ -94,8 +94,8 @@ const CustomCartContextProvider = ({ children }) => {
         toast.success('Product Removed Successfully!', {
             duration: 1000,
             style: {
-                width: "18rem",
-                height: "3.5rem",
+                minWidth: "18rem",
+                minHeight: "3.5rem",
                 marginTo: "2rem"
             }
         });
@@ -114,8 +114,8 @@ const CustomCartContextProvider = ({ children }) => {
         toast.success('Product Count Incremented!', {
             duration: 1000,
             style: {
-                width: "18rem",
-                height: "3.5rem",
+                minWidth: "18rem",
+                minHeight: "3.5rem",
                 marginTo: "2rem"
             }
         });
@@ -144,8 +144,8 @@ const CustomCartContextProvider = ({ children }) => {
         toast.success('Product Count Decremented!', {
             duration: 1000,
             style: {
-                width: "18rem",
-                height: "3.5rem",
+                minWidth: "18rem",
+                minHeight: "3.5rem",
                 marginTo: "2rem"
             }
         });

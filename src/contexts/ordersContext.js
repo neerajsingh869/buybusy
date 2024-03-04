@@ -42,8 +42,8 @@ const CustomOrdersContextProvider = ({ children }) => {
         toast.success('Orders Purchases Successfull.', {
             duration: 1000,
             style: {
-                width: "18rem",
-                height: "3.5rem",
+                minWidth: "18rem",
+                minHeight: "3.5rem",
                 marginTo: "2rem"
             }
         });

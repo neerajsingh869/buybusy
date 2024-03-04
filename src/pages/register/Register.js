@@ -1,19 +1,24 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Register = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
     const { setIsSignedIn, setUserUid } = useUserAuthContextValue();
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const auth = getAuth();
 
     const handleSignUp = async (e) => {
         e.preventDefault();
+
+        setLoading(true);
 
         try {
             const email = inputEmail.current.value;
@@ -23,22 +28,52 @@ const Register = () => {
             navigate("/");
             setIsSignedIn(true);
             setUserUid(res.user.uid);
-            console.log("User signed up successfully!")
+            
+            toast.success('User signed up successfully!', {
+                duration: 2000,
+                style: {
+                    minWidth: "18rem",
+                    minHeight: "3.5rem",
+                    marginTo: "2rem"
+                }
+            });
         } catch (err) {
-            alert(err.message);
+            toast.error(err.message, {
+                duration: 2000,
+                style: {
+                    minWidth: "18rem",
+                    minHeight: "3.5rem",
+                    marginTo: "2rem"
+                }
+            });
+
             setIsSignedIn(false);
+        } finally {
+            setLoading(false);
         }
     }
 
     return (
-        <div className={ styles.formContainer }>
-            <form onSubmit={ handleSignUp }>
-                <h2>Sign Up</h2>
-                <input type="email" placeholder="Enter Email" ref={ inputEmail } />
-                <input type="password" placeholder="Enter Password" ref={ inputPassword } />
-                <button>Sign Up</button>
-            </form>
-        </div>
+        <>
+            <div className={ styles.formContainer }>
+                <form onSubmit={ handleSignUp }>
+                    <h2>Sign Up</h2>
+                    <input type="email" placeholder="Enter Email" ref={ inputEmail } />
+                    <input type="password" placeholder="Enter Password" ref={ inputPassword } />
+                    <button>
+                        { 
+                            loading ? <BeatLoader
+                                color="white"
+                                size={10}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            /> : "Sign Up" 
+                        }
+                    </button>
+                </form>
+            </div>
+            <Toaster position="top-right" />
+        </>
     )
 };
 
