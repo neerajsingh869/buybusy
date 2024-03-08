@@ -8,7 +8,7 @@ import ordersImage from "../../assets/orders.png";
 import signinImage from "../../assets/signin.png";
 
 const Navbar = () => {
-    const { isSignedIn, setIsSignedIn } = useUserAuthContextValue();
+    const { isSignedIn, signOutUser } = useUserAuthContextValue();
 
     return (
         <>
@@ -37,7 +37,7 @@ const Navbar = () => {
                                     </NavLink>
                                 </li>
                                 <li className={ styles.navItem } onClick={ () => {
-                                    setIsSignedIn(false);
+                                    signOutUser();
                                 } }>
                                     <NavLink className={ styles.navLink } to="/">
                                         <img src={ logoutImage } alt="Logout" />
