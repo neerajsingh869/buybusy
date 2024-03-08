@@ -12,13 +12,12 @@ const CustomUserAuthContextProvider = ({ children }) => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [userUid, setUserUid] = useState(null);
 
-    // representation of authenticate user
+    // representation of authenticated user
     const auth = getAuth();
 
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                console.log("user is signed in");
                 setIsSignedIn(true);
                 setUserUid(user.uid);
             }});

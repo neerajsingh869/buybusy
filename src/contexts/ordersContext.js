@@ -62,8 +62,6 @@ const CustomOrdersContextProvider = ({ children }) => {
             ...orders
         ];
 
-        console.log(newOrders);
-
         setOrders(newOrders);
 
         const usersOrdersRef = collection(db, "usersOrders");
