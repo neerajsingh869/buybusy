@@ -27,6 +27,20 @@
     border-radius: 10px;
 }
 
+.filterAside h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #224957;
+    margin: 1rem 0rem;
+}
+
+.filterAside input[type=range] {
+    cursor: pointer;
+    transform: scale(1);
+    width: 90%;
+    margin-top: 0.5rem;
+}
+
 .prductsContainer {
     display: flex;
     flex-wrap: wrap;
@@ -35,4 +49,19 @@
     margin-left: 20rem;
     margin-top: 3rem;
     margin-bottom: 3rem;
+}
+
+.categoryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.categoryContainer input[type=checkbox] {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
 }
