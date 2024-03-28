@@ -1,8 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore"; 
 import { db } from "../configs/firebase";
-import { useUserAuthContextValue } from "./userAuthContext";
+// import { useUserAuthContextValue } from "./userAuthContext";
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector } from "react-redux";
+import { userSelector } from "../redux/reducers/userReducer";
 
 const cartContext = createContext();
 
@@ -15,7 +17,8 @@ const CustomCartContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
-    const { userUid } = useUserAuthContextValue();
+    // const { userUid } = useUserAuthContextValue();
+    const { userUid } = useSelector(userSelector);
 
     useEffect(() => {
         const fetchData = async () => {

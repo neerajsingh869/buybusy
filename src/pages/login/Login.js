@@ -1,15 +1,18 @@
 import { useRef, useState } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
-import { useUserAuthContextValue } from "../../contexts/userAuthContext";
+// import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { BeatLoader } from "react-spinners";
 import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch } from "react-redux";
+import { userActions } from "../../redux/reducers/userReducer";
 
 const Login = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
-    const { setIsSignedIn, setUserUid } = useUserAuthContextValue();
+    // const { setIsSignedIn, setUserUid } = useUserAuthContextValue();
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -26,8 +29,10 @@ const Login = () => {
 
             const res = await signInWithEmailAndPassword(auth, email, password);
             navigate("/");
-            setIsSignedIn(true);
-            setUserUid(res.user.uid);
+            // setIsSignedIn(true);
+            // setUserUid(res.user.uid);
+            dispatch(userActions.changeSignedInStatus(true));
+            dispatch(userActions.updateUserUid(res.user.uid));
 
             toast.success('User signed in successfully!', {
                 duration: 2000,
@@ -47,7 +52,8 @@ const Login = () => {
                 }
             });
 
-            setIsSignedIn(false);
+            // setIsSignedIn(false);
+            dispatch(userActions.changeSignedInStatus(false));
         } finally {
             setLoading(false);
         }

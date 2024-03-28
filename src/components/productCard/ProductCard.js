@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useCartContextValue } from "../../contexts/cartContext";
-import { useUserAuthContextValue } from "../../contexts/userAuthContext";
+// import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./ProductCard.module.css";
 import plusButtonImage from "../../assets/plus.png";
 import minusButtonImage from "../../assets/minus.png";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../redux/reducers/userReducer";
 
 const ProductCard = ({ product, homeOrCart }) => {
     const { handleAddToCart, handleRemoveFromCart, 
             incrementCartProductCount, decrementCartProductCount } = useCartContextValue();
 
-    const { isSignedIn } = useUserAuthContextValue();
+    // const { isSignedIn } = useUserAuthContextValue();
+    const { isSignedIn } = useSelector(userSelector);
     const navigate = useNavigate();
 
     const handleAddOrRemoveProduct = (product) => {
