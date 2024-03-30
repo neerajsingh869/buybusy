@@ -16,28 +16,13 @@ import Cart from './pages/cart/Cart';
 import PrivateRoute from './components/secure/PrivateRoute';
 // import CustomUserAuthContextProvider from './contexts/userAuthContext';
 import CustomCartContextProvider from './contexts/cartContext';
-import CustomOrdersContextProvider from './contexts/ordersContext';
 import { useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from 'react-redux';
-import { userActions } from './redux/reducers/userReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions, userSelector } from './redux/reducers/userReducer';
+import { getInitialOrdersAsync } from './redux/reducers/ordersReducer';
 
 function App() {
-  // representation of authenticated user
-  const auth = getAuth();
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            // setIsSignedIn(true);
-            // setUserUid(user.uid);
-            dispatch(userActions.changeSignedInStatus(true));
-            dispatch(userActions.updateUserUid(user.uid));
-        }});
-  }, [auth, dispatch]);
-
   const routes = createRoutesFromElements(
     <Route path="/" element={ <Navbar /> } errorElement={ <Page404 /> }>
       <Route index={ true } element={ <Home /> } />
@@ -60,11 +45,33 @@ function App() {
 
   return (
     <CustomCartContextProvider>
-      <CustomOrdersContextProvider>
+        <Init />
         <RouterProvider router={ router } />
-      </CustomOrdersContextProvider>
     </CustomCartContextProvider>
   );
+}
+
+function Init() {
+  // representation of authenticated user
+  const auth = getAuth();
+
+  const dispatch = useDispatch();
+  const { userUid } = useSelector(userSelector);
+  console.log(userUid);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            // setIsSignedIn(true);
+            // setUserUid(user.uid);
+            dispatch(userActions.changeSignedInStatus(true));
+            dispatch(userActions.updateUserUid(user.uid));
+        }});
+  }, [auth, dispatch]);
+
+  useEffect(() => {
+    dispatch(getInitialOrdersAsync(userUid));
+  }, [userUid, dispatch]);
 }
 
 export default App;

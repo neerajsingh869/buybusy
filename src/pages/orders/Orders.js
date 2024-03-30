@@ -1,10 +1,23 @@
+// import { useEffect } from "react";
 import Order from "../../components/order/Order";
-import { useOrdersContextValue } from "../../contexts/ordersContext";
+// import { useOrdersContextValue } from "../../contexts/ordersContext";
 import styles from "./Orders.module.css";
 import { DotLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+// import { userSelector } from "../../redux/reducers/userReducer";
+// import { db } from "../../configs/firebase";
+// import { doc, getDoc } from "firebase/firestore"; 
+import { ordersSelector } from "../../redux/reducers/ordersReducer";
 
 const Orders = () => {
-    const { orders, loading } = useOrdersContextValue();
+    // const { orders, loading } = useOrdersContextValue();
+    const { orders, loading } = useSelector(ordersSelector);
+    // const { userUid } = useSelector(userSelector);
+    // const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     dispatch(getInitialOrdersAsync(userUid));
+    // }, [userUid, dispatch]);
 
     if (loading) {
         return (
