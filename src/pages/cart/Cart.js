@@ -46,17 +46,12 @@ const Cart = () => {
         ];
 
         // setOrders(newOrders);
-        console.log("==================inside purchaseProductsFromCart START==================");
-        console.log("[LOG] dispatched replaceOrders payload: ");
-        console.log(newOrders);
         dispatch(ordersActions.replaceOrders(newOrders));
-        console.log("==================inside purchaseProductsFromCart END==================");
 
         const usersOrdersRef = collection(db, "usersOrders");
         await setDoc(doc(usersOrdersRef, userUid), {
             orders: newOrders
         });
-        console.log("Purchased orders stored in database");
 
         resetCartPage();
     }

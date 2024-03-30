@@ -57,7 +57,6 @@ function Init() {
 
   const dispatch = useDispatch();
   const { userUid } = useSelector(userSelector);
-  console.log(userUid);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
