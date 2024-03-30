@@ -13,7 +13,7 @@ import { signOut, getAuth } from "firebase/auth";
 
 const Navbar = () => {
     // const { isSignedIn, signOutUser } = useUserAuthContextValue();
-    const { isSignedIn } = useSelector(userSelector);
+    const { userUid } = useSelector(userSelector);
     const dispatch = useDispatch();
 
     const auth = getAuth();
@@ -42,7 +42,8 @@ const Navbar = () => {
             
         } finally {
             // setIsSignedIn(false);
-            dispatch(userActions.changeSignedInStatus(false));
+            // dispatch(userActions.changeSignedInStatus(false));
+            dispatch(userActions.updateUserUid(null));
         }
     }
 
@@ -58,7 +59,7 @@ const Navbar = () => {
                                 Home
                             </NavLink>
                         </li>
-                        { isSignedIn ? (
+                        { userUid ? (
                             <>
                                 <li className={ styles.navItem }>
                                     <NavLink className={ styles.navLink } to="/myorders">

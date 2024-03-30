@@ -64,7 +64,7 @@ function Init() {
         if (user) {
             // setIsSignedIn(true);
             // setUserUid(user.uid);
-            dispatch(userActions.changeSignedInStatus(true));
+            // dispatch(userActions.changeSignedInStatus(true));
             dispatch(userActions.updateUserUid(user.uid));
         }});
   }, [auth, dispatch]);

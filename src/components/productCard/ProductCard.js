@@ -12,11 +12,11 @@ const ProductCard = ({ product, homeOrCart }) => {
             incrementCartProductCount, decrementCartProductCount } = useCartContextValue();
 
     // const { isSignedIn } = useUserAuthContextValue();
-    const { isSignedIn } = useSelector(userSelector);
+    const { userUid } = useSelector(userSelector);
     const navigate = useNavigate();
 
     const handleAddOrRemoveProduct = (product) => {
-        if (!isSignedIn) {
+        if (!userUid) {
             navigate("/signin");
             return;
         }

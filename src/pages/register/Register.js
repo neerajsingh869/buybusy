@@ -31,7 +31,7 @@ const Register = () => {
             navigate("/");
             // setIsSignedIn(true);
             // setUserUid(res.user.uid);
-            dispatch(userActions.changeSignedInStatus(true));
+            // dispatch(userActions.changeSignedInStatus(true));
             dispatch(userActions.updateUserUid(res.user.uid));
             
             toast.success('User signed up successfully!', {
@@ -53,7 +53,8 @@ const Register = () => {
             });
 
             // setIsSignedIn(false);
-            dispatch(userActions.changeSignedInStatus(false));
+            // dispatch(userActions.changeSignedInStatus(false));
+            dispatch(userActions.updateUserUid(null));
         } finally {
             setLoading(false);
         }

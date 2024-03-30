@@ -5,9 +5,9 @@ import { userSelector } from "../../redux/reducers/userReducer";
 
 const PrivateRoute = ({ children }) => {
     // const { isSignedIn } = useUserAuthContextValue();
-    const { isSignedIn } = useSelector(userSelector);
+    const { userUid } = useSelector(userSelector);
 
-    if (!isSignedIn) return <Navigate to="/" replace={ true } />;
+    if (!userUid) return <Navigate to="/" replace={ true } />;
 
     return (
         children

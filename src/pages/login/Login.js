@@ -31,7 +31,7 @@ const Login = () => {
             navigate("/");
             // setIsSignedIn(true);
             // setUserUid(res.user.uid);
-            dispatch(userActions.changeSignedInStatus(true));
+            // dispatch(userActions.changeSignedInStatus(true));
             dispatch(userActions.updateUserUid(res.user.uid));
 
             toast.success('User signed in successfully!', {
@@ -53,7 +53,8 @@ const Login = () => {
             });
 
             // setIsSignedIn(false);
-            dispatch(userActions.changeSignedInStatus(false));
+            // dispatch(userActions.changeSignedInStatus(false));
+            dispatch(userActions.updateUserUid(null));
         } finally {
             setLoading(false);
         }
