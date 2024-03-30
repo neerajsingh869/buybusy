@@ -8,22 +8,22 @@ const INITIAL_STATE = {
 }
 
 export const getInitialOrdersAsync = createAsyncThunk("orders/getInitialOrders", async (userUid) => {
-    if (userUid) {
-        const docRef = doc(db, "usersOrders", userUid);
-        const docSnap = await getDoc(docRef);
+    // userUid will always be passed with truthy values
+    
+    const docRef = doc(db, "usersOrders", userUid);
+    const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            // setOrders(docSnap.data().orders);
-            return docSnap.data().orders;
-        } else {
-            // docSnap.data() will be undefined in this case
-            // setOrders([]);
-            return [];
-        }
-
-        // setLoading(false);
-        // dispatch(ordersActions.updateLoadingStatus(false));
+    if (docSnap.exists()) {
+        // setOrders(docSnap.data().orders);
+        return docSnap.data().orders;
+    } else {
+        // docSnap.data() will be undefined in this case
+        // setOrders([]);
+        return [];
     }
+
+    // setLoading(false);
+    // dispatch(ordersActions.updateLoadingStatus(false));
 });
 
 const ordersSlice = createSlice({

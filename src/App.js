@@ -69,7 +69,9 @@ function Init() {
   }, [auth, dispatch]);
 
   useEffect(() => {
-    dispatch(getInitialOrdersAsync(userUid));
+    if (userUid) {
+      dispatch(getInitialOrdersAsync(userUid));
+    }
   }, [userUid, dispatch]);
 }
 
