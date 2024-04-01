@@ -15,12 +15,13 @@ import Orders from './pages/orders/Orders';
 import Cart from './pages/cart/Cart';
 import PrivateRoute from './components/secure/PrivateRoute';
 // import CustomUserAuthContextProvider from './contexts/userAuthContext';
-import CustomCartContextProvider from './contexts/cartContext';
+// import CustomCartContextProvider from './contexts/cartContext';
 import { useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions, userSelector } from './redux/reducers/userReducer';
 import { getInitialOrdersAsync } from './redux/reducers/ordersReducer';
+import { getInitialCartAsync } from './redux/reducers/cartReducer';
 
 function App() {
   const routes = createRoutesFromElements(
@@ -44,10 +45,10 @@ function App() {
   const router = createBrowserRouter(routes);
 
   return (
-    <CustomCartContextProvider>
+      <>
         <Init />
         <RouterProvider router={ router } />
-    </CustomCartContextProvider>
+      </>
   );
 }
 
@@ -67,6 +68,16 @@ function Init() {
             dispatch(userActions.updateUserUid(user.uid));
         }});
   }, [auth, dispatch]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userUid) {
+        dispatch(getInitialCartAsync(userUid));
+      }
+    }
+
+    fetchData();
+}, [userUid, dispatch]);
 
   useEffect(() => {
     if (userUid) {

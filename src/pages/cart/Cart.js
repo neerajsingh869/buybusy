@@ -1,4 +1,4 @@
-import { useCartContextValue } from "../../contexts/cartContext";
+// import { useCartContextValue } from "../../contexts/cartContext";
 import ProductCard from "../../components/productCard/ProductCard";
 import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
@@ -10,9 +10,12 @@ import { db } from "../../configs/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../redux/reducers/userReducer";
 import { ordersActions, ordersSelector } from "../../redux/reducers/ordersReducer";
+import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
 
 const Cart = () => {
-    const { cart, total, loading, resetCartPage } = useCartContextValue();
+    // const { cart, total, loading, resetCartPage } = useCartContextValue();
+    const { cart, loading } = useSelector(cartSelector);
+    const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
     // const { purchaseProductsFromCart } = useOrdersContextValue();
     // const { orders } = useOrdersContextValue();
     const { orders } = useSelector(ordersSelector);
@@ -20,6 +23,16 @@ const Cart = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const resetCartPage = async () => {
+        // setCart([]);
+        dispatch(cartActions.reset());
+        
+        const usersCartsRef = collection(db, "usersCarts");
+        await setDoc(doc(usersCartsRef, userUid), {
+            cart: []
+        });
+    }
 
     const purchaseProductsFromCart = async (cart) => {
         toast.success('Orders Purchases Successfull.', {
