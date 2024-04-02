@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/reducers/userReducer";
 
@@ -79,7 +79,6 @@ const Register = () => {
                     </button>
                 </form>
             </div>
-            <Toaster position="top-right" />
         </>
     )
 };

@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { BeatLoader } from "react-spinners";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/reducers/userReducer";
 
@@ -80,7 +80,6 @@ const Login = () => {
                     <Link to="/signup">Or SignUp instead</Link>
                 </form>
             </div>
-            <Toaster position="top-right" />
         </>
     )
 };
