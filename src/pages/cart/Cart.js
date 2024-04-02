@@ -4,13 +4,14 @@ import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
 // import { useOrdersContextValue } from "../../contexts/ordersContext";
 import { DotLoader } from "react-spinners";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { collection, doc, setDoc } from "firebase/firestore"; 
 import { db } from "../../configs/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../redux/reducers/userReducer";
 import { ordersActions, ordersSelector } from "../../redux/reducers/ordersReducer";
 import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
+import { showNotification } from "../../utility/showNotifications";
 
 const Cart = () => {
     // const { cart, total, loading, resetCartPage } = useCartContextValue();
@@ -35,14 +36,16 @@ const Cart = () => {
     }
 
     const purchaseProductsFromCart = async (cart) => {
-        toast.success('Orders Purchases Successfull.', {
-            duration: 1000,
-            style: {
-                minWidth: "18rem",
-                minHeight: "3.5rem",
-                marginTo: "2rem"
-            }
-        });
+        // toast.success('Orders Purchases Successfull.', {
+        //     duration: 1000,
+        //     style: {
+        //         minWidth: "18rem",
+        //         minHeight: "3.5rem",
+        //         marginTo: "2rem"
+        //     }
+        // });
+
+        showNotification('Orders Purchased Successfully!')
 
         const orderToPlace = {
             id: new Date().getTime(),

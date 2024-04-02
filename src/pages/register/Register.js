@@ -4,9 +4,10 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/reducers/userReducer";
+import { showNotification } from "../../utility/showNotifications";
 
 const Register = () => {
     const inputEmail = useRef();
@@ -34,23 +35,27 @@ const Register = () => {
             // dispatch(userActions.changeSignedInStatus(true));
             dispatch(userActions.updateUserUid(res.user.uid));
             
-            toast.success('User signed up successfully!', {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
+            // toast.success('User signed up successfully!', {
+            //     duration: 2000,
+            //     style: {
+            //         minWidth: "18rem",
+            //         minHeight: "3.5rem",
+            //         marginTo: "2rem"
+            //     }
+            // });
+
+            showNotification('User signed up successfully!');
         } catch (err) {
-            toast.error(err.message, {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
+            // toast.error(err.message, {
+            //     duration: 2000,
+            //     style: {
+            //         minWidth: "18rem",
+            //         minHeight: "3.5rem",
+            //         marginTo: "2rem"
+            //     }
+            // });
+
+            showNotification(err.message);
 
             // setIsSignedIn(false);
             // dispatch(userActions.changeSignedInStatus(false));

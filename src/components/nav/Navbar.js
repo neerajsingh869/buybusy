@@ -8,8 +8,9 @@ import ordersImage from "../../assets/orders.png";
 import signinImage from "../../assets/signin.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions, userSelector } from "../../redux/reducers/userReducer";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { signOut, getAuth } from "firebase/auth";
+import { showNotification } from "../../utility/showNotifications";
 
 const Navbar = () => {
     // const { isSignedIn, signOutUser } = useUserAuthContextValue();
@@ -22,24 +23,26 @@ const Navbar = () => {
         try {
             await signOut(auth);
 
-            toast.success('User signed out successfully!', {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
+            // toast.success('User signed out successfully!', {
+            //     duration: 2000,
+            //     style: {
+            //         minWidth: "18rem",
+            //         minHeight: "3.5rem",
+            //         marginTo: "2rem"
+            //     }
+            // });
+            showNotification('User signed out successfully!');
         } catch (err) {
-            toast.error(err.message, {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
-            
+            // toast.error(err.message, {
+            //     duration: 2000,
+            //     style: {
+            //         minWidth: "18rem",
+            //         minHeight: "3.5rem",
+            //         marginTo: "2rem"
+            //     }
+            // });
+
+            showNotification(err.message);
         } finally {
             // setIsSignedIn(false);
             // dispatch(userActions.changeSignedInStatus(false));
