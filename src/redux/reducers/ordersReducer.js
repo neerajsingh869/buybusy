@@ -14,16 +14,10 @@ export const getInitialOrdersAsync = createAsyncThunk("orders/getInitialOrders",
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        // setOrders(docSnap.data().orders);
         return docSnap.data().orders;
     } else {
-        // docSnap.data() will be undefined in this case
-        // setOrders([]);
         return [];
     }
-
-    // setLoading(false);
-    // dispatch(ordersActions.updateLoadingStatus(false));
 });
 
 const ordersSlice = createSlice({

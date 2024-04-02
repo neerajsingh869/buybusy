@@ -14,8 +14,6 @@ import Register from './pages/register/Register';
 import Orders from './pages/orders/Orders';
 import Cart from './pages/cart/Cart';
 import PrivateRoute from './components/secure/PrivateRoute';
-// import CustomUserAuthContextProvider from './contexts/userAuthContext';
-// import CustomCartContextProvider from './contexts/cartContext';
 import { useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux';
@@ -62,9 +60,6 @@ function Init() {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            // setIsSignedIn(true);
-            // setUserUid(user.uid);
-            // dispatch(userActions.changeSignedInStatus(true));
             dispatch(userActions.updateUserUid(user.uid));
         }});
   }, [auth, dispatch]);

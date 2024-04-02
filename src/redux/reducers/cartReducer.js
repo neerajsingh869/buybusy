@@ -14,15 +14,10 @@ export const getInitialCartAsync = createAsyncThunk("cart/getInitialOrders", asy
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        // setCart(docSnap.data().cart);
         return docSnap.data().cart;
     } else {
-        // docSnap.data() will be undefined in this case
-        // setCart([]);
         return [];
     }
-
-    // setLoading(false);
 });
 
 const cartSlice = createSlice({

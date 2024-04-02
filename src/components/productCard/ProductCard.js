@@ -1,23 +1,17 @@
 import { useNavigate } from "react-router-dom";
-// import { useCartContextValue } from "../../contexts/cartContext";
-// import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./ProductCard.module.css";
 import plusButtonImage from "../../assets/plus.png";
 import minusButtonImage from "../../assets/minus.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../redux/reducers/userReducer";
 import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
-// import toast from "react-hot-toast";
 import { collection, doc, setDoc } from "firebase/firestore"; 
 import { db } from "../../configs/firebase";
 import { showNotification } from "../../utility/showNotifications";
 
 const ProductCard = ({ product, homeOrCart }) => {
-    // const { handleAddToCart, handleRemoveFromCart, 
-    //         incrementCartProductCount, decrementCartProductCount } = useCartContextValue();
     const { cart } = useSelector(cartSelector);
 
-    // const { isSignedIn } = useUserAuthContextValue();
     const { userUid } = useSelector(userSelector);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -26,15 +20,6 @@ const ProductCard = ({ product, homeOrCart }) => {
         const isCartExists = cart.find(item => item.id === product.id);
 
         if (isCartExists) {
-            // toast.success('Increase Product Count!', {
-            //     duration: 1000,
-            //     style: {
-            //         minWidth: "18rem",
-            //         minHeight: "3.5rem",
-            //         marginTo: "2rem"
-            //     }
-            // });
-
             showNotification('Increase Product Count!');
 
             const updatedCart = cart.map(item => {
@@ -45,7 +30,6 @@ const ProductCard = ({ product, homeOrCart }) => {
                 return copiedObj;
             });
 
-            // setCart(updatedCart);
             dispatch(cartActions.replaceOrders(updatedCart));
 
             const usersCartsRef = collection(db, "usersCarts");
@@ -53,15 +37,6 @@ const ProductCard = ({ product, homeOrCart }) => {
                 cart: updatedCart
             });
         } else {
-            // toast.success('Product Added Successfully!', {
-            //     duration: 1000,
-            //     style: {
-            //         minWidth: "18rem",
-            //         minHeight: "3.5rem",
-            //         marginTo: "2rem"
-            //     }
-            // });
-
             showNotification('Product Added Successfully!');
 
             const cartProduct = {
@@ -71,7 +46,6 @@ const ProductCard = ({ product, homeOrCart }) => {
 
             const updatedCart = [cartProduct, ...cart];
 
-            // setCart(updatedCart);
             dispatch(cartActions.replaceOrders(updatedCart));
 
             const usersCartsRef = collection(db, "usersCarts");
@@ -83,20 +57,10 @@ const ProductCard = ({ product, homeOrCart }) => {
     }
 
     const handleRemoveFromCart = async (product) => {
-        // toast.success('Product Removed Successfully!', {
-        //     duration: 1000,
-        //     style: {
-        //         minWidth: "18rem",
-        //         minHeight: "3.5rem",
-        //         marginTo: "2rem"
-        //     }
-        // });
-
         showNotification('Product Removed Successfully!');
 
         const updatedCart = cart.filter(item => item.id !== product.id);
 
-        // setCart(updatedCart);
         dispatch(cartActions.replaceOrders(updatedCart));
 
         const usersCartsRef = collection(db, "usersCarts");
@@ -106,15 +70,6 @@ const ProductCard = ({ product, homeOrCart }) => {
     }
 
     const incrementCartProductCount = async (product) => {
-        // toast.success('Product Count Incremented!', {
-        //     duration: 1000,
-        //     style: {
-        //         minWidth: "18rem",
-        //         minHeight: "3.5rem",
-        //         marginTo: "2rem"
-        //     }
-        // });
-
         showNotification('Product Count Incremented!');
 
         const updatedCart = cart.map(item => {
@@ -125,7 +80,6 @@ const ProductCard = ({ product, homeOrCart }) => {
             return copiedObj;
         });
 
-        // setCart(updatedCart);
         dispatch(cartActions.replaceOrders(updatedCart));
 
         const usersCartsRef = collection(db, "usersCarts");
@@ -140,15 +94,6 @@ const ProductCard = ({ product, homeOrCart }) => {
             return;
         }
 
-        // toast.success('Product Count Decremented!', {
-        //     duration: 1000,
-        //     style: {
-        //         minWidth: "18rem",
-        //         minHeight: "3.5rem",
-        //         marginTo: "2rem"
-        //     }
-        // });
-
         showNotification('Product Count Decremented!');
         
         const updatedCart = cart.map(item => {
@@ -159,7 +104,6 @@ const ProductCard = ({ product, homeOrCart }) => {
             return copiedObj;
         });
 
-        // setCart(updatedCart);
         dispatch(cartActions.replaceOrders(updatedCart));
 
         const usersCartsRef = collection(db, "usersCarts");
