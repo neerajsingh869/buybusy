@@ -1,13 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { signOut, getAuth } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+
 import styles from "./Navbar.module.css";
 import cartImage from "../../assets/cart.png";
 import homeImage from "../../assets/home.png";
 import logoutImage from "../../assets/logout.png";
 import ordersImage from "../../assets/orders.png";
 import signinImage from "../../assets/signin.png";
-import { useDispatch, useSelector } from "react-redux";
 import { userActions, userSelector } from "../../redux/reducers/userReducer";
-import { signOut, getAuth } from "firebase/auth";
 import { showNotification } from "../../utility/showNotifications";
 
 const Navbar = () => {

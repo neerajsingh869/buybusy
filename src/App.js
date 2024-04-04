@@ -1,4 +1,3 @@
-import './App.css';
 import { app } from "./configs/firebase";
 import { 
   createRoutesFromElements, 
@@ -6,6 +5,11 @@ import {
   RouterProvider,
   Route
 } from "react-router-dom";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import './App.css';
 import Navbar from './components/nav/Navbar';
 import Page404 from './pages/error/Page404';
 import Home from './pages/home/Home';
@@ -14,9 +18,6 @@ import Register from './pages/register/Register';
 import Orders from './pages/orders/Orders';
 import Cart from './pages/cart/Cart';
 import PrivateRoute from './components/secure/PrivateRoute';
-import { useEffect } from 'react';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useDispatch, useSelector } from 'react-redux';
 import { userActions, userSelector } from './redux/reducers/userReducer';
 import { getInitialOrdersAsync } from './redux/reducers/ordersReducer';
 import { getInitialCartAsync } from './redux/reducers/cartReducer';

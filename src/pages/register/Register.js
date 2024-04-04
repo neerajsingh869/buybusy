@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
+
+import styles from "./Register.module.css";
 import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
 

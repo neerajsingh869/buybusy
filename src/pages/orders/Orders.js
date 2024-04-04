@@ -1,7 +1,8 @@
-import Order from "../../components/order/Order";
-import styles from "./Orders.module.css";
 import { DotLoader } from "react-spinners";
 import { useSelector } from "react-redux";
+
+import Order from "../../components/order/Order";
+import styles from "./Orders.module.css";
 import { ordersSelector } from "../../redux/reducers/ordersReducer";
 
 const Orders = () => {

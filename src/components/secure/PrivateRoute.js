@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import { userSelector } from "../../redux/reducers/userReducer";
 
 const PrivateRoute = ({ children }) => {

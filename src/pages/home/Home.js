@@ -1,10 +1,11 @@
+import { collection, query, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { DotLoader } from "react-spinners";
+
 import ProductCard from "../../components/productCard/ProductCard";
 import styles from "./Home.module.css";
-import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../configs/firebase";
-import { useEffect, useState } from "react";
 import clearImage from "../../assets/clear.png";
-import { DotLoader } from "react-spinners";
 
 const Home = () => {
     const [productsData, setProductsData] = useState([]);

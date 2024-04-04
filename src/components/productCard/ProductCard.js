@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { collection, doc, setDoc } from "firebase/firestore"; 
+
 import styles from "./ProductCard.module.css";
 import plusButtonImage from "../../assets/plus.png";
 import minusButtonImage from "../../assets/minus.png";
-import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../redux/reducers/userReducer";
 import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
-import { collection, doc, setDoc } from "firebase/firestore"; 
 import { db } from "../../configs/firebase";
 import { showNotification } from "../../utility/showNotifications";
 

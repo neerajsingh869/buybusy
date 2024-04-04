@@ -1,10 +1,11 @@
-import ProductCard from "../../components/productCard/ProductCard";
-import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
 import { DotLoader } from "react-spinners";
-import { collection, doc, setDoc } from "firebase/firestore"; 
-import { db } from "../../configs/firebase";
 import { useDispatch, useSelector } from "react-redux";
+import { collection, doc, setDoc } from "firebase/firestore"; 
+
+import ProductCard from "../../components/productCard/ProductCard";
+import styles from "./Cart.module.css";
+import { db } from "../../configs/firebase";
 import { userSelector } from "../../redux/reducers/userReducer";
 import { ordersActions, ordersSelector } from "../../redux/reducers/ordersReducer";
 import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
