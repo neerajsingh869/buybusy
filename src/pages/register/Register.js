@@ -1,15 +1,16 @@
 import { useRef, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch } from "react-redux";
+import { userActions } from "../../redux/reducers/userReducer";
+import { showNotification } from "../../utility/showNotifications";
 
 const Register = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
-    const { setIsSignedIn, setUserUid } = useUserAuthContextValue();
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -26,28 +27,14 @@ const Register = () => {
 
             const res = await createUserWithEmailAndPassword(auth, email, password);
             navigate("/");
-            setIsSignedIn(true);
-            setUserUid(res.user.uid);
-            
-            toast.success('User signed up successfully!', {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
-        } catch (err) {
-            toast.error(err.message, {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
 
-            setIsSignedIn(false);
+            dispatch(userActions.updateUserUid(res.user.uid));
+
+            showNotification('User signed up successfully!');
+        } catch (err) {
+            showNotification(err.message);
+
+            dispatch(userActions.updateUserUid(null));
         } finally {
             setLoading(false);
         }
@@ -72,7 +59,6 @@ const Register = () => {
                     </button>
                 </form>
             </div>
-            <Toaster position="top-right" />
         </>
     )
 };

@@ -1,15 +1,59 @@
-import { useCartContextValue } from "../../contexts/cartContext";
 import ProductCard from "../../components/productCard/ProductCard";
 import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
-import { useOrdersContextValue } from "../../contexts/ordersContext";
 import { DotLoader } from "react-spinners";
+import { collection, doc, setDoc } from "firebase/firestore"; 
+import { db } from "../../configs/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { userSelector } from "../../redux/reducers/userReducer";
+import { ordersActions, ordersSelector } from "../../redux/reducers/ordersReducer";
+import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
+import { showNotification } from "../../utility/showNotifications";
 
 const Cart = () => {
-    const { cart, total, loading } = useCartContextValue();
-    const { purchaseProductsFromCart } = useOrdersContextValue();
+    const { cart, loading } = useSelector(cartSelector);
+    const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
+    const { orders } = useSelector(ordersSelector);
+    const { userUid } = useSelector(userSelector);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const resetCartPage = async () => {
+        dispatch(cartActions.reset());
+        
+        const usersCartsRef = collection(db, "usersCarts");
+        await setDoc(doc(usersCartsRef, userUid), {
+            cart: []
+        });
+    }
+
+    const purchaseProductsFromCart = async (cart) => {
+        showNotification('Orders Purchased Successfully!')
+
+        const orderToPlace = {
+            id: new Date().getTime(),
+            orderedOn: new Date().toISOString().split('T')[0],
+            products: [
+                ...cart
+            ],
+            totalPrice: total
+        };
+
+        const newOrders = [
+            orderToPlace, 
+            ...orders
+        ];
+
+        dispatch(ordersActions.replaceOrders(newOrders));
+
+        const usersOrdersRef = collection(db, "usersOrders");
+        await setDoc(doc(usersOrdersRef, userUid), {
+            orders: newOrders
+        });
+
+        resetCartPage();
+    }
 
     if (loading) {
         return (

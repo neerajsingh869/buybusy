@@ -1,10 +1,11 @@
 import Order from "../../components/order/Order";
-import { useOrdersContextValue } from "../../contexts/ordersContext";
 import styles from "./Orders.module.css";
 import { DotLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import { ordersSelector } from "../../redux/reducers/ordersReducer";
 
 const Orders = () => {
-    const { orders, loading } = useOrdersContextValue();
+    const { orders, loading } = useSelector(ordersSelector);
 
     if (loading) {
         return (

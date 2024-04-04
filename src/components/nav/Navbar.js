@@ -1,14 +1,32 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./Navbar.module.css";
 import cartImage from "../../assets/cart.png";
 import homeImage from "../../assets/home.png";
 import logoutImage from "../../assets/logout.png";
 import ordersImage from "../../assets/orders.png";
 import signinImage from "../../assets/signin.png";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions, userSelector } from "../../redux/reducers/userReducer";
+import { signOut, getAuth } from "firebase/auth";
+import { showNotification } from "../../utility/showNotifications";
 
 const Navbar = () => {
-    const { isSignedIn, signOutUser } = useUserAuthContextValue();
+    const { userUid } = useSelector(userSelector);
+    const dispatch = useDispatch();
+
+    const auth = getAuth();
+
+    const signOutUser = async () => {
+        try {
+            await signOut(auth);
+
+            showNotification('User signed out successfully!');
+        } catch (err) {
+            showNotification(err.message);
+        } finally {
+            dispatch(userActions.updateUserUid(null));
+        }
+    }
 
     return (
         <>
@@ -22,7 +40,7 @@ const Navbar = () => {
                                 Home
                             </NavLink>
                         </li>
-                        { isSignedIn ? (
+                        { userUid ? (
                             <>
                                 <li className={ styles.navItem }>
                                     <NavLink className={ styles.navLink } to="/myorders">

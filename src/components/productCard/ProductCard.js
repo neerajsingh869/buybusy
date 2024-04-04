@@ -1,19 +1,119 @@
 import { useNavigate } from "react-router-dom";
-import { useCartContextValue } from "../../contexts/cartContext";
-import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import styles from "./ProductCard.module.css";
 import plusButtonImage from "../../assets/plus.png";
 import minusButtonImage from "../../assets/minus.png";
+import { useDispatch, useSelector } from "react-redux";
+import { userSelector } from "../../redux/reducers/userReducer";
+import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
+import { collection, doc, setDoc } from "firebase/firestore"; 
+import { db } from "../../configs/firebase";
+import { showNotification } from "../../utility/showNotifications";
 
 const ProductCard = ({ product, homeOrCart }) => {
-    const { handleAddToCart, handleRemoveFromCart, 
-            incrementCartProductCount, decrementCartProductCount } = useCartContextValue();
+    const { cart } = useSelector(cartSelector);
 
-    const { isSignedIn } = useUserAuthContextValue();
+    const { userUid } = useSelector(userSelector);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleAddToCart = async (product) => {
+        const isCartExists = cart.find(item => item.id === product.id);
+
+        if (isCartExists) {
+            showNotification('Increase Product Count!');
+
+            const updatedCart = cart.map(item => {
+                let copiedObj = {...item};
+                if (copiedObj.id === isCartExists.id) {
+                    copiedObj.qty = copiedObj.qty + 1;
+                }
+                return copiedObj;
+            });
+
+            dispatch(cartActions.replaceOrders(updatedCart));
+
+            const usersCartsRef = collection(db, "usersCarts");
+            await setDoc(doc(usersCartsRef, userUid), {
+                cart: updatedCart
+            });
+        } else {
+            showNotification('Product Added Successfully!');
+
+            const cartProduct = {
+                ...product,
+                qty: 1
+            };
+
+            const updatedCart = [cartProduct, ...cart];
+
+            dispatch(cartActions.replaceOrders(updatedCart));
+
+            const usersCartsRef = collection(db, "usersCarts");
+            await setDoc(doc(usersCartsRef, userUid), {
+                cart: updatedCart
+            });
+        }
+
+    }
+
+    const handleRemoveFromCart = async (product) => {
+        showNotification('Product Removed Successfully!');
+
+        const updatedCart = cart.filter(item => item.id !== product.id);
+
+        dispatch(cartActions.replaceOrders(updatedCart));
+
+        const usersCartsRef = collection(db, "usersCarts");
+        await setDoc(doc(usersCartsRef, userUid), {
+            cart: updatedCart
+        });
+    }
+
+    const incrementCartProductCount = async (product) => {
+        showNotification('Product Count Incremented!');
+
+        const updatedCart = cart.map(item => {
+            let copiedObj = {...item};
+            if (copiedObj.id === product.id) {
+                copiedObj.qty = copiedObj.qty + 1;
+            }
+            return copiedObj;
+        });
+
+        dispatch(cartActions.replaceOrders(updatedCart));
+
+        const usersCartsRef = collection(db, "usersCarts");
+        await setDoc(doc(usersCartsRef, userUid), {
+            cart: updatedCart
+        });
+    }
+
+    const decrementCartProductCount = async (product) => {
+        if (product.qty === 1) {
+            handleRemoveFromCart(product);
+            return;
+        }
+
+        showNotification('Product Count Decremented!');
+        
+        const updatedCart = cart.map(item => {
+            let copiedObj = {...item};
+            if (copiedObj.id === product.id) {
+                copiedObj.qty = copiedObj.qty - 1;
+            }
+            return copiedObj;
+        });
+
+        dispatch(cartActions.replaceOrders(updatedCart));
+
+        const usersCartsRef = collection(db, "usersCarts");
+        await setDoc(doc(usersCartsRef, userUid), {
+            cart: updatedCart
+        });
+    }
 
     const handleAddOrRemoveProduct = (product) => {
-        if (!isSignedIn) {
+        if (!userUid) {
             navigate("/signin");
             return;
         }

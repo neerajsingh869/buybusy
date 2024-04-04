@@ -1,15 +1,16 @@
 import { useRef, useState } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
-import { useUserAuthContextValue } from "../../contexts/userAuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { BeatLoader } from "react-spinners";
-import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch } from "react-redux";
+import { userActions } from "../../redux/reducers/userReducer";
+import { showNotification } from "../../utility/showNotifications";
 
 const Login = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
-    const { setIsSignedIn, setUserUid } = useUserAuthContextValue();
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -26,28 +27,14 @@ const Login = () => {
 
             const res = await signInWithEmailAndPassword(auth, email, password);
             navigate("/");
-            setIsSignedIn(true);
-            setUserUid(res.user.uid);
 
-            toast.success('User signed in successfully!', {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
+            dispatch(userActions.updateUserUid(res.user.uid));
+
+            showNotification('User signed in successfully!');
         } catch (err) {
-            toast.error(err.message, {
-                duration: 2000,
-                style: {
-                    minWidth: "18rem",
-                    minHeight: "3.5rem",
-                    marginTo: "2rem"
-                }
-            });
+            showNotification(err.message);
 
-            setIsSignedIn(false);
+            dispatch(userActions.updateUserUid(null));
         } finally {
             setLoading(false);
         }
@@ -73,7 +60,6 @@ const Login = () => {
                     <Link to="/signup">Or SignUp instead</Link>
                 </form>
             </div>
-            <Toaster position="top-right" />
         </>
     )
 };
