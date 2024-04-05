@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword, getAuth, signInWithPopup } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
@@ -7,20 +7,43 @@ import { useDispatch } from "react-redux";
 import styles from "./Login.module.css";
 import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
+import { provider } from "../../configs/firebase";
 
 const Login = () => {
     const inputEmail = useRef();
     const inputPassword = useRef();
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
+    const [loadingTraditional, setLoadingTraditional] = useState(false);
+    const [loadingGoogle, setLoadingGoogle] = useState(false);
     const navigate = useNavigate();
 
     const auth = getAuth();
 
+    const signInWithGoogle = async (e) => {
+        e.preventDefault();
+
+        setLoadingGoogle(true);
+
+        try {
+            const res = await signInWithPopup(auth, provider);
+            navigate("/");
+
+            dispatch(userActions.updateUserUid(res.user.uid));
+
+            showNotification('User signed in successfully!');
+        } catch (err) {
+            showNotification(err.message);
+
+            dispatch(userActions.updateUserUid(null));
+        } finally {
+            setLoadingGoogle(false);
+        }
+    }
+
     const handleSignIn = async (e) => {
         e.preventDefault();
 
-        setLoading(true);
+        setLoadingTraditional(true);
 
         try {
             const email = inputEmail.current.value;
@@ -37,7 +60,7 @@ const Login = () => {
 
             dispatch(userActions.updateUserUid(null));
         } finally {
-            setLoading(false);
+            setLoadingTraditional(false);
         }
     }
 
@@ -50,12 +73,24 @@ const Login = () => {
                     <input type="password" placeholder="Enter Password" ref={ inputPassword } />
                     <button>
                         { 
-                            loading ? <BeatLoader
+                            loadingTraditional ? <BeatLoader
                                 color="white"
                                 size={10}
                                 aria-label="Loading Spinner"
                                 data-testid="loader"
                             /> : "Sign In" 
+                        }
+                    </button>
+                    <button 
+                        type="button" 
+                        onClick={ signInWithGoogle }>
+                        { 
+                            loadingGoogle ? <BeatLoader
+                                color="white"
+                                size={10}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            /> : "Sign In with Google" 
                         }
                     </button>
                     <Link to="/signup">Or SignUp instead</Link>
