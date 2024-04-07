@@ -1,53 +1,59 @@
 import { app } from "./configs/firebase";
-import { 
-  createRoutesFromElements, 
-  createBrowserRouter, 
+import {
+  createRoutesFromElements,
+  createBrowserRouter,
   RouterProvider,
-  Route
+  Route,
 } from "react-router-dom";
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import './App.css';
-import Navbar from './components/nav/Navbar';
-import Page404 from './pages/error/Page404';
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import Register from './pages/register/Register';
-import Orders from './pages/orders/Orders';
-import Cart from './pages/cart/Cart';
-import PrivateRoute from './components/secure/PrivateRoute';
-import { userActions, userSelector } from './redux/reducers/userReducer';
-import { getInitialOrdersAsync } from './redux/reducers/ordersReducer';
-import { getInitialCartAsync } from './redux/reducers/cartReducer';
+import "./App.css";
+import Navbar from "./components/nav/Navbar";
+import Page404 from "./pages/error/Page404";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Orders from "./pages/orders/Orders";
+import Cart from "./pages/cart/Cart";
+import PrivateRoute from "./components/secure/PrivateRoute";
+import { userActions, userSelector } from "./redux/reducers/userReducer";
+import { getInitialOrdersAsync } from "./redux/reducers/ordersReducer";
+import { getInitialCartAsync } from "./redux/reducers/cartReducer";
 
 function App() {
   const routes = createRoutesFromElements(
-    <Route path="/" element={ <Navbar /> } errorElement={ <Page404 /> }>
-      <Route index={ true } element={ <Home /> } />
-      <Route path="signin" element={ <Login /> } />
-      <Route path="signup" element={ <Register /> } />
-      <Route path="myorders" element={ 
-        <PrivateRoute>
-          <Orders />
-        </PrivateRoute>
-       } />
-       <Route path="cart" element={ 
-        <PrivateRoute>
-          <Cart />
-        </PrivateRoute>
-       } />
+    <Route path="/" element={<Navbar />} errorElement={<Page404 />}>
+      <Route index={true} element={<Home />} />
+      <Route path="signin" element={<Login />} />
+      <Route path="signup" element={<Register />} />
+      <Route
+        path="myorders"
+        element={
+          <PrivateRoute>
+            <Orders />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="cart"
+        element={
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        }
+      />
     </Route>
   );
 
   const router = createBrowserRouter(routes);
 
   return (
-      <>
-        <Init />
-        <RouterProvider router={ router } />
-      </>
+    <>
+      <Init />
+      <RouterProvider router={router} />
+    </>
   );
 }
 
@@ -60,9 +66,10 @@ function Init() {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            dispatch(userActions.updateUserUid(user.uid));
-        }});
+      if (user) {
+        dispatch(userActions.updateUserUid(user.uid));
+      }
+    });
   }, [auth, dispatch]);
 
   useEffect(() => {
@@ -70,10 +77,10 @@ function Init() {
       if (userUid) {
         dispatch(getInitialCartAsync(userUid));
       }
-    }
+    };
 
     fetchData();
-}, [userUid, dispatch]);
+  }, [userUid, dispatch]);
 
   useEffect(() => {
     if (userUid) {

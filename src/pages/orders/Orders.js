@@ -6,41 +6,37 @@ import styles from "./Orders.module.css";
 import { ordersSelector } from "../../redux/reducers/ordersReducer";
 
 const Orders = () => {
-    const { orders, loading } = useSelector(ordersSelector);
+  const { orders, loading } = useSelector(ordersSelector);
 
-    if (loading) {
-        return (
-            <div className="pageLoader">
-                <DotLoader
-                    color="#7064e5"
-                    size={70}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
-            </div>
-        )
-    }
-
-    if (orders.length === 0) {
-        return (
-            <div className={ styles.emptyOrdersPage }>
-                <h2>No orders found!</h2>
-            </div>
-        )
-    }
-
+  if (loading) {
     return (
-        <div className={ styles.ordersContainer }>
-            <h1>Your Orders</h1>
-            {
-                orders.map(order => {
-                    return (
-                        <Order key={ order.id } order={ order } />
-                    )
-                })
-            }
-        </div>
-    )
+      <div className="pageLoader">
+        <DotLoader
+          color="#7064e5"
+          size={70}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
+  }
+
+  if (orders.length === 0) {
+    return (
+      <div className={styles.emptyOrdersPage}>
+        <h2>No orders found!</h2>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.ordersContainer}>
+      <h1>Your Orders</h1>
+      {orders.map((order) => {
+        return <Order key={order.id} order={order} />;
+      })}
+    </div>
+  );
 };
 
 export default Orders;

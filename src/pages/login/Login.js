@@ -106,18 +106,21 @@ const Login = () => {
                 data-testid="loader"
               />
             ) : (
-              <div style={{
-                display: "flex",
-                alignItem: "center",
-                justifyContent: "center"
-              }}>
-                <img 
-                    src={googleLogo} 
-                    alt="Google Logo"
-                    style={{
-                        width: "20px",
-                        marginRight: "8px"
-                    }} />
+              <div
+                style={{
+                  display: "flex",
+                  alignItem: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  src={googleLogo}
+                  alt="Google Logo"
+                  style={{
+                    width: "20px",
+                    marginRight: "8px",
+                  }}
+                />
                 <span>Continue Using Google</span>
               </div>
             )}
