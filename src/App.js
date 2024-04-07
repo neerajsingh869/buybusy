@@ -21,13 +21,28 @@ import PrivateRoute from "./components/secure/PrivateRoute";
 import { userActions, userSelector } from "./redux/reducers/userReducer";
 import { getInitialOrdersAsync } from "./redux/reducers/ordersReducer";
 import { getInitialCartAsync } from "./redux/reducers/cartReducer";
+import NonPrivateRoute from "./components/secure/NonPrivateRoute";
 
 function App() {
   const routes = createRoutesFromElements(
     <Route path="/" element={<Navbar />} errorElement={<Page404 />}>
       <Route index={true} element={<Home />} />
-      <Route path="signin" element={<Login />} />
-      <Route path="signup" element={<Register />} />
+      <Route 
+        path="signin" 
+        element={
+          <NonPrivateRoute>
+            <Login />
+          </NonPrivateRoute>
+        } 
+      />
+      <Route 
+        path="signup" 
+        element={
+          <NonPrivateRoute>
+            <Register />
+          </NonPrivateRoute>
+        } 
+      />
       <Route
         path="myorders"
         element={
