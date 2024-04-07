@@ -48,3 +48,14 @@
     color: #224957;
     font-weight: 500;
 }
+
+.ruler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ruler > span {
+    width: 40%;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+}

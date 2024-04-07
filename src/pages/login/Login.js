@@ -1,5 +1,9 @@
 import { useRef, useState } from "react";
-import { signInWithEmailAndPassword, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
@@ -8,96 +12,121 @@ import styles from "./Login.module.css";
 import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
 import { provider } from "../../configs/firebase";
+import googleLogo from "../../assets/google.png";
 
 const Login = () => {
-    const inputEmail = useRef();
-    const inputPassword = useRef();
-    const dispatch = useDispatch();
-    const [loadingTraditional, setLoadingTraditional] = useState(false);
-    const [loadingGoogle, setLoadingGoogle] = useState(false);
-    const navigate = useNavigate();
+  const inputEmail = useRef();
+  const inputPassword = useRef();
+  const dispatch = useDispatch();
+  const [loadingTraditional, setLoadingTraditional] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const navigate = useNavigate();
 
-    const auth = getAuth();
+  const auth = getAuth();
 
-    const signInWithGoogle = async (e) => {
-        e.preventDefault();
+  const signInWithGoogle = async (e) => {
+    e.preventDefault();
 
-        setLoadingGoogle(true);
+    setLoadingGoogle(true);
 
-        try {
-            const res = await signInWithPopup(auth, provider);
-            navigate("/");
+    try {
+      const res = await signInWithPopup(auth, provider);
+      navigate("/");
 
-            dispatch(userActions.updateUserUid(res.user.uid));
+      dispatch(userActions.updateUserUid(res.user.uid));
 
-            showNotification('User signed in successfully!');
-        } catch (err) {
-            showNotification(err.message);
+      showNotification("User signed in successfully!");
+    } catch (err) {
+      showNotification(err.message);
 
-            dispatch(userActions.updateUserUid(null));
-        } finally {
-            setLoadingGoogle(false);
-        }
+      dispatch(userActions.updateUserUid(null));
+    } finally {
+      setLoadingGoogle(false);
     }
+  };
 
-    const handleSignIn = async (e) => {
-        e.preventDefault();
+  const handleSignIn = async (e) => {
+    e.preventDefault();
 
-        setLoadingTraditional(true);
+    setLoadingTraditional(true);
 
-        try {
-            const email = inputEmail.current.value;
-            const password = inputPassword.current.value;
+    try {
+      const email = inputEmail.current.value;
+      const password = inputPassword.current.value;
 
-            const res = await signInWithEmailAndPassword(auth, email, password);
-            navigate("/");
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
 
-            dispatch(userActions.updateUserUid(res.user.uid));
+      dispatch(userActions.updateUserUid(res.user.uid));
 
-            showNotification('User signed in successfully!');
-        } catch (err) {
-            showNotification(err.message);
+      showNotification("User signed in successfully!");
+    } catch (err) {
+      showNotification(err.message);
 
-            dispatch(userActions.updateUserUid(null));
-        } finally {
-            setLoadingTraditional(false);
-        }
+      dispatch(userActions.updateUserUid(null));
+    } finally {
+      setLoadingTraditional(false);
     }
+  };
 
-    return (
-        <>
-            <div className={ styles.formContainer }>
-                <form onSubmit={ handleSignIn }>
-                    <h2>Sign In</h2>
-                    <input type="email" placeholder="Enter Email" ref={ inputEmail } />
-                    <input type="password" placeholder="Enter Password" ref={ inputPassword } />
-                    <button>
-                        { 
-                            loadingTraditional ? <BeatLoader
-                                color="white"
-                                size={10}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                            /> : "Sign In" 
-                        }
-                    </button>
-                    <button 
-                        type="button" 
-                        onClick={ signInWithGoogle }>
-                        { 
-                            loadingGoogle ? <BeatLoader
-                                color="white"
-                                size={10}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                            /> : "Sign In with Google" 
-                        }
-                    </button>
-                    <Link to="/signup">Or SignUp instead</Link>
-                </form>
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className={styles.formContainer}>
+        <form onSubmit={handleSignIn}>
+          <h2>Sign In</h2>
+          <input type="email" placeholder="Enter Email" ref={inputEmail} />
+          <input
+            type="password"
+            placeholder="Enter Password"
+            ref={inputPassword}
+          />
+          <button>
+            {loadingTraditional ? (
+              <BeatLoader
+                color="white"
+                size={10}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
+              "Sign In"
+            )}
+          </button>
+          <div className={styles.ruler}>
+            <span style={{ marginRight: "1rem" }}></span>
+            OR
+            <span style={{ marginLeft: "1rem" }}></span>
+          </div>
+          <button type="button" onClick={signInWithGoogle}>
+            {loadingGoogle ? (
+              <BeatLoader
+                color="white"
+                size={10}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
+              <div style={{
+                display: "flex",
+                alignItem: "center",
+                justifyContent: "center"
+              }}>
+                <img 
+                    src={googleLogo} 
+                    alt="Google Logo"
+                    style={{
+                        width: "20px",
+                        marginRight: "8px"
+                    }} />
+                <span>Continue Using Google</span>
+              </div>
+            )}
+          </button>
+          <Link to="/signup">Or SignUp instead</Link>
+        </form>
+      </div>
+    </>
+  );
 };
 
 export default Login;
