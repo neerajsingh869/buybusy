@@ -1,11 +1,11 @@
 import { collection, query, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { DotLoader } from "react-spinners";
 
 import ProductCard from "../../components/productCard/ProductCard";
 import styles from "./Home.module.css";
 import { db } from "../../configs/firebase";
 import clearImage from "../../assets/clear.png";
+import Loader from "../../components/loader/Loader";
 
 const Home = () => {
   const [productsData, setProductsData] = useState([]);
@@ -78,14 +78,7 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="pageLoader">
-        <DotLoader
-          color="#7064e5"
-          size={70}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      </div>
+      <Loader />
     );
   }
 
