@@ -57,7 +57,7 @@ function App() {
         path="cart"
         element={
           <PrivateRoute>
-            <Suspense fallback={Loader}>
+            <Suspense fallback={<Loader />}>
               <Cart />
             </Suspense>
           </PrivateRoute>
