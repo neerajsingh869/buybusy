@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createDraftSafeSelector, createSlice } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../../configs/firebase";
@@ -45,4 +45,5 @@ const cartSlice = createSlice({
 
 export const cartReducer = cartSlice.reducer;
 export const cartActions = cartSlice.actions;
-export const cartSelector = (state) => state.cartReducer;
+// export const cartSelector = (state) => state.cartReducer;
+export const cartSelector = createDraftSafeSelector((state) => state, (state) => state.cartReducer);

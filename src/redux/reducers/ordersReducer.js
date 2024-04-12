@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createDraftSafeSelector, createSlice } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../../configs/firebase";
@@ -45,4 +45,5 @@ const ordersSlice = createSlice({
 
 export const ordersReducer = ordersSlice.reducer;
 export const ordersActions = ordersSlice.actions;
-export const ordersSelector = (state) => state.ordersReducer;
+// export const ordersSelector = (state) => state.ordersReducer;
+export const ordersSelector = createDraftSafeSelector((state) => state, (state) => state.ordersReducer);
