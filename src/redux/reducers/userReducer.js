@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createDraftSafeSelector, createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   userUid: null,
@@ -16,4 +16,5 @@ const userSlice = createSlice({
 
 export const userReducer = userSlice.reducer;
 export const userActions = userSlice.actions;
-export const userSelector = (state) => state.userReducer;
+// export const userSelector = (state) => state.userReducer;
+export const userSelector = createDraftSafeSelector((state) => state, (state) => state.userReducer);
