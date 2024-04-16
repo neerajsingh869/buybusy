@@ -2,7 +2,6 @@ import { NavLink, Outlet } from "react-router-dom";
 import { signOut, getAuth } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 
-import styles from "./Navbar.module.css";
 import cartImage from "../../assets/cart.png";
 import homeImage from "../../assets/home.png";
 import logoutImage from "../../assets/logout.png";
@@ -31,49 +30,71 @@ const Navbar = () => {
 
   return (
     <>
-      <header>
-        <nav>
-          <NavLink className={styles.navHome} to="/">
+      <header className="w-full h-20 shadow-md">
+        <nav className="flex items-center h-full justify-between px-4">
+          <NavLink className="text-xl font-semibold" to="/">
             Busy Buy
           </NavLink>
-          <ul className={styles.navItemsContainer}>
-            <li className={styles.navItem}>
-              <NavLink className={styles.navLink} to="/">
-                <img src={homeImage} alt="Home" />
+          <ul className="flex gap-8 lg:gap-12">
+            <li>
+              <NavLink
+                className="text-lg flex items-center text-violet-600 font-bold"
+                to="/"
+              >
+                <img className="mx-2 w-9 h-9" src={homeImage} alt="Home" />
                 Home
               </NavLink>
             </li>
             {userUid ? (
               <>
-                <li className={styles.navItem}>
-                  <NavLink className={styles.navLink} to="/myorders">
-                    <img src={ordersImage} alt="Orders" />
+                <li>
+                  <NavLink
+                    className="text-lg flex items-center text-violet-600 font-bold"
+                    to="/myorders"
+                  >
+                    <img
+                      className="mx-2 w-9 h-9"
+                      src={ordersImage}
+                      alt="Orders"
+                    />
                     My Orders
                   </NavLink>
                 </li>
-                <li className={styles.navItem}>
-                  <NavLink className={styles.navLink} to="/cart">
-                    <img src={cartImage} alt="Cart" />
+                <li>
+                  <NavLink
+                    className="text-lg flex items-center text-violet-600 font-bold"
+                    to="/cart"
+                  >
+                    <img className="mx-2 w-9 h-9" src={cartImage} alt="Cart" />
                     Cart
                   </NavLink>
                 </li>
                 <li
-                  className={styles.navItem}
                   onClick={() => {
                     signOutUser();
                   }}
                 >
-                  <NavLink className={styles.navLink} to="/">
-                    <img src={logoutImage} alt="Logout" />
+                  <NavLink
+                    className="text-lg flex items-center text-violet-600 font-bold"
+                    to="/"
+                  >
+                    <img
+                      className="mx-2 w-9 h-9"
+                      src={logoutImage}
+                      alt="Logout"
+                    />
                     Logout
                   </NavLink>
                 </li>
               </>
             ) : (
               <>
-                <li className={styles.navItem}>
-                  <NavLink className={styles.navLink} to="/signin">
-                    <img src={signinImage} alt="Sign In" />
+                <li>
+                  <NavLink
+                    className="text-lg flex items-center text-violet-600 font-bold"
+                    to="/signin"
+                  >
+                    <img className="mx-2 w-9 h-9" src={signinImage} alt="Sign In" />
                     SignIn
                   </NavLink>
                 </li>
