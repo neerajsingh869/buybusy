@@ -1,33 +1,31 @@
-import styles from "./Order.module.css";
-
 const Order = ({ order }) => {
   return (
-    <div className={styles.orderContainer}>
-      <p>Ordered On:- {order.orderedOn}</p>
-      <table className={styles.orderTable}>
+    <div className="mt-8 text-center">
+      <p className="text-xl font-bold mb-4 text-sky-900">Ordered On:- {order.orderedOn}</p>
+      <table className="border-none">
         <thead>
-          <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
+          <tr className="bg-slate-50">
+            <th className="border-b-2 border-black p-4">Title</th>
+            <th className="border-b-2 border-black p-4">Price</th>
+            <th className="border-b-2 border-black p-4">Quantity</th>
+            <th className="border-b-2 border-black p-4">Total Price</th>
           </tr>
         </thead>
         <tbody>
           {order.products.map((product) => {
             return (
-              <tr key={product.id}>
-                <td>{product.title}</td>
-                <td>&#8377; {product.price}</td>
-                <td>{product.qty}</td>
-                <td>&#8377; {product.price * product.qty}</td>
+              <tr className="bg-slate-50" key={product.id}>
+                <td className="p-4">{product.title}</td>
+                <td className="p-4">&#8377; {product.price}</td>
+                <td className="p-4">{product.qty}</td>
+                <td className="p-4">&#8377; {product.price * product.qty}</td>
               </tr>
             );
           })}
         </tbody>
-        <tfoot className={styles.orderTableFooter}>
-          <tr>
-            <td colSpan={4}>&#8377; {order.totalPrice}</td>
+        <tfoot>
+          <tr className="bg-slate-50 text-right">
+            <td className="p-4" colSpan={4}>&#8377; {order.totalPrice}</td>
           </tr>
         </tfoot>
       </table>
