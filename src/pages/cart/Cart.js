@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 import ProductCard from "../../components/productCard/ProductCard";
-import styles from "./Cart.module.css";
 import { db } from "../../configs/firebase";
 import { userSelector } from "../../redux/reducers/userReducer";
 import {
@@ -69,7 +68,7 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <div className={styles.emptyCartPage}>
+      <div className="text-center text-xl m-4">
         <h2>Cart is Empty!</h2>
       </div>
     );
@@ -77,10 +76,10 @@ const Cart = () => {
 
   return (
     <div>
-      <aside className={styles.filterAside}>
-        <h2>Total Price:- {total}</h2>
+      <aside className="flex justify-center align-center flex-col h-40 rounded-xl align-center fixed w-56 bg-violet-50 p-4 gap-8 top-1/3 left-0">
+        <h2 className="text-lg">Total Price:- {total}</h2>
         <button
-          className={styles.purchaseBtn}
+          className="ease-in-out duration-300 h-8 w-28 text-lg text-white bg-violet-600 border-2 border-violet-600 border-solid rounded-md hover:bg-white hover:text-violet-600"
           onClick={(e) => {
             e.preventDefault();
 
@@ -91,7 +90,7 @@ const Cart = () => {
           Purchase
         </button>
       </aside>
-      <div className={styles.prductsContainer}>
+      <div className="flex flex-wrap gap-8 ml-80 my-9">
         {cart.map((product) => {
           return (
             <ProductCard key={product.id} product={product} homeOrCart="cart" />
