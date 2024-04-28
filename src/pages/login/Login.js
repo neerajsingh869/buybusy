@@ -8,7 +8,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
 
-import styles from "./Login.module.css";
 import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
 import { provider } from "../../configs/firebase";
@@ -71,16 +70,17 @@ const Login = () => {
 
   return (
     <>
-      <div className={styles.formContainer}>
-        <form onSubmit={handleSignIn}>
-          <h2>Sign In</h2>
-          <input type="email" placeholder="Enter Email" ref={inputEmail} />
+      <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+        <form className="w-80 flex flex-col p-4 gap-4" onSubmit={handleSignIn}>
+          <h2 className="text-sky-950 font-extrabold text-4xl my-4">Sign In</h2>
+          <input className="border border-solid border-violet-600 outline-none h-12 rounded-lg p-3 text-lg" type="email" placeholder="Enter Email" ref={inputEmail} />
           <input
+            className="border border-solid border-violet-600 outline-none h-12 rounded-lg p-3 text-lg"
             type="password"
             placeholder="Enter Password"
             ref={inputPassword}
           />
-          <button>
+          <button className="bg-violet-600 text-white border-none h-10 rounded-xl text-lg shadow-md shadow-slate-400">
             {loadingTraditional ? (
               <BeatLoader
                 color="white"
@@ -92,12 +92,12 @@ const Login = () => {
               "Sign In"
             )}
           </button>
-          <div className={styles.ruler}>
-            <span style={{ marginRight: "1rem" }}></span>
+          <div className="flex justify-center align-center">
+            <span className="m-3 w-1/2 border-solid border-neutral-400 border-y ml"></span>
             OR
-            <span style={{ marginLeft: "1rem" }}></span>
+            <span className="m-3 w-1/2 border-solid border-neutral-400 border-y ml"></span>
           </div>
-          <button type="button" onClick={signInWithGoogle}>
+          <button className="bg-violet-600 text-white border-none h-10 rounded-xl text-lg shadow-md shadow-slate-400" type="button" onClick={signInWithGoogle}>
             {loadingGoogle ? (
               <BeatLoader
                 color="white"
@@ -125,7 +125,7 @@ const Login = () => {
               </div>
             )}
           </button>
-          <Link to="/signup">Or SignUp instead</Link>
+          <Link className="no-underline font-bold text-sky-950" to="/signup">Or SignUp instead</Link>
         </form>
       </div>
     </>
