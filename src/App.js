@@ -9,7 +9,6 @@ import { Suspense, lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import "./App.css";
 import Navbar from "./components/nav/Navbar";
 import Page404 from "./pages/error/Page404";
 import Home from "./pages/home/Home";
