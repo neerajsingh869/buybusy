@@ -2,7 +2,6 @@ import { collection, query, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import ProductCard from "../../components/productCard/ProductCard";
-import styles from "./Home.module.css";
 import { db } from "../../configs/firebase";
 import clearImage from "../../assets/clear.png";
 import Loader from "../../components/loader/Loader";
@@ -84,9 +83,10 @@ const Home = () => {
 
   return (
     <div>
-      <form className={styles.searchForm}>
+      <form className="relative mx-auto my-4 w-1/4">
         <input
           type="text"
+          className="w-full h-12 p-3 text-xl outline-none bg-zinc-100 rounded-xl text-indigo-600 border border-indigo-600"
           placeholder="Search By Name"
           value={searchInputState}
           onChange={(e) => setSearchInputState(e.target.value)}
@@ -106,12 +106,13 @@ const Home = () => {
           />
         )}
       </form>
-      <aside className={styles.filterAside}>
-        <h2>Filter</h2>
+      <aside className="fixed top-60 bg-slate-100 rounded-lg text-center p-4 w-50 left-0">
+        <h2 className="text-xl font-bold my-4 text-cyan-900">Filter</h2>
         <form>
           <label htmlFor="price"> Price: {totalPrice}</label>
           <input
             type="range"
+            className="cursor-pointer w-4/5 mt-2"
             id="price"
             name="price"
             min="1"
@@ -127,11 +128,12 @@ const Home = () => {
               );
             }}
           />
-          <h2>Category</h2>
-          <div className={styles.categoryContainer}>
+          <h2 className="text-lg mb-2">Category</h2>
+          <div className="flex flex-col items-start justify-center gap-2 text-base">
             <div>
               <input
                 type="checkbox"
+                className="w-4 h-4 mr-2"
                 id="men"
                 name="men"
                 onChange={() => {
@@ -143,6 +145,7 @@ const Home = () => {
             <div>
               <input
                 type="checkbox"
+                className="w-4 h-4 mr-2"
                 id="women"
                 name="women"
                 onChange={() => {
@@ -154,6 +157,7 @@ const Home = () => {
             <div>
               <input
                 type="checkbox"
+                className="w-4 h-4 mr-2"
                 id="jewelery"
                 name="jewelery"
                 onChange={() => {
@@ -165,6 +169,7 @@ const Home = () => {
             <div>
               <input
                 type="checkbox"
+                className="w-4 h-4 mr-2"
                 id="electronics"
                 name="electronics"
                 onChange={() => {
@@ -176,7 +181,7 @@ const Home = () => {
           </div>
         </form>
       </aside>
-      <div className={styles.prductsContainer}>
+      <div className="flex flex-wrap gap-8 justify-start ml-72 xl:ml-80 my-12">
         {filteredProducts.map((product) => {
           return (
             <ProductCard key={product.id} product={product} homeOrCart="home" />
