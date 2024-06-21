@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { collection, doc, setDoc } from "firebase/firestore";
 
-import styles from "./ProductCard.module.css";
 import plusButtonImage from "../../assets/plus.png";
 import minusButtonImage from "../../assets/minus.png";
 import { userSelector } from "../../redux/reducers/userReducer";
@@ -126,23 +125,25 @@ const ProductCard = ({ product, homeOrCart }) => {
   };
 
   return (
-    <div key={product.id} className={styles.productContainer}>
-      <div className={styles.productImageContainer}>
-        <img src={product.image} alt="Product" />
+    <div key={product.id} className="flex flex-col justify-between gap-4 w-4/5 md:w-2/5 lg:w-1/4 p-4 xl:p-8 rounded-xl shadow-xl">
+      <div className="h-56">
+        <img className="h-full w-full object-contain" src={product.image} alt="Product" />
       </div>
-      <div className={styles.productTitleContainer}>{product.title}</div>
-      <div className={styles.productPriceContainer}>
+      <div className="font-medium text-xl">{product.title}</div>
+      <div className="flex items-center justify-between font-bold text-xl">
         <p>&#8377; {product.price}</p>
         {homeOrCart === "cart" && (
-          <div className={styles.productQtyChangerContainer}>
+          <div className="flex gap-2">
             <img
               src={minusButtonImage}
+              className="cursor-pointer"
               alt="Minus Button"
               onClick={() => decrementCartProductCount(product)}
             />
             <span>{product.qty}</span>
             <img
               src={plusButtonImage}
+              className="cursor-pointer"
               alt="Plus Button"
               onClick={() => incrementCartProductCount(product)}
             />
@@ -150,7 +151,7 @@ const ProductCard = ({ product, homeOrCart }) => {
         )}
       </div>
       <button
-        className={styles.productActionBtn}
+        className="text-xl h-12 text-white bg-violet-600 hover:border-violet-400 border-2 rounded-lg cursor-pointer transition-all hover:text-violet-600 hover:bg-white"
         onClick={() => handleAddOrRemoveProduct(product)}
       >
         {homeOrCart === "home" ? "Add to Cart" : "Remove from Cart"}
