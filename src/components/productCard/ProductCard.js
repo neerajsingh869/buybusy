@@ -125,7 +125,7 @@ const ProductCard = ({ product, homeOrCart }) => {
   };
 
   return (
-    <div key={product.id} className="flex flex-col justify-between gap-4 w-4/5 md:w-2/5 lg:w-1/4 p-4 xl:p-8 rounded-xl shadow-xl">
+    <div key={product.id} className="flex flex-col justify-between gap-4 w-4/5 md:w-2/5 lg:w-1/4 p-4 xl:p-8 rounded-xl shadow-xl min-w-56">
       <div className="h-56">
         <img className="h-full w-full object-contain" src={product.image} alt="Product" />
       </div>
