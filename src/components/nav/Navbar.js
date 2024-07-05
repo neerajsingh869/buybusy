@@ -33,7 +33,7 @@ const Navbar = () => {
       <header className="w-full h-20 shadow-md">
         <nav className="flex items-center h-full justify-between px-4">
           <NavLink className="text-xl font-semibold" to="/">
-            Busy Buy
+            Buy Busy
           </NavLink>
           <ul className="flex gap-8 lg:gap-12">
             <li>
