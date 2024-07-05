@@ -1,4 +1,4 @@
-![BuyBusy App](./src/assets/readme-title.png)
+<!-- ![BuyBusy App](./src/assets/readme-title.png) -->
 
 ## Description
 Welcome to the buybusy project! It is an e-commerce app where users can browse products, add them to the cart, and complete purchases. Users can manage cart items, filter and search for products, and sign in with email, password, or Google IDs. This application leverages various libraries and frameworks to provide a robust and user-friendly experience.
