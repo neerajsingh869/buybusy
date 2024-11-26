@@ -83,7 +83,7 @@ const Home = () => {
 
   return (
     <div>
-      <form className="relative mx-auto my-4 w-1/4">
+      <form className="relative mx-auto my-4 w-[300px] lg:w-[400px]">
         <input
           type="text"
           className="w-full h-12 p-3 text-xl outline-none bg-zinc-100 rounded-xl text-indigo-600 border border-indigo-600"
@@ -97,7 +97,7 @@ const Home = () => {
               cursor: "pointer",
               width: "25px",
               position: "absolute",
-              marginLeft: "-32px",
+              right: "5px",
               top: "25%",
             }}
             src={clearImage}
