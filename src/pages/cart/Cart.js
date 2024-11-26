@@ -76,7 +76,7 @@ const Cart = () => {
 
   return (
     <div>
-      <aside className="flex justify-center align-center flex-col h-40 rounded-xl align-center fixed w-48 bg-violet-50 p-4 gap-8 top-1/3 -left-40 md:left-0 transition-all duration-500 hover:left-0">
+      <aside className="flex justify-center align-center flex-col h-40 rounded-xl align-center fixed w-48 bg-violet-100 p-4 gap-8 top-1/3 -left-40 md:left-0 transition-all duration-500 hover:left-0">
         <h2 className="text-lg">Total Price:- {total}</h2>
         <button
           className="ease-in-out duration-300 h-8 w-28 text-lg text-white bg-violet-600 border-2 border-violet-600 border-solid rounded-md hover:bg-white hover:text-violet-600"
@@ -90,7 +90,7 @@ const Cart = () => {
           Purchase
         </button>
       </aside>
-      <div className="flex flex-wrap gap-8 ml-32 md:ml-80 my-9">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 ml-16 md:ml-56 my-9">
         {cart.map((product) => {
           return (
             <ProductCard key={product.id} product={product} homeOrCart="cart" />

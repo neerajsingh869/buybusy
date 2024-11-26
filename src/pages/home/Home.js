@@ -106,7 +106,7 @@ const Home = () => {
           />
         )}
       </form>
-      <aside className="fixed top-60 bg-slate-100 rounded-lg text-center p-4 w-50 -left-52 md:left-0 transition-all duration-500 hover:left-0">
+      <aside className="fixed top-60 bg-violet-100 rounded-lg text-center p-4 w-50 -left-52 md:left-0 transition-all duration-500 hover:left-0">
         <h2 className="text-xl font-bold my-4 text-cyan-900">Filter</h2>
         <form>
           <label htmlFor="price"> Price: {totalPrice}</label>
@@ -181,7 +181,7 @@ const Home = () => {
           </div>
         </form>
       </aside>
-      <div className="flex flex-wrap gap-8 justify-start ml-28 md:ml-72 xl:ml-80 my-12">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ml-16 md:ml-[272px] my-8 gap-4">
         {filteredProducts.map((product) => {
           return (
             <ProductCard key={product.id} product={product} homeOrCart="home" />
