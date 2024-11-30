@@ -1,18 +1,29 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { signOut, getAuth } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Menu } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import cartImage from "../../assets/cart.png";
-import homeImage from "../../assets/home.png";
-import logoutImage from "../../assets/logout.png";
-import ordersImage from "../../assets/orders.png";
-import signinImage from "../../assets/signin.png";
-import { userActions, userSelector } from "../../redux/reducers/userReducer";
+import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
+import MobileNavbar from "./MobileNavbar";
+import MenuItems from "./MenuItems";
 
 const Navbar = () => {
-  const { userUid } = useSelector(userSelector);
   const dispatch = useDispatch();
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  // Handle adding/removing the `overflow-hidden` class to the body
+  useEffect(() => {
+    if (isSidebarVisible) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    // Cleanup when the component unmounts
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [isSidebarVisible]);
 
   const auth = getAuth();
 
@@ -35,74 +46,24 @@ const Navbar = () => {
           <NavLink className="text-xl font-semibold" to="/">
             Buy Busy
           </NavLink>
-          <ul className="flex gap-8 lg:gap-12">
-            <li>
-              <NavLink
-                className="text-lg flex items-center text-violet-600 font-bold"
-                to="/"
-              >
-                <img className="mx-2 w-9 h-9" src={homeImage} alt="Home" />
-                Home
-              </NavLink>
-            </li>
-            {userUid ? (
-              <>
-                <li>
-                  <NavLink
-                    className="text-lg flex items-center text-violet-600 font-bold"
-                    to="/myorders"
-                  >
-                    <img
-                      className="mx-2 w-9 h-9"
-                      src={ordersImage}
-                      alt="Orders"
-                    />
-                    My Orders
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className="text-lg flex items-center text-violet-600 font-bold"
-                    to="/cart"
-                  >
-                    <img className="mx-2 w-9 h-9" src={cartImage} alt="Cart" />
-                    Cart
-                  </NavLink>
-                </li>
-                <li
-                  onClick={() => {
-                    signOutUser();
-                  }}
-                >
-                  <NavLink
-                    className="text-lg flex items-center text-violet-600 font-bold"
-                    to="/"
-                  >
-                    <img
-                      className="mx-2 w-9 h-9"
-                      src={logoutImage}
-                      alt="Logout"
-                    />
-                    Logout
-                  </NavLink>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <NavLink
-                    className="text-lg flex items-center text-violet-600 font-bold"
-                    to="/signin"
-                  >
-                    <img className="mx-2 w-9 h-9" src={signinImage} alt="Sign In" />
-                    SignIn
-                  </NavLink>
-                </li>
-              </>
-            )}
+          <ul className="lg:flex gap-8 lg:gap-12 hidden">
+            <MenuItems
+              setIsSidebarVisible={setIsSidebarVisible}
+              signOutUser={signOutUser}
+            />
           </ul>
+          <Menu
+            className="lg:hidden cursor-pointer"
+            onClick={() => setIsSidebarVisible(!isSidebarVisible)}
+          />
         </nav>
       </header>
+      {isSidebarVisible && (
+        <MobileNavbar
+          setIsSidebarVisible={setIsSidebarVisible}
+          signOutUser={signOutUser}
+        />
+      )}
       <Outlet />
     </>
   );
