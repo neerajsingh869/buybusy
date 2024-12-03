@@ -5,7 +5,7 @@ import {
   RouterProvider,
   Route,
 } from "react-router-dom";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 

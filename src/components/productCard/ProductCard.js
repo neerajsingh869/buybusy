@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { CircleMinus, CirclePlus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { collection, doc, setDoc } from "firebase/firestore";
 
-import plusButtonImage from "../../assets/plus.png";
-import minusButtonImage from "../../assets/minus.png";
 import { userSelector } from "../../redux/reducers/userReducer";
 import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
 import { db } from "../../configs/firebase";
@@ -125,33 +124,36 @@ const ProductCard = ({ product, homeOrCart }) => {
   };
 
   return (
-    <div key={product.id} className="flex flex-col justify-between gap-4 p-4 xl:p-8 rounded-xl shadow-xl min-w-56">
+    <div
+      key={product.id}
+      className="flex flex-col justify-between gap-4 p-4 xl:p-8 rounded-xl shadow-xl min-w-56 dark:bg-neutral-800"
+    >
       <div className="h-56">
-        <img className="h-full w-full object-contain" src={product.image} alt="Product" />
+        <img
+          className="h-full w-full object-contain mix-blend-multiply"
+          src={product.image}
+          alt="Product"
+        />
       </div>
-      <div className="font-medium text-xl">{product.title}</div>
-      <div className="flex items-center justify-between font-bold text-xl">
+      <div className="font-medium text-xl dark:text-white">{product.title}</div>
+      <div className="flex items-center justify-between font-bold text-xl dark:text-white">
         <p>&#8377; {product.price}</p>
         {homeOrCart === "cart" && (
-          <div className="flex gap-2">
-            <img
-              src={minusButtonImage}
+          <div className="flex gap-2 items-center">
+            <CircleMinus
               className="cursor-pointer"
-              alt="Minus Button"
               onClick={() => decrementCartProductCount(product)}
             />
             <span>{product.qty}</span>
-            <img
-              src={plusButtonImage}
+            <CirclePlus
               className="cursor-pointer"
-              alt="Plus Button"
               onClick={() => incrementCartProductCount(product)}
             />
           </div>
         )}
       </div>
       <button
-        className="text-xl h-12 text-white bg-violet-600 hover:border-violet-400 border-2 rounded-lg cursor-pointer transition-all hover:text-violet-600 hover:bg-white"
+        className="text-xl dark:text-black dark:hover:text-white h-12 text-white bg-violet-600 dark:bg-violet-400 border-violet-600 dark:border-violet-400 border-2 rounded-lg cursor-pointer transition-all hover:text-violet-600  hover:bg-white dark:hover:bg-black"
         onClick={() => handleAddOrRemoveProduct(product)}
       >
         {homeOrCart === "home" ? "Add to Cart" : "Remove from Cart"}

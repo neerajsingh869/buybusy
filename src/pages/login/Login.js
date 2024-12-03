@@ -20,6 +20,7 @@ const Login = () => {
   const [loadingTraditional, setLoadingTraditional] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const navigate = useNavigate();
+  const theme = localStorage.getItem("theme");
 
   const auth = getAuth();
 
@@ -72,18 +73,25 @@ const Login = () => {
     <>
       <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
         <form className="w-80 flex flex-col p-4 gap-4" onSubmit={handleSignIn}>
-          <h2 className="text-sky-950 font-extrabold text-4xl my-4">Sign In</h2>
-          <input className="border border-solid border-violet-600 outline-none h-12 rounded-lg p-3 text-lg" type="email" placeholder="Enter Email" ref={inputEmail} />
+          <h2 className="text-dark dark:text-white font-extrabold text-4xl my-4">
+            Sign In
+          </h2>
+          <input
+            className="border border-solid border-violet-600 outline-none h-12 rounded-lg p-3 text-lg"
+            type="email"
+            placeholder="Enter Email"
+            ref={inputEmail}
+          />
           <input
             className="border border-solid border-violet-600 outline-none h-12 rounded-lg p-3 text-lg"
             type="password"
             placeholder="Enter Password"
             ref={inputPassword}
           />
-          <button className="bg-violet-600 text-white border-none h-10 rounded-xl text-lg shadow-md shadow-slate-400">
+          <button className="h-12 rounded-xl text-lg shadow-md dark:text-black dark:hover:text-white text-white bg-violet-600 dark:bg-violet-400 border-violet-600 dark:border-violet-400 border-2 cursor-pointer transition-all hover:text-violet-600  hover:bg-white dark:hover:bg-black">
             {loadingTraditional ? (
               <BeatLoader
-                color="white"
+                color={theme === "dark" ? "white" : "black"}
                 size={10}
                 aria-label="Loading Spinner"
                 data-testid="loader"
@@ -94,13 +102,17 @@ const Login = () => {
           </button>
           <div className="flex justify-center align-center">
             <span className="m-3 w-1/2 border-solid border-neutral-400 border-y ml"></span>
-            OR
+            <span className="text-black dark:text-white">OR</span>
             <span className="m-3 w-1/2 border-solid border-neutral-400 border-y ml"></span>
           </div>
-          <button className="bg-violet-600 text-white border-none h-10 rounded-xl text-lg shadow-md shadow-slate-400" type="button" onClick={signInWithGoogle}>
+          <button
+            className="h-12 rounded-xl text-lg shadow-md dark:text-black dark:hover:text-white text-white bg-violet-600 dark:bg-violet-400 border-violet-600 dark:border-violet-400 border-2 cursor-pointer transition-all hover:text-violet-600  hover:bg-white dark:hover:bg-black"
+            type="button"
+            onClick={signInWithGoogle}
+          >
             {loadingGoogle ? (
               <BeatLoader
-                color="white"
+                color={theme === "dark" ? "white" : "black"}
                 size={10}
                 aria-label="Loading Spinner"
                 data-testid="loader"
@@ -117,15 +129,21 @@ const Login = () => {
                   src={googleLogo}
                   alt="Google Logo"
                   style={{
-                    width: "20px",
+                    width: "24px",
                     marginRight: "8px",
+                    objectFit: "contain",
                   }}
                 />
                 <span>Continue Using Google</span>
               </div>
             )}
           </button>
-          <Link className="no-underline font-bold text-sky-950" to="/signup">Or SignUp instead</Link>
+          <Link
+            className="no-underline font-bold text-dark dark:text-white"
+            to="/signup"
+          >
+            Or SignUp instead
+          </Link>
         </form>
       </div>
     </>

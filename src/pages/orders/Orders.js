@@ -30,7 +30,7 @@ const Orders = () => {
 
   return (
     <div className="p-8 flex justify-start items-center flex-col">
-      <h1>Your Orders</h1>
+      <h1 className="text-2xl font-bold dark:text-white">Your Orders</h1>
       {orders.map((order) => {
         return <Order key={order.id} order={order} />;
       })}

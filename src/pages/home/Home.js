@@ -1,9 +1,9 @@
 import { collection, query, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
 import ProductCard from "../../components/productCard/ProductCard";
 import { db } from "../../configs/firebase";
-import clearImage from "../../assets/clear.png";
 import Loader from "../../components/loader/Loader";
 
 const Home = () => {
@@ -82,34 +82,23 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <form className="relative mx-auto my-4 w-[300px] lg:w-[400px]">
+    <div className="py-8">
+      <form className="relative mx-auto w-[300px] lg:w-[400px] dark:text-white">
         <input
           type="text"
-          className="w-full h-12 p-3 text-xl outline-none bg-zinc-100 rounded-xl text-indigo-600 border border-indigo-600"
+          className="dark:bg-neutral-800 w-full h-12 p-3 text-xl outline-none bg-zinc-100 rounded-xl text-violet-600 border border-violet-600 dark:border-violet-400 dark:text-violet-400"
           placeholder="Search By Name"
           value={searchInputState}
           onChange={(e) => setSearchInputState(e.target.value)}
         />
         {searchInputState && (
-          <img
-            style={{
-              cursor: "pointer",
-              width: "25px",
-              position: "absolute",
-              right: "5px",
-              top: "25%",
-            }}
-            src={clearImage}
-            alt="Clear Search"
-            onClick={() => setSearchInputState("")}
-          />
+          <X className="cursor-pointer absolute right-2 top-3" onClick={() => setSearchInputState("")} />
         )}
       </form>
-      <aside className="fixed top-60 bg-violet-100 rounded-lg text-center p-4 w-50 -left-52 md:left-0 transition-all duration-500 hover:left-0">
-        <h2 className="text-xl font-bold my-4 text-cyan-900">Filter</h2>
+      <aside className="fixed top-60 bg-zinc-100 dark:bg-neutral-800 rounded-lg text-center p-3 w-50 -left-52 md:left-0 transition-all duration-500 hover:left-0 text-violet-600 border border-violet-600 dark:border-violet-400 dark:text-violet-400">
+        <h2 className="text-xl font-bold my-4 text-violet-600 dark:text-violet-400">Filter</h2>
         <form>
-          <label htmlFor="price"> Price: {totalPrice}</label>
+          <label htmlFor="price" className="text-lg"> Price: {totalPrice}</label>
           <input
             type="range"
             className="cursor-pointer w-4/5 mt-2"
@@ -181,7 +170,7 @@ const Home = () => {
           </div>
         </form>
       </aside>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ml-16 md:ml-[272px] my-8 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ml-16 md:ml-[272px] pt-8 gap-4 pr-4">
         {filteredProducts.map((product) => {
           return (
             <ProductCard key={product.id} product={product} homeOrCart="home" />

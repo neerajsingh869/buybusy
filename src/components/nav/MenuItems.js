@@ -15,7 +15,7 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
     <>
       <li>
         <NavLink
-          className="text-lg flex items-center text-violet-600 font-semibold"
+          className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
           to="/"
           onClick={() => setIsSidebarVisible(false)}
         >
@@ -27,7 +27,7 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
         <>
           <li>
             <NavLink
-              className="text-lg flex items-center text-violet-600 font-semibold"
+              className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
               to="/myorders"
               onClick={() => setIsSidebarVisible(false)}
             >
@@ -37,7 +37,7 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
           </li>
           <li>
             <NavLink
-              className="text-lg flex items-center text-violet-600 font-semibold"
+              className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
               to="/cart"
               onClick={() => setIsSidebarVisible(false)}
             >
@@ -51,7 +51,7 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
             }}
           >
             <NavLink
-              className="text-lg flex items-center text-violet-600 font-semibold"
+              className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
               to="/"
               onClick={() => setIsSidebarVisible(false)}
             >
@@ -64,7 +64,7 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
         <>
           <li>
             <NavLink
-              className="text-lg flex items-center text-violet-600 font-semibold"
+              className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
               to="/signin"
               onClick={() => setIsSidebarVisible(false)}
             >
