@@ -11,7 +11,9 @@ const INITIAL_STATE = {
 export const getInitialOrdersAsync = createAsyncThunk(
   "orders/getInitialOrders",
   async (userUid) => {
-    // userUid will always be passed with truthy values
+    if (!userUid) {
+      return [];
+    }
 
     const docRef = doc(db, "usersOrders", userUid);
     const docSnap = await getDoc(docRef);
