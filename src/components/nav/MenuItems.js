@@ -23,28 +23,28 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
           Home
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
+          to="/myorders"
+          onClick={() => setIsSidebarVisible(false)}
+        >
+          <img className="mx-2 w-9 h-9" src={ordersImage} alt="Orders" />
+          Orders
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
+          to="/cart"
+          onClick={() => setIsSidebarVisible(false)}
+        >
+          <img className="mx-2 w-9 h-9" src={cartImage} alt="Cart" />
+          Cart
+        </NavLink>
+      </li>
       {userUid ? (
         <>
-          <li>
-            <NavLink
-              className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
-              to="/myorders"
-              onClick={() => setIsSidebarVisible(false)}
-            >
-              <img className="mx-2 w-9 h-9" src={ordersImage} alt="Orders" />
-              My Orders
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className="text-lg flex items-center text-violet-600 dark:text-violet-400 font-semibold"
-              to="/cart"
-              onClick={() => setIsSidebarVisible(false)}
-            >
-              <img className="mx-2 w-9 h-9" src={cartImage} alt="Cart" />
-              Cart
-            </NavLink>
-          </li>
           <li
             onClick={() => {
               signOutUser();
@@ -56,7 +56,7 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
               onClick={() => setIsSidebarVisible(false)}
             >
               <img className="mx-2 w-9 h-9" src={logoutImage} alt="Logout" />
-              Logout
+              Sign Out
             </NavLink>
           </li>
         </>
@@ -69,7 +69,7 @@ const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
               onClick={() => setIsSidebarVisible(false)}
             >
               <img className="mx-2 w-9 h-9" src={signinImage} alt="Sign In" />
-              SignIn
+              Sign In
             </NavLink>
           </li>
         </>

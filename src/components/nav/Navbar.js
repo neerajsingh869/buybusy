@@ -58,7 +58,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="dark:bg-neutral-950 min-h-[100vh]">
+    <div className="dark:bg-neutral-950 min-h-[100vh] flex flex-col">
       <header className="w-full h-20 border-b-[2px] dark:border-b-black dark:bg-neutral-800">
         <nav className="flex items-center h-full justify-between px-4 dark:text-white">
           <NavLink className="text-xl font-semibold dark:text-white" to="/">
