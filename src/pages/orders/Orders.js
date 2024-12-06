@@ -40,7 +40,7 @@ const Orders = () => {
 
   if (orders.length === 0) {
     return (
-      <div className="m-4 text-xl text-center">
+      <div className="m-4 text-xl text-center dark:text-white">
         <h2>No orders found!</h2>
       </div>
     );
