@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { CircleMinus, CirclePlus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -10,9 +9,8 @@ import { showNotification } from "../../utility/showNotifications";
 
 const ProductCard = ({ product, homeOrCart }) => {
   const { cart } = useSelector(cartSelector);
-
   const { userUid } = useSelector(userSelector);
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const handleAddToCart = async (product) => {
@@ -31,10 +29,12 @@ const ProductCard = ({ product, homeOrCart }) => {
 
       dispatch(cartActions.replaceOrders(updatedCart));
 
-      const usersCartsRef = collection(db, "usersCarts");
-      await setDoc(doc(usersCartsRef, userUid), {
-        cart: updatedCart,
-      });
+      if (userUid) {
+        const usersCartsRef = collection(db, "usersCarts");
+        await setDoc(doc(usersCartsRef, userUid), {
+          cart: updatedCart,
+        });
+      }
     } else {
       showNotification("Product Added Successfully!");
 
@@ -47,10 +47,12 @@ const ProductCard = ({ product, homeOrCart }) => {
 
       dispatch(cartActions.replaceOrders(updatedCart));
 
-      const usersCartsRef = collection(db, "usersCarts");
-      await setDoc(doc(usersCartsRef, userUid), {
-        cart: updatedCart,
-      });
+      if (userUid) {
+        const usersCartsRef = collection(db, "usersCarts");
+        await setDoc(doc(usersCartsRef, userUid), {
+          cart: updatedCart,
+        });
+      }
     }
   };
 
@@ -61,10 +63,12 @@ const ProductCard = ({ product, homeOrCart }) => {
 
     dispatch(cartActions.replaceOrders(updatedCart));
 
-    const usersCartsRef = collection(db, "usersCarts");
-    await setDoc(doc(usersCartsRef, userUid), {
-      cart: updatedCart,
-    });
+    if (userUid) {
+      const usersCartsRef = collection(db, "usersCarts");
+      await setDoc(doc(usersCartsRef, userUid), {
+        cart: updatedCart,
+      });
+    }
   };
 
   const incrementCartProductCount = async (product) => {
@@ -80,10 +84,12 @@ const ProductCard = ({ product, homeOrCart }) => {
 
     dispatch(cartActions.replaceOrders(updatedCart));
 
-    const usersCartsRef = collection(db, "usersCarts");
-    await setDoc(doc(usersCartsRef, userUid), {
-      cart: updatedCart,
-    });
+    if (userUid) {
+      const usersCartsRef = collection(db, "usersCarts");
+      await setDoc(doc(usersCartsRef, userUid), {
+        cart: updatedCart,
+      });
+    }
   };
 
   const decrementCartProductCount = async (product) => {
@@ -104,18 +110,15 @@ const ProductCard = ({ product, homeOrCart }) => {
 
     dispatch(cartActions.replaceOrders(updatedCart));
 
-    const usersCartsRef = collection(db, "usersCarts");
-    await setDoc(doc(usersCartsRef, userUid), {
-      cart: updatedCart,
-    });
+    if (userUid) {
+      const usersCartsRef = collection(db, "usersCarts");
+      await setDoc(doc(usersCartsRef, userUid), {
+        cart: updatedCart,
+      });
+    }
   };
 
   const handleAddOrRemoveProduct = (product) => {
-    if (!userUid) {
-      navigate("/signin");
-      return;
-    }
-
     if (homeOrCart === "home") {
       handleAddToCart(product);
     } else {

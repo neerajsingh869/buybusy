@@ -6,20 +6,27 @@ import {
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
 import { provider } from "../../configs/firebase";
 import googleLogo from "../../assets/google.png";
+import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
+import { updateCartAndSaveIntoDatabase } from "../../utility/updateCartAndSaveIntoDatabase";
 
 const Login = () => {
   const inputEmail = useRef();
   const inputPassword = useRef();
-  const dispatch = useDispatch();
+  
   const [loadingTraditional, setLoadingTraditional] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
+  
+  const { cart } = useSelector(cartSelector);
+  
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const theme = localStorage.getItem("theme");
 
   const auth = getAuth();
@@ -33,6 +40,9 @@ const Login = () => {
       const res = await signInWithPopup(auth, provider);
       navigate("/");
 
+      const updatedCart = await updateCartAndSaveIntoDatabase(res.user.uid, cart);
+
+      dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
 
       showNotification("User signed in successfully!");
@@ -57,6 +67,9 @@ const Login = () => {
       const res = await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
 
+      const updatedCart = await updateCartAndSaveIntoDatabase(res.user.uid, cart);
+
+      dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
 
       showNotification("User signed in successfully!");

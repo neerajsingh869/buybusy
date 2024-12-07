@@ -15,9 +15,10 @@ import { showNotification } from "../../utility/showNotifications";
 
 const Cart = () => {
   const { cart, loading } = useSelector(cartSelector);
-  const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
   const { orders } = useSelector(ordersSelector);
   const { userUid } = useSelector(userSelector);
+  
+  const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,6 +33,12 @@ const Cart = () => {
   };
 
   const purchaseProductsFromCart = async (cart) => {
+    if (!userUid) {
+      showNotification("Please Sign in or Sign up to purchase products.");
+      navigate("/signin");
+      return;
+    }
+
     showNotification("Orders Purchased Successfully!");
 
     const orderToPlace = {
@@ -55,7 +62,7 @@ const Cart = () => {
 
   if (loading) {
     return (
-      <div className="pageLoader">
+      <div className="pageLoader flex-1 flex items-center justify-center">
         <DotLoader
           color="#7064e5"
           size={70}
@@ -65,10 +72,10 @@ const Cart = () => {
       </div>
     );
   }
-
+  
   if (cart.length === 0) {
     return (
-      <div className="text-center text-xl m-4">
+      <div className="text-center text-xl m-4 dark:text-white">
         <h2>Cart is Empty!</h2>
       </div>
     );
