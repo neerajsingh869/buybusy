@@ -18,7 +18,7 @@ const Orders = () => {
   useEffect(() => {
     if (!hasRunEffect.current) {
       if (!userUid) {
-        showNotification("Please SignIn or SignUp to view your Orders.");
+        showNotification("Please Sign in or Sign up to view your Orders.");
         navigate("/signin");
       }
       hasRunEffect.current = true;
