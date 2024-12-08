@@ -16,6 +16,17 @@ Welcome to the buybusy project! It is an e-commerce app where users can browse p
   - Increase or decrease the quantity of items in the cart.
   - View the total price of items in the cart.
   - Remove items from the cart.
+- **Orders**: Purchase the cart items and create an order.
+- **Guest User**:
+  - Can browse all the products present on Home screen.
+  - Can filter products based on various criteria.
+  - Can search for specific products.
+  - Can add products to the cart.
+  - Can increase or decrease the quantity of items in the cart.
+  - Can view the total price of items in the cart.
+  - Can remove items from the cart.
+  - Can not purchase the cart items without sign up or sign in.
+  - Can not see the orders page without sign up or sign in.
 - **Notifications**: User notifications using react-hot-toast.
 - **Loading Indicators**: Loading spinners using react-spinners for a better user experience.
 
