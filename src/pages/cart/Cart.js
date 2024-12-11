@@ -83,7 +83,7 @@ const Cart = () => {
 
   return (
     <div>
-      <aside className="flex justify-center align-center flex-col h-40 rounded-xl align-center fixed w-48 bg-zinc-100 dark:bg-neutral-800 p-4 gap-8 top-1/3 -left-40 md:left-0 transition-all duration-500 hover:left-0 text-violet-600 border border-violet-600 dark:border-violet-400 dark:text-violet-400">
+      <aside className="flex justify-center align-center flex-col h-40 rounded-xl align-center fixed w-48 bg-zinc-100 dark:bg-neutral-800 p-4 gap-8 top-1/3 -left-40 md:left-0 transition-all duration-500 hover:left-0 text-violet-600 border border-violet-600 dark:border-violet-400 dark:text-violet-400 z-10">
         <h2 className="text-lg font-bold">Total Price:- {total}</h2>
         <button
           className="ease-in-out duration-300 h-9 text-lg rounded-md dark:text-black dark:hover:text-white text-white bg-violet-600 dark:bg-violet-400 border-violet-600 dark:border-violet-400 border-2 hover:text-violet-600  hover:bg-white dark:hover:bg-black mx-auto w-full"

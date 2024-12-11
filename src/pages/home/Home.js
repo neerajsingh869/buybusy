@@ -95,7 +95,7 @@ const Home = () => {
           <X className="cursor-pointer absolute right-2 top-3" onClick={() => setSearchInputState("")} />
         )}
       </form>
-      <aside className="fixed top-60 bg-zinc-100 dark:bg-neutral-800 rounded-lg text-center p-3 w-50 -left-52 md:left-0 transition-all duration-500 hover:left-0 text-violet-600 border border-violet-600 dark:border-violet-400 dark:text-violet-400">
+      <aside className="fixed top-60 bg-zinc-100 dark:bg-neutral-800 rounded-lg text-center p-3 w-60 -left-52 md:left-0 transition-all duration-500 hover:left-0 text-violet-600 border border-violet-600 dark:border-violet-400 dark:text-violet-400 z-10">
         <h2 className="text-xl font-bold my-4 text-violet-600 dark:text-violet-400">Filter</h2>
         <form>
           <label htmlFor="price" className="text-lg"> Price: {totalPrice}</label>
