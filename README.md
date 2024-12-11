@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+![BuyBusy App](./src/assets/readme-title.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+Welcome to the buybusy project! It is an e-commerce app where users can browse products, add them to the cart, and complete purchases. Users can manage cart items, filter and search for products, and sign in with email, password, or Google IDs. This application leverages various libraries and frameworks to provide a robust and user-friendly experience.
 
-Currently, two official plugins are available:
+## TODO
+- Project Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **User Authentication**: Sign-in/Sign-up with email and password or Google IDs.
+- **Product Browsing**: Users can browse through a variety of products.
+- **Product Filtering**: Filter products based on various criteria.
+- **Product Search**: Search for specific products.
+- **Cart Management**: 
+  - Add products to the cart.
+  - Increase or decrease the quantity of items in the cart.
+  - View the total price of items in the cart.
+  - Remove items from the cart.
+- **Orders**: Purchase the cart items and create an order.
+- **Guest User**:
+  - Can browse all the products present on Home screen.
+  - Can filter products based on various criteria.
+  - Can search for specific products.
+  - Can add products to the cart.
+  - Can increase or decrease the quantity of items in the cart.
+  - Can view the total price of items in the cart.
+  - Can remove items from the cart.
+  - Can not purchase the cart items without sign up or sign in.
+  - Can not see the orders page without sign up or sign in.
+- **Notifications**: User notifications using react-hot-toast.
+- **Loading Indicators**: Loading spinners using react-spinners for a better user experience.
 
-## Expanding the ESLint configuration
+## Libraries & Frameworks Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Core Libraries/Frameworks
+These libraries form the backbone of the application, providing essential functionality and structure.
 
-- Configure the top-level `parserOptions` property like this:
+- **[React](https://reactjs.org/)** - A JavaScript library for building user interfaces.
+- **[React Router](https://reactrouter.com/en/main)** - A library for managing navigation and routing in React applications
+- **[Redux](https://redux.js.org/)** - A predictable state container for JavaScript apps.
+- **[Redux Toolkit](https://redux-toolkit.js.org/)** - The official, opinionated, batteries-included toolset for efficient Redux development.
+- **[Firebase](https://firebase.google.com/)** - A platform developed by Google for creating mobile and web applications.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### UI/UX Enhancements
+These packages enhance the user interface and user experience of the application.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **[Tailwind CSS](https://tailwindcss.com/)** - A utility-first CSS framework for rapidly building custom user interfaces.
+- **[React Hot Toast](https://react-hot-toast.com/)** - Smoking hot notifications for React.
+- **[React Spinners](https://www.davidhu.io/react-spinners/)** - A collection of loading spinner components for React.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Getting Started
+To get started with this project, follow these steps:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Configure Firebase credentials.
+4. Start the development server using `npm run start`.
+
+## Contributing
+1. File an issue to notify about what you're working on (Optional, Mandatory only when working on big changes).
+2. Fork the repo, develop, and make code changes.
+3. Make sure that your commit messages clearly describe the changes.
+4. Send a pull request.
+
+## Issues
+Want to submit an [issue](https://github.com/neerajsingh869/BuyBusy/issues) to this project?
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
