@@ -6,7 +6,7 @@ export const showNotification = (message: string) => {
     style: {
       minWidth: "18rem",
       minHeight: "3.5rem",
-      marginTop: "2rem",
+      marginTop: "0.25rem",
     },
   });
 };
