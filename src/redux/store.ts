@@ -3,7 +3,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "./reducers/userReducer";
 import { ordersReducer } from "./reducers/ordersReducer";
 import { cartReducer } from "./reducers/cartReducer";
-import { loggerMiddleware } from "./middlewares/loggerMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +10,7 @@ export const store = configureStore({
     ordersReducer,
     cartReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(loggerMiddleware),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

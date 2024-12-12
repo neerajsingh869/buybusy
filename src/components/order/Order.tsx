@@ -1,4 +1,10 @@
-const Order = ({ order }) => {
+import { Order as OrderType } from "../../types";
+
+type Props = {
+  order: OrderType;
+}
+
+const Order = ({ order }: Props) => {
   return (
     <div className="mt-8 text-center">
       <p className="text-xl font-bold mb-4 text-violet-600 dark:text-violet-400">Ordered On:- {order.orderedOn}</p>

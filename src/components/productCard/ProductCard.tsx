@@ -1,26 +1,32 @@
 import { CircleMinus, CirclePlus } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 import { userSelector } from "../../redux/reducers/userReducer";
 import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
 import { db } from "../../configs/firebase";
 import { showNotification } from "../../utility/showNotifications";
+import { useAppDispatch, useAppSelector } from "../../hook";
+import { CartItem, Product } from "../../types";
 
-const ProductCard = ({ product, homeOrCart }) => {
-  const { cart } = useSelector(cartSelector);
-  const { userUid } = useSelector(userSelector);
+type Props = {
+  product: Product | CartItem;
+  homeOrCart: string;
+}
 
-  const dispatch = useDispatch();
+const ProductCard = ({ product, homeOrCart }: Props) => {
+  const { cart } = useAppSelector(cartSelector);
+  const { userUid } = useAppSelector(userSelector);
 
-  const handleAddToCart = async (product) => {
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = async (product: Product | CartItem) => {
     const isCartExists = cart.find((item) => item.id === product.id);
 
     if (isCartExists) {
       showNotification("Increase Product Count!");
 
       const updatedCart = cart.map((item) => {
-        let copiedObj = { ...item };
+        const copiedObj = { ...item };
         if (copiedObj.id === isCartExists.id) {
           copiedObj.qty = copiedObj.qty + 1;
         }
@@ -56,7 +62,7 @@ const ProductCard = ({ product, homeOrCart }) => {
     }
   };
 
-  const handleRemoveFromCart = async (product) => {
+  const handleRemoveFromCart = async (product: CartItem) => {
     showNotification("Product Removed Successfully!");
 
     const updatedCart = cart.filter((item) => item.id !== product.id);
@@ -71,11 +77,11 @@ const ProductCard = ({ product, homeOrCart }) => {
     }
   };
 
-  const incrementCartProductCount = async (product) => {
+  const incrementCartProductCount = async (product: CartItem) => {
     showNotification("Product Count Incremented!");
 
     const updatedCart = cart.map((item) => {
-      let copiedObj = { ...item };
+      const copiedObj = { ...item };
       if (copiedObj.id === product.id) {
         copiedObj.qty = copiedObj.qty + 1;
       }
@@ -92,7 +98,7 @@ const ProductCard = ({ product, homeOrCart }) => {
     }
   };
 
-  const decrementCartProductCount = async (product) => {
+  const decrementCartProductCount = async (product: CartItem) => {
     if (product.qty === 1) {
       handleRemoveFromCart(product);
       return;
@@ -101,7 +107,7 @@ const ProductCard = ({ product, homeOrCart }) => {
     showNotification("Product Count Decremented!");
 
     const updatedCart = cart.map((item) => {
-      let copiedObj = { ...item };
+      const copiedObj = { ...item };
       if (copiedObj.id === product.id) {
         copiedObj.qty = copiedObj.qty - 1;
       }
@@ -118,11 +124,11 @@ const ProductCard = ({ product, homeOrCart }) => {
     }
   };
 
-  const handleAddOrRemoveProduct = (product) => {
+  const handleAddOrRemoveProduct = (product: Product | CartItem) => {
     if (homeOrCart === "home") {
       handleAddToCart(product);
     } else {
-      handleRemoveFromCart(product);
+      handleRemoveFromCart(product as CartItem);
     }
   };
 
@@ -145,12 +151,12 @@ const ProductCard = ({ product, homeOrCart }) => {
           <div className="flex gap-2 items-center">
             <CircleMinus
               className="cursor-pointer"
-              onClick={() => decrementCartProductCount(product)}
+              onClick={() => decrementCartProductCount(product as CartItem)}
             />
-            <span>{product.qty}</span>
+            <span>{(product as CartItem).qty}</span>
             <CirclePlus
               className="cursor-pointer"
-              onClick={() => incrementCartProductCount(product)}
+              onClick={() => incrementCartProductCount(product as CartItem)}
             />
           </div>
         )}

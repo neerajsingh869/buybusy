@@ -1,11 +1,15 @@
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../configs/firebase";
 
+import { CartItem } from "../types";
+import { db } from "../configs/firebase";
 import { mergeCartItems } from "./mergeCartItems";
 
-export const updateCartAndSaveIntoDatabase = async (userUid, cart) => {
+export const updateCartAndSaveIntoDatabase = async (
+  userUid: string,
+  cart: CartItem[]
+): Promise<CartItem[]> => {
   // 1. Get cart items associated with userUid from database
-  let dbCartItems = [];
+  let dbCartItems: CartItem[] = [];
   const docRef = doc(db, "usersCarts", userUid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
@@ -16,7 +20,7 @@ export const updateCartAndSaveIntoDatabase = async (userUid, cart) => {
   const guestCartItems = cart;
 
   // 3. Get updated cart items after merging guest and db cart items
-  let updatedCartItems = mergeCartItems(guestCartItems, dbCartItems);
+  const updatedCartItems = mergeCartItems(guestCartItems, dbCartItems);
 
   // 4. Store updated cart items into database against logged in user id
   const usersCartsRef = collection(db, "usersCarts");

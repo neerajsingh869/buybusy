@@ -6,7 +6,6 @@ import {
   Route,
 } from "react-router-dom";
 import { Suspense, lazy, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import Navbar from "./components/nav/Navbar";
@@ -20,6 +19,7 @@ import { getInitialOrdersAsync } from "./redux/reducers/ordersReducer";
 import { getInitialCartAsync } from "./redux/reducers/cartReducer";
 import NonPrivateRoute from "./components/secure/NonPrivateRoute";
 import Loader from "./components/loader/Loader";
+import { useAppDispatch, useAppSelector } from "./hook";
 
 const Cart = lazy(() => import("./pages/cart/Cart"));
 
@@ -69,8 +69,8 @@ function Init() {
   // representation of authenticated user
   const auth = getAuth();
 
-  const dispatch = useDispatch();
-  const { userUid } = useSelector(userSelector);
+  const dispatch = useAppDispatch();
+  const { userUid } = useAppSelector(userSelector);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -95,6 +95,8 @@ function Init() {
 
     fetchData();
   }, [userUid, dispatch]);
+
+  return <></>;
 }
 
 export default App;

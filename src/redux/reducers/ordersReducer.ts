@@ -1,16 +1,28 @@
-import { createAsyncThunk, createDraftSafeSelector, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createDraftSafeSelector,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../../configs/firebase";
+import { Order } from "../../types";
+import { RootState } from "../store";
 
-const INITIAL_STATE = {
+interface OrdersState {
+  orders: Order[];
+  loading: boolean;
+}
+
+const INITIAL_STATE: OrdersState = {
   orders: [],
   loading: true,
 };
 
 export const getInitialOrdersAsync = createAsyncThunk(
   "orders/getInitialOrders",
-  async (userUid) => {
+  async (userUid: string | null | undefined): Promise<Order[]> => {
     if (!userUid) {
       return [];
     }
@@ -30,10 +42,10 @@ const ordersSlice = createSlice({
   name: "orders",
   initialState: INITIAL_STATE,
   reducers: {
-    replaceOrders: (state, action) => {
+    replaceOrders: (state, action: PayloadAction<Order[]>) => {
       state.orders = action.payload;
     },
-    updateLoadingStatus: (state, action) => {
+    updateLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
   },
@@ -48,4 +60,7 @@ const ordersSlice = createSlice({
 export const ordersReducer = ordersSlice.reducer;
 export const ordersActions = ordersSlice.actions;
 // export const ordersSelector = (state) => state.ordersReducer;
-export const ordersSelector = createDraftSafeSelector((state) => state, (state) => state.ordersReducer);
+export const ordersSelector = createDraftSafeSelector(
+  (state: RootState) => state,
+  (state: RootState) => state.ordersReducer
+);

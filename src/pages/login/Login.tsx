@@ -1,12 +1,11 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
-  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   getAuth,
   signInWithPopup,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import { useDispatch, useSelector } from "react-redux";
 
 import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
@@ -14,24 +13,25 @@ import { provider } from "../../configs/firebase";
 import googleLogo from "../../assets/google.png";
 import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
 import { updateCartAndSaveIntoDatabase } from "../../utility/updateCartAndSaveIntoDatabase";
+import { useAppDispatch, useAppSelector } from "../../hook";
 
-const Register = () => {
-  const inputEmail = useRef();
-  const inputPassword = useRef();
+const Login = () => {
+  const inputEmail = useRef<HTMLInputElement>(null);
+  const inputPassword = useRef<HTMLInputElement>(null);
   
   const [loadingTraditional, setLoadingTraditional] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-
-  const dispatch = useDispatch();
+  
+  const { cart } = useAppSelector(cartSelector);
+  
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
   const theme = localStorage.getItem("theme");
 
-  const { cart } = useSelector(cartSelector);
-
   const auth = getAuth();
 
-  const signInWithGoogle = async (e) => {
+  const signInWithGoogle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     setLoadingGoogle(true);
@@ -46,8 +46,12 @@ const Register = () => {
       dispatch(userActions.updateUserUid(res.user.uid));
 
       showNotification("User signed in successfully!");
-    } catch (err) {
-      showNotification(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        showNotification(err.message);
+      } else {
+        showNotification("An unknown error occurred.")
+      }
 
       dispatch(userActions.updateUserUid(null));
     } finally {
@@ -55,16 +59,16 @@ const Register = () => {
     }
   };
 
-  const handleSignUp = async (e) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setLoadingTraditional(true);
 
     try {
-      const email = inputEmail.current.value;
-      const password = inputPassword.current.value;
+      const email = inputEmail.current ? inputEmail.current.value : "";
+      const password = inputPassword.current ? inputPassword.current.value : "";
 
-      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const res = await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
 
       const updatedCart = await updateCartAndSaveIntoDatabase(res.user.uid, cart);
@@ -72,9 +76,13 @@ const Register = () => {
       dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
 
-      showNotification("User signed up successfully!");
-    } catch (err) {
-      showNotification(err.message);
+      showNotification("User signed in successfully!");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        showNotification(err.message);
+      } else {
+        showNotification("An unknown error occurred.")
+      }
 
       dispatch(userActions.updateUserUid(null));
     } finally {
@@ -85,9 +93,9 @@ const Register = () => {
   return (
     <>
       <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-        <form className="w-80 flex flex-col p-4 gap-4" onSubmit={handleSignUp}>
+        <form className="w-80 flex flex-col p-4 gap-4" onSubmit={handleSignIn}>
           <h2 className="text-dark dark:text-white font-extrabold text-4xl my-4">
-            Sign Up
+            Sign In
           </h2>
           <input
             className="border border-solid border-violet-600 outline-none h-12 rounded-lg p-3 text-lg"
@@ -110,7 +118,7 @@ const Register = () => {
                 data-testid="loader"
               />
             ) : (
-              "Sign Up"
+              "Sign In"
             )}
           </button>
           <div className="flex justify-center align-center">
@@ -134,7 +142,7 @@ const Register = () => {
               <div
                 style={{
                   display: "flex",
-                  alignItem: "center",
+                  alignItems: "center",
                   justifyContent: "center",
                 }}
               >
@@ -151,10 +159,16 @@ const Register = () => {
               </div>
             )}
           </button>
+          <Link
+            className="no-underline font-bold text-dark dark:text-white"
+            to="/signup"
+          >
+            Or SignUp instead
+          </Link>
         </form>
       </div>
     </>
   );
 };
 
-export default Register;
+export default Login;

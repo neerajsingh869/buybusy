@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
 import { DotLoader } from "react-spinners";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Order from "../../components/order/Order";
 import { ordersSelector } from "../../redux/reducers/ordersReducer";
 import { userSelector } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
+import { useAppSelector } from "../../hook";
 
 const Orders = () => {
-  const { orders, loading } = useSelector(ordersSelector);
-  const { userUid } = useSelector(userSelector);
+  const { orders, loading } = useAppSelector(ordersSelector);
+  const { userUid } = useAppSelector(userSelector);
 
   const navigate = useNavigate();
   const hasRunEffect = useRef(false);

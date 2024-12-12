@@ -1,6 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { signOut, getAuth } from "firebase/auth";
-import { useDispatch } from "react-redux";
 import { Menu, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -8,15 +7,16 @@ import { userActions } from "../../redux/reducers/userReducer";
 import { showNotification } from "../../utility/showNotifications";
 import MobileNavbar from "./MobileNavbar";
 import MenuItems from "./MenuItems";
+import { useAppDispatch } from "../../hook";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
-    const updateTheme = (theme) => {
+    const updateTheme = (theme: string) => {
       localStorage.setItem("theme", theme);
 
       if (theme === "dark") {
@@ -50,8 +50,12 @@ const Navbar = () => {
       await signOut(auth);
 
       showNotification("User signed out successfully!");
-    } catch (err) {
-      showNotification(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        showNotification(err.message);
+      } else {
+        showNotification("An unknown error occurred.")
+      }
     } finally {
       dispatch(userActions.updateUserUid(null));
     }

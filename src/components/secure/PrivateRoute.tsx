@@ -1,10 +1,14 @@
 import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import { userSelector } from "../../redux/reducers/userReducer";
+import { useAppSelector } from "../../hook";
 
-const PrivateRoute = ({ children }) => {
-  const { userUid } = useSelector(userSelector);
+type Props = {
+  children: React.ReactNode;
+}
+
+const PrivateRoute = ({ children }: Props) => {
+  const { userUid } = useAppSelector(userSelector);
 
   if (!userUid) return <Navigate to="/" replace={true} />;
 

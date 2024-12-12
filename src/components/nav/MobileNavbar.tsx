@@ -1,7 +1,12 @@
 import { X } from "lucide-react";
 import MenuItems from "./MenuItems";
 
-const MobileNavbar = ({ setIsSidebarVisible, signOutUser }) => {
+type Props = {
+  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  signOutUser: () => Promise<void>;
+}
+
+const MobileNavbar = ({ setIsSidebarVisible, signOutUser }: Props) => {
   return (
     <div>
       <div

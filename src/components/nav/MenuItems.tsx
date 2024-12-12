@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import cartImage from "../../assets/cart.png";
@@ -7,9 +6,15 @@ import logoutImage from "../../assets/logout.png";
 import ordersImage from "../../assets/orders.png";
 import signinImage from "../../assets/signin.png";
 import { userSelector } from "../../redux/reducers/userReducer";
+import { useAppSelector } from "../../hook";
 
-const MenuItems = ({ setIsSidebarVisible, signOutUser }) => {
-  const { userUid } = useSelector(userSelector);
+type Props = {
+  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  signOutUser: () => Promise<void>;
+}
+
+const MenuItems = ({ setIsSidebarVisible, signOutUser }: Props) => {
+  const { userUid } = useAppSelector(userSelector);
 
   return (
     <>

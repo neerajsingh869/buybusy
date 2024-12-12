@@ -5,21 +5,22 @@ import { X } from "lucide-react";
 import ProductCard from "../../components/productCard/ProductCard";
 import { db } from "../../configs/firebase";
 import Loader from "../../components/loader/Loader";
+import { Product } from "../../types";
 
 const Home = () => {
-  const [productsData, setProductsData] = useState([]);
-  const [searchInputState, setSearchInputState] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [productsData, setProductsData] = useState<Product[]>([]);
+  const [searchInputState, setSearchInputState] = useState<string>("");
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [categoryFilters, setCategoryFilters] = useState([]);
+  const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "products"));
 
       const querySnapshot = await getDocs(q);
-      const data = [];
+      const data: Product[] = [];
 
       querySnapshot.forEach((doc) => {
         const currentData = {
@@ -27,7 +28,7 @@ const Home = () => {
           ...doc.data(),
         };
 
-        data.push(currentData);
+        data.push(currentData as Product);
       });
 
       setProductsData(data);
@@ -61,7 +62,7 @@ const Home = () => {
     setFilteredProducts(filteredByPrice);
   }, [searchInputState, totalPrice, productsData, categoryFilters]);
 
-  const handleCategoryFilterChange = (category) => {
+  const handleCategoryFilterChange = (category: string) => {
     const updatedFilters = [...categoryFilters];
 
     if (updatedFilters.includes(category)) {

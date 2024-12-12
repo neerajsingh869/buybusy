@@ -1,16 +1,28 @@
-import { createAsyncThunk, createDraftSafeSelector, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createDraftSafeSelector,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "../../configs/firebase";
+import { CartItem } from "../../types";
+import { RootState } from "../store";
 
-const INITIAL_STATE = {
+interface CartState {
+  cart: CartItem[];
+  loading: boolean;
+}
+
+const INITIAL_STATE: CartState = {
   cart: [],
   loading: true,
 };
 
 export const getInitialCartAsync = createAsyncThunk(
   "cart/getInitialOrders",
-  async (userUid) => {
+  async (userUid: string | null | undefined): Promise<CartItem[]> => {
     if (!userUid) {
       return [];
     }
@@ -30,10 +42,10 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: INITIAL_STATE,
   reducers: {
-    reset: (state, action) => {
+    reset: (state) => {
       state.cart = [];
     },
-    replaceOrders: (state, action) => {
+    replaceOrders: (state, action: PayloadAction<CartItem[]>) => {
       state.cart = action.payload;
     },
   },
@@ -48,4 +60,7 @@ const cartSlice = createSlice({
 export const cartReducer = cartSlice.reducer;
 export const cartActions = cartSlice.actions;
 // export const cartSelector = (state) => state.cartReducer;
-export const cartSelector = createDraftSafeSelector((state) => state, (state) => state.cartReducer);
+export const cartSelector = createDraftSafeSelector(
+  (state: RootState) => state,
+  (state: RootState) => state.cartReducer
+);
