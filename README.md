@@ -7,28 +7,19 @@ Welcome to the buybusy project! It is an e-commerce app where users can browse p
 - Project Demo
 
 ## Features
-- **User Authentication**: Sign-in/Sign-up with email and password or Google IDs.
-- **Product Browsing**: Users can browse through a variety of products.
-- **Product Filtering**: Filter products based on various criteria.
-- **Product Search**: Search for specific products.
-- **Cart Management**: 
-  - Add products to the cart.
-  - Increase or decrease the quantity of items in the cart.
-  - View the total price of items in the cart.
-  - Remove items from the cart.
-- **Orders**: Purchase the cart items and create an order.
-- **Guest User**:
-  - Can browse all the products present on Home screen.
-  - Can filter products based on various criteria.
-  - Can search for specific products.
-  - Can add products to the cart.
-  - Can increase or decrease the quantity of items in the cart.
-  - Can view the total price of items in the cart.
-  - Can remove items from the cart.
-  - Can not purchase the cart items without sign up or sign in.
-  - Can not see the orders page without sign up or sign in.
-- **Notifications**: User notifications using react-hot-toast.
-- **Loading Indicators**: Loading spinners using react-spinners for a better user experience.
+- **For All Users**
+
+    - Browse products with advanced filtering and search
+    - Cart management (add, remove, adjust quantities)
+    - Real-time price calculations
+    - Responsive design for all devices
+    - Notifications and Loading spinners for better UX
+
+- **For Authenticated Users**
+
+    - Sign in/Sign up with email/password or Google
+    - Purchase cart items
+    - View order history
 
 ## Libraries & Frameworks Used
 
