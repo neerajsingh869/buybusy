@@ -1,12 +1,12 @@
 import { CircleMinus, CirclePlus } from "lucide-react";
 import { collection, doc, setDoc } from "firebase/firestore";
 
-import { userSelector } from "../../redux/reducers/userReducer";
-import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
-import { db } from "../../configs/firebase";
-import { showNotification } from "../../utility/showNotifications";
-import { useAppDispatch, useAppSelector } from "../../hook";
-import { CartItem, Product } from "../../types";
+import { userSelector } from "../redux/slices/userSlice";
+import { cartActions, cartSelector } from "../redux/slices/cartSlice";
+import { db } from "../configs/firebase";
+import { showNotification } from "../utility/showNotifications";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { CartItem, Product } from "../types";
 
 type Props = {
   product: Product | CartItem;

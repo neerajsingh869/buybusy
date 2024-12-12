@@ -2,17 +2,17 @@ import { useNavigate } from "react-router-dom";
 import { DotLoader } from "react-spinners";
 import { collection, doc, setDoc } from "firebase/firestore";
 
-import ProductCard from "../../components/productCard/ProductCard";
-import { db } from "../../configs/firebase";
-import { userSelector } from "../../redux/reducers/userReducer";
+import ProductCard from "../components/ProductCard";
+import { db } from "../configs/firebase";
+import { userSelector } from "../redux/slices/userSlice";
 import {
   ordersActions,
   ordersSelector,
-} from "../../redux/reducers/ordersReducer";
-import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
-import { showNotification } from "../../utility/showNotifications";
-import { useAppDispatch, useAppSelector } from "../../hook";
-import { CartItem } from "../../types";
+} from "../redux/slices/ordersSlice";
+import { cartActions, cartSelector } from "../redux/slices/cartSlice";
+import { showNotification } from "../utility/showNotifications";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { CartItem } from "../types";
 
 const Cart = () => {
   const { cart, loading } = useAppSelector(cartSelector);

@@ -8,20 +8,20 @@ import {
 import { Suspense, lazy, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import Navbar from "./components/nav/Navbar";
-import Page404 from "./pages/error/Page404";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
-import Orders from "./pages/orders/Orders";
-import { userActions, userSelector } from "./redux/reducers/userReducer";
-import { getInitialOrdersAsync } from "./redux/reducers/ordersReducer";
-import { getInitialCartAsync } from "./redux/reducers/cartReducer";
-import NonPrivateRoute from "./components/secure/NonPrivateRoute";
-import Loader from "./components/loader/Loader";
+import Navbar from "./components/Navbar";
+import Page404 from "./pages/Page404";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Orders from "./pages/Orders";
+import { userActions, userSelector } from "./redux/slices/userSlice";
+import { getInitialOrdersAsync } from "./redux/slices/ordersSlice";
+import { getInitialCartAsync } from "./redux/slices/cartSlice";
+import NonPrivateRoute from "./components/NonPrivateRoute";
+import Loader from "./components/Loader";
 import { useAppDispatch, useAppSelector } from "./hook";
 
-const Cart = lazy(() => import("./pages/cart/Cart"));
+const Cart = lazy(() => import("./pages/Cart"));
 
 function App() {
   const routes = createRoutesFromElements(

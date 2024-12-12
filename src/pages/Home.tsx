@@ -2,10 +2,10 @@ import { collection, query, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
-import ProductCard from "../../components/productCard/ProductCard";
-import { db } from "../../configs/firebase";
-import Loader from "../../components/loader/Loader";
-import { Product } from "../../types";
+import ProductCard from "../components/ProductCard";
+import { db } from "../configs/firebase";
+import Loader from "../components/Loader";
+import { Product } from "../types";
 
 const Home = () => {
   const [productsData, setProductsData] = useState<Product[]>([]);

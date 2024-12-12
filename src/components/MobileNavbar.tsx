@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+
 import MenuItems from "./MenuItems";
 
 type Props = {

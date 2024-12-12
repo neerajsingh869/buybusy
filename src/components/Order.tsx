@@ -1,4 +1,4 @@
-import { Order as OrderType } from "../../types";
+import { Order as OrderType } from "../types";
 
 type Props = {
   order: OrderType;

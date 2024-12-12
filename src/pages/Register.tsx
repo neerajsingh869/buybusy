@@ -7,13 +7,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 
-import { userActions } from "../../redux/reducers/userReducer";
-import { showNotification } from "../../utility/showNotifications";
-import { provider } from "../../configs/firebase";
-import googleLogo from "../../assets/google.png";
-import { cartActions, cartSelector } from "../../redux/reducers/cartReducer";
-import { updateCartAndSaveIntoDatabase } from "../../utility/updateCartAndSaveIntoDatabase";
-import { useAppDispatch, useAppSelector } from "../../hook";
+import { userActions } from "../redux/slices/userSlice";
+import { showNotification } from "../utility/showNotifications";
+import { provider } from "../configs/firebase";
+import googleLogo from "../assets/google.png";
+import { cartActions, cartSelector } from "../redux/slices/cartSlice";
+import { updateCartAndSaveIntoDatabase } from "../utility/updateCartAndSaveIntoDatabase";
+import { useAppDispatch, useAppSelector } from "../hook";
 
 const Register = () => {
   const inputEmail = useRef<HTMLInputElement>(null);

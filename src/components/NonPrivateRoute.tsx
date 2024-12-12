@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
-import { userSelector } from "../../redux/reducers/userReducer";
-import { useAppSelector } from "../../hook";
+import { userSelector } from "../redux/slices/userSlice";
+import { useAppSelector } from "../hook";
 
 type Props = {
   children: React.ReactNode;

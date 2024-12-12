@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 import { DotLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
-import Order from "../../components/order/Order";
-import { ordersSelector } from "../../redux/reducers/ordersReducer";
-import { userSelector } from "../../redux/reducers/userReducer";
-import { showNotification } from "../../utility/showNotifications";
-import { useAppSelector } from "../../hook";
+import Order from "../components/Order";
+import { ordersSelector } from "../redux/slices/ordersSlice";
+import { userSelector } from "../redux/slices/userSlice";
+import { showNotification } from "../utility/showNotifications";
+import { useAppSelector } from "../hook";
 
 const Orders = () => {
   const { orders, loading } = useAppSelector(ordersSelector);

@@ -3,11 +3,11 @@ import { signOut, getAuth } from "firebase/auth";
 import { Menu, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { userActions } from "../../redux/reducers/userReducer";
-import { showNotification } from "../../utility/showNotifications";
+import { userActions } from "../redux/slices/userSlice";
+import { showNotification } from "../utility/showNotifications";
 import MobileNavbar from "./MobileNavbar";
 import MenuItems from "./MenuItems";
-import { useAppDispatch } from "../../hook";
+import { useAppDispatch } from "../hook";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();

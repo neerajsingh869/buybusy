@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 
-import cartImage from "../../assets/cart.png";
-import homeImage from "../../assets/home.png";
-import logoutImage from "../../assets/logout.png";
-import ordersImage from "../../assets/orders.png";
-import signinImage from "../../assets/signin.png";
-import { userSelector } from "../../redux/reducers/userReducer";
-import { useAppSelector } from "../../hook";
+import cartImage from "../assets/cart.png";
+import homeImage from "../assets/home.png";
+import logoutImage from "../assets/logout.png";
+import ordersImage from "../assets/orders.png";
+import signinImage from "../assets/signin.png";
+import { userSelector } from "../redux/slices/userSlice";
+import { useAppSelector } from "../hook";
 
 type Props = {
   setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
