@@ -185,7 +185,7 @@ const Home = () => {
                 />
               );
             })
-          : [...Array(20)].map((_, index) => (
+          : [...Array(15)].map((_, index) => (
               <ProductCardSkeleton key={index} homeOrCart="home" />
             ))}
       </div>
