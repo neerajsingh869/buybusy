@@ -11,7 +11,7 @@ import { CartItem, Product } from "../types";
 type Props = {
   product: Product | CartItem;
   homeOrCart: string;
-}
+};
 
 const ProductCard = ({ product, homeOrCart }: Props) => {
   const { cart } = useAppSelector(cartSelector);
@@ -135,7 +135,7 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
   return (
     <div
       key={product.id}
-      className="flex flex-col justify-between gap-4 p-4 xl:p-8 rounded-xl shadow-xl min-w-56 dark:bg-neutral-800"
+      className="flex flex-col justify-between gap-4 p-4 xl:p-6 rounded-xl shadow-xl min-w-56 dark:bg-neutral-800"
     >
       <div className="h-56">
         <img
