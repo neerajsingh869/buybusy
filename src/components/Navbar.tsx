@@ -8,16 +8,22 @@ import { showNotification } from "../utility/showNotifications";
 import MobileNavbar from "./MobileNavbar";
 import MenuItems from "./MenuItems";
 import { useAppDispatch } from "../hook";
+import { Theme } from "../types";
+import { getValidTheme } from "../utility/getValidTheme";
+import { LIGHT_THEME, THEME_NAME } from "../constants";
+import { ThemeContext } from "../contexts/themeContext";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState<Theme>(
+    getValidTheme(localStorage.getItem(THEME_NAME)) || LIGHT_THEME
+  );
 
   useEffect(() => {
     const updateTheme = (theme: string) => {
-      localStorage.setItem("theme", theme);
+      localStorage.setItem(THEME_NAME, theme);
 
       if (theme === "dark") {
         document.documentElement.classList.remove("light");
@@ -54,7 +60,7 @@ const Navbar = () => {
       if (err instanceof Error) {
         showNotification(err.message);
       } else {
-        showNotification("An unknown error occurred.")
+        showNotification("An unknown error occurred.");
       }
     } finally {
       dispatch(userActions.updateUserUid(null));
@@ -95,7 +101,9 @@ const Navbar = () => {
           signOutUser={signOutUser}
         />
       )}
-      <Outlet />
+      <ThemeContext.Provider value={theme}>
+        <Outlet />
+      </ThemeContext.Provider>
     </div>
   );
 };

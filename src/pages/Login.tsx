@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -14,20 +14,22 @@ import googleLogo from "../assets/google.png";
 import { cartActions, cartSelector } from "../redux/slices/cartSlice";
 import { updateCartAndSaveIntoDatabase } from "../utility/updateCartAndSaveIntoDatabase";
 import { useAppDispatch, useAppSelector } from "../hook";
+import { DARK_THEME } from "../constants";
+import { ThemeContext } from "../contexts/themeContext";
 
 const Login = () => {
   const inputEmail = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
-  
+
   const [loadingTraditional, setLoadingTraditional] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  
+
   const { cart } = useAppSelector(cartSelector);
-  
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  
-  const theme = localStorage.getItem("theme");
+
+  const theme = useContext(ThemeContext);
 
   const auth = getAuth();
 
@@ -40,7 +42,10 @@ const Login = () => {
       const res = await signInWithPopup(auth, provider);
       navigate("/");
 
-      const updatedCart = await updateCartAndSaveIntoDatabase(res.user.uid, cart);
+      const updatedCart = await updateCartAndSaveIntoDatabase(
+        res.user.uid,
+        cart
+      );
 
       dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
@@ -50,7 +55,7 @@ const Login = () => {
       if (err instanceof Error) {
         showNotification(err.message);
       } else {
-        showNotification("An unknown error occurred.")
+        showNotification("An unknown error occurred.");
       }
 
       dispatch(userActions.updateUserUid(null));
@@ -71,7 +76,10 @@ const Login = () => {
       const res = await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
 
-      const updatedCart = await updateCartAndSaveIntoDatabase(res.user.uid, cart);
+      const updatedCart = await updateCartAndSaveIntoDatabase(
+        res.user.uid,
+        cart
+      );
 
       dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
@@ -81,7 +89,7 @@ const Login = () => {
       if (err instanceof Error) {
         showNotification(err.message);
       } else {
-        showNotification("An unknown error occurred.")
+        showNotification("An unknown error occurred.");
       }
 
       dispatch(userActions.updateUserUid(null));
@@ -112,7 +120,7 @@ const Login = () => {
           <button className="h-12 rounded-xl text-lg shadow-md dark:text-black dark:hover:text-white text-white bg-violet-600 dark:bg-violet-400 border-violet-600 dark:border-violet-400 border-2 cursor-pointer transition-all hover:text-violet-600  hover:bg-white dark:hover:bg-black">
             {loadingTraditional ? (
               <BeatLoader
-                color={theme === "dark" ? "white" : "black"}
+                color={theme === DARK_THEME ? "white" : "black"}
                 size={10}
                 aria-label="Loading Spinner"
                 data-testid="loader"
@@ -133,7 +141,7 @@ const Login = () => {
           >
             {loadingGoogle ? (
               <BeatLoader
-                color={theme === "dark" ? "white" : "black"}
+                color={theme === DARK_THEME ? "white" : "black"}
                 size={10}
                 aria-label="Loading Spinner"
                 data-testid="loader"
