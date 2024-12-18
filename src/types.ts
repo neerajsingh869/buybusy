@@ -30,3 +30,5 @@ export interface FirebaseConfig {
 }
 
 export type UserId = null | undefined | string;
+
+export type Theme = "light" | "dark";
