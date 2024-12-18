@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { DotLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
 import Order from "../components/Order";
@@ -7,6 +6,7 @@ import { ordersSelector } from "../redux/slices/ordersSlice";
 import { userSelector } from "../redux/slices/userSlice";
 import { showNotification } from "../utility/showNotifications";
 import { useAppSelector } from "../hook";
+import OrderSkeleton from "../components/OrderSkeleton";
 
 const Orders = () => {
   const { orders, loading } = useAppSelector(ordersSelector);
@@ -25,19 +25,6 @@ const Orders = () => {
     }
   }, [userUid, navigate]);
 
-  if (loading) {
-    return (
-      <div className="pageLoader flex-1 flex items-center justify-center">
-        <DotLoader
-          color="#7064e5"
-          size={70}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      </div>
-    );
-  }
-
   if (orders.length === 0) {
     return (
       <div className="m-4 text-xl text-center dark:text-white">
@@ -47,11 +34,13 @@ const Orders = () => {
   }
 
   return (
-    <div className="p-8 flex justify-start items-center flex-col">
+    <div className="p-4 sm:p-8 flex justify-start items-center flex-col">
       <h1 className="text-2xl font-bold dark:text-white">Your Orders</h1>
-      {orders.map((order) => {
-        return <Order key={order.id} order={order} />;
-      })}
+      {!loading
+        ? orders.map((order) => {
+            return <Order key={order.id} order={order} />;
+          })
+        : [...Array(5)].map((_, index) => <OrderSkeleton key={index} />)}
     </div>
   );
 };

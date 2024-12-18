@@ -1,24 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { DotLoader } from "react-spinners";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 import ProductCard from "../components/ProductCard";
 import { db } from "../configs/firebase";
 import { userSelector } from "../redux/slices/userSlice";
-import {
-  ordersActions,
-  ordersSelector,
-} from "../redux/slices/ordersSlice";
+import { ordersActions, ordersSelector } from "../redux/slices/ordersSlice";
 import { cartActions, cartSelector } from "../redux/slices/cartSlice";
 import { showNotification } from "../utility/showNotifications";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { CartItem } from "../types";
+import ProductCardSkeleton from "../components/ProductCardSkeleton";
 
 const Cart = () => {
   const { cart, loading } = useAppSelector(cartSelector);
   const { orders } = useAppSelector(ordersSelector);
   const { userUid } = useAppSelector(userSelector);
-  
+
   const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
 
   const navigate = useNavigate();
@@ -28,7 +25,7 @@ const Cart = () => {
     dispatch(cartActions.reset());
 
     const usersCartsRef = collection(db, "usersCarts");
-    await setDoc(doc(usersCartsRef, userUid as (string | undefined)), {
+    await setDoc(doc(usersCartsRef, userUid as string | undefined), {
       cart: [],
     });
   };
@@ -61,19 +58,6 @@ const Cart = () => {
     resetCartPage();
   };
 
-  if (loading) {
-    return (
-      <div className="pageLoader flex-1 flex items-center justify-center">
-        <DotLoader
-          color="#7064e5"
-          size={70}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      </div>
-    );
-  }
-  
   if (cart.length === 0) {
     return (
       <div className="text-center text-xl m-4 dark:text-white">
@@ -99,11 +83,19 @@ const Cart = () => {
         </button>
       </aside>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 ml-16 md:ml-56 py-9 pr-4">
-        {cart.map((product: CartItem) => {
-          return (
-            <ProductCard key={product.id} product={product} homeOrCart="cart" />
-          );
-        })}
+        {!loading
+          ? cart.map((product: CartItem) => {
+              return (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  homeOrCart="cart"
+                />
+              );
+            })
+          : [...Array(15)].map((_, index) => (
+              <ProductCardSkeleton key={index} homeOrCart="cart" />
+            ))}
       </div>
     </div>
   );
