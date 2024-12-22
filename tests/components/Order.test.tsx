@@ -1,9 +1,10 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
 import { screen, render, within } from "@testing-library/react";
-import { Order as OrderType } from "../../src/types";
-import Order from "../../src/components/Order";
 import "@testing-library/jest-dom";
+
+import Order from "../../src/components/Order";
+import { Order as OrderType } from "../../src/types";
 
 // Create mock data for an Order
 const mockOrder: OrderType = {
