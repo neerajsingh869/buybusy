@@ -62,8 +62,7 @@ describe("Order", () => {
     render(<Order order={mockOrder} />);
 
     const orderTable = screen.getByRole("table");
-    const orderTableGroup =
-      within(orderTable).getAllByRole("rowgroup");
+    const orderTableGroup = within(orderTable).getAllByRole("rowgroup");
 
     expect(orderTableGroup).toHaveLength(3);
   });
@@ -72,8 +71,7 @@ describe("Order", () => {
     render(<Order order={mockOrder} />);
 
     const orderTable = screen.getByRole("table");
-    const orderTableHeader =
-      within(orderTable).getAllByRole("columnheader");
+    const orderTableHeader = within(orderTable).getAllByRole("columnheader");
 
     expect(orderTableHeader).toHaveLength(4);
     expect(orderTableHeader[0].textContent).toBe("Title");
@@ -87,50 +85,39 @@ describe("Order", () => {
 
     const orderTable = screen.getByRole("table");
 
-    const orderTableGroup =
-      within(orderTable).getAllByRole("rowgroup");
+    const orderTableGroup = within(orderTable).getAllByRole("rowgroup");
     const orderTableBody = orderTableGroup[1];
-    const orderTableBodyRows = within(
-      orderTableBody
-    ).getAllByRole("row");
+    const orderTableBodyRows = within(orderTableBody).getAllByRole("row");
 
     expect(orderTableBodyRows).toHaveLength(mockOrder.products.length);
 
-    orderTableBodyRows.forEach(
-      (productRow: HTMLElement, index: number) => {
-        const productRowColumns = within(productRow).getAllByRole("cell");
+    orderTableBodyRows.forEach((productRow: HTMLElement, index: number) => {
+      const productRowColumns = within(productRow).getAllByRole("cell");
 
-        expect(productRowColumns).toHaveLength(4);
-
-        expect(productRowColumns[0].textContent).toBe(
-          `${mockOrder.products[index].title}`
-        );
-        expect(productRowColumns[1].textContent).toBe(
-          `₹ ${mockOrder.products[index].price}`
-        );
-        expect(productRowColumns[2].textContent).toBe(
-          `${mockOrder.products[index].qty}`
-        );
-        expect(productRowColumns[3].textContent).toBe(
-          `₹ ${mockOrder.products[index].price * mockOrder.products[index].qty}`
-        );
-      }
-    );
+      expect(productRowColumns).toHaveLength(4);
+      expect(productRowColumns[0].textContent).toBe(
+        `${mockOrder.products[index].title}`
+      );
+      expect(productRowColumns[1].textContent).toBe(
+        `₹ ${mockOrder.products[index].price}`
+      );
+      expect(productRowColumns[2].textContent).toBe(
+        `${mockOrder.products[index].qty}`
+      );
+      expect(productRowColumns[3].textContent).toBe(
+        `₹ ${mockOrder.products[index].price * mockOrder.products[index].qty}`
+      );
+    });
   });
 
   it("should show total price of order in table footer section", () => {
     render(<Order order={mockOrder} />);
 
     const orderTable = screen.getByRole("table");
-    const orderTableGroup =
-      within(orderTable).getAllByRole("rowgroup");
-    const orderTableFooterRow = within(
-      orderTableGroup[2]
-    ).getByRole("row");
+    const orderTableGroup = within(orderTable).getAllByRole("rowgroup");
+    const orderTableFooterRow = within(orderTableGroup[2]).getByRole("row");
 
     expect(orderTableFooterRow).toBeInTheDocument();
-    expect(orderTableFooterRow.textContent).toBe(
-      `₹ ${mockOrder.totalPrice}`
-    );
+    expect(orderTableFooterRow.textContent).toBe(`₹ ${mockOrder.totalPrice}`);
   });
 });
