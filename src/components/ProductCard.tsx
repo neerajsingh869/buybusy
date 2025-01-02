@@ -139,7 +139,7 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
     >
       <div className="h-56">
         <img
-          className="h-full w-full object-contain mix-blend-multiply flex items-center justify-center"
+          className="h-full w-full object-contain flex items-center justify-center"
           src={product.image}
           alt={product.title}
         />
