@@ -64,6 +64,8 @@ const Cart = () => {
     });
 
     resetCartPage();
+    
+    navigate("/myorders");
   };
 
   if (cart.length === 0) {
@@ -84,7 +86,6 @@ const Cart = () => {
             e.preventDefault();
 
             purchaseProductsFromCart(cart);
-            navigate("/myorders");
           }}
         >
           Purchase
