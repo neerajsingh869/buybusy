@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Order from "../components/Order";
@@ -7,6 +7,7 @@ import { userSelector } from "../redux/slices/userSlice";
 import { showNotification } from "../utility/showNotifications";
 import { useAppSelector } from "../hook";
 import OrderSkeleton from "../components/OrderSkeleton";
+import { ThemeContext } from "../contexts/themeContext";
 
 const Orders = () => {
   const { orders, loading } = useAppSelector(ordersSelector);
@@ -15,15 +16,21 @@ const Orders = () => {
   const navigate = useNavigate();
   const hasRunEffect = useRef(false);
 
+  const theme = useContext(ThemeContext);
+
   useEffect(() => {
     if (!hasRunEffect.current) {
       if (!userUid) {
-        showNotification("Please Sign in or Sign up to view your Orders.");
+        showNotification(
+          "Please Sign in or Sign up to view your Orders.",
+          "error",
+          theme
+        );
         navigate("/signin");
       }
       hasRunEffect.current = true;
     }
-  }, [userUid, navigate]);
+  }, [userUid, navigate, theme]);
 
   if (orders.length === 0) {
     return (

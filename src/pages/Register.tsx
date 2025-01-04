@@ -50,12 +50,12 @@ const Register = () => {
       dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
 
-      showNotification("User signed in successfully!");
+      showNotification("User signed in successfully!", "success", theme);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        showNotification(err.message);
+        showNotification(err.message, "error", theme);
       } else {
-        showNotification("An unknown error occurred.");
+        showNotification("An unknown error occurred.", "error", theme);
       }
 
       dispatch(userActions.updateUserUid(null));
@@ -84,12 +84,12 @@ const Register = () => {
       dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
 
-      showNotification("User signed up successfully!");
+      showNotification("User signed up successfully!", "success", theme);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        showNotification(err.message);
+        showNotification(err.message, "error", theme);
       } else {
-        showNotification("An unknown error occurred.");
+        showNotification("An unknown error occurred.", "error", theme);
       }
 
       dispatch(userActions.updateUserUid(null));

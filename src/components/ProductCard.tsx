@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { CircleMinus, CirclePlus } from "lucide-react";
 import { collection, doc, setDoc } from "firebase/firestore";
 
@@ -7,6 +8,7 @@ import { db } from "../configs/firebase";
 import { showNotification } from "../utility/showNotifications";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { CartItem, Product } from "../types";
+import { ThemeContext } from "../contexts/themeContext";
 
 type Props = {
   product: Product | CartItem;
@@ -17,13 +19,15 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
   const { cart } = useAppSelector(cartSelector);
   const { userUid } = useAppSelector(userSelector);
 
+  const theme = useContext(ThemeContext);
+
   const dispatch = useAppDispatch();
 
   const handleAddToCart = async (product: Product | CartItem) => {
     const isCartExists = cart.find((item) => item.id === product.id);
 
     if (isCartExists) {
-      showNotification("Increase Product Count!");
+      showNotification("Increase Product Count!", "success", theme);
 
       const updatedCart = cart.map((item) => {
         const copiedObj = { ...item };
@@ -42,7 +46,7 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
         });
       }
     } else {
-      showNotification("Product Added Successfully!");
+      showNotification("Product Added Successfully!", "success", theme);
 
       const cartProduct = {
         ...product,
@@ -63,7 +67,7 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
   };
 
   const handleRemoveFromCart = async (product: CartItem) => {
-    showNotification("Product Removed Successfully!");
+    showNotification("Product Removed Successfully!", "success", theme);
 
     const updatedCart = cart.filter((item) => item.id !== product.id);
 
@@ -78,7 +82,7 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
   };
 
   const incrementCartProductCount = async (product: CartItem) => {
-    showNotification("Product Count Incremented!");
+    showNotification("Product Count Incremented!", "success", theme);
 
     const updatedCart = cart.map((item) => {
       const copiedObj = { ...item };
@@ -104,7 +108,7 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
       return;
     }
 
-    showNotification("Product Count Decremented!");
+    showNotification("Product Count Decremented!", "success", theme);
 
     const updatedCart = cart.map((item) => {
       const copiedObj = { ...item };

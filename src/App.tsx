@@ -20,6 +20,7 @@ import { getInitialCartAsync } from "./redux/slices/cartSlice";
 import NonPrivateRoute from "./components/NonPrivateRoute";
 import Loader from "./components/Loader";
 import { useAppDispatch, useAppSelector } from "./hook";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const Cart = lazy(() => import("./pages/Cart"));
 
@@ -32,6 +33,14 @@ function App() {
         element={
           <NonPrivateRoute>
             <Login />
+          </NonPrivateRoute>
+        }
+      />
+      <Route
+        path="forgot-password"
+        element={
+          <NonPrivateRoute>
+            <ForgotPassword />
           </NonPrivateRoute>
         }
       />

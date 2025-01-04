@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc } from "firebase/firestore";
 
@@ -10,6 +11,7 @@ import { showNotification } from "../utility/showNotifications";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { CartItem } from "../types";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
+import { ThemeContext } from "../contexts/themeContext";
 
 const Cart = () => {
   const { cart, loading } = useAppSelector(cartSelector);
@@ -17,6 +19,8 @@ const Cart = () => {
   const { userUid } = useAppSelector(userSelector);
 
   const total = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
+
+  const theme = useContext(ThemeContext);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -32,12 +36,16 @@ const Cart = () => {
 
   const purchaseProductsFromCart = async (cart: CartItem[]) => {
     if (!userUid) {
-      showNotification("Please Sign in or Sign up to purchase products.");
+      showNotification(
+        "Please Sign in or Sign up to purchase products.",
+        "error",
+        theme
+      );
       navigate("/signin");
       return;
     }
 
-    showNotification("Orders Purchased Successfully!");
+    showNotification("Orders Purchased Successfully!", "success", theme);
 
     const orderToPlace = {
       id: new Date().getTime(),

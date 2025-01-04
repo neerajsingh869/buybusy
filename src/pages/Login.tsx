@@ -50,12 +50,12 @@ const Login = () => {
       dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
 
-      showNotification("User signed in successfully!");
+      showNotification("User signed in successfully!", "success", theme);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        showNotification(err.message);
+        showNotification(err.message, "error", theme);
       } else {
-        showNotification("An unknown error occurred.");
+        showNotification("An unknown error occurred.", "error", theme);
       }
 
       dispatch(userActions.updateUserUid(null));
@@ -84,12 +84,12 @@ const Login = () => {
       dispatch(cartActions.replaceOrders(updatedCart));
       dispatch(userActions.updateUserUid(res.user.uid));
 
-      showNotification("User signed in successfully!");
+      showNotification("User signed in successfully!", "success", theme);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        showNotification(err.message);
+        showNotification(err.message, "error", theme);
       } else {
-        showNotification("An unknown error occurred.");
+        showNotification("An unknown error occurred.", "error", theme);
       }
 
       dispatch(userActions.updateUserUid(null));
@@ -117,6 +117,12 @@ const Login = () => {
             placeholder="Enter Password"
             ref={inputPassword}
           />
+          <Link
+            to="/forgot-password"
+            className="self-end font-bold text-right dark:text-white cursor-pointer"
+          >
+            Forgot Password?
+          </Link>
           <button className="h-12 rounded-xl text-lg shadow-md dark:text-black dark:hover:text-white text-white bg-violet-600 dark:bg-violet-400 border-violet-600 dark:border-violet-400 border-2 cursor-pointer transition-all hover:text-violet-600  hover:bg-white dark:hover:bg-black">
             {loadingTraditional ? (
               <BeatLoader

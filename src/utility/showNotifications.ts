@@ -1,12 +1,26 @@
 import toast from "react-hot-toast";
 
-export const showNotification = (message: string) => {
-  toast.success(message, {
+import { Theme, Toast } from "../types";
+
+export const showNotification = (
+  message: string,
+  type: Toast,
+  theme: Theme
+) => {
+  const baseStyle = {
+    minWidth: "18rem",
+    minHeight: "3.5rem",
+    marginTop: "0.25rem",
+    ...(theme === "dark" && {
+      background: "#333",
+      color: "#fff",
+    }),
+  };
+
+  const toastFunction = type === "success" ? toast.success : toast.error;
+
+  toastFunction(message, {
     duration: 2000,
-    style: {
-      minWidth: "18rem",
-      minHeight: "3.5rem",
-      marginTop: "0.25rem",
-    },
+    style: baseStyle,
   });
 };

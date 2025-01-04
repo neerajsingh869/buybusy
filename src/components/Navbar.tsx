@@ -55,12 +55,12 @@ const Navbar = () => {
     try {
       await signOut(auth);
 
-      showNotification("User signed out successfully!");
+      showNotification("User signed out successfully!", "success", theme);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        showNotification(err.message);
+        showNotification(err.message, "error", theme);
       } else {
-        showNotification("An unknown error occurred.");
+        showNotification("An unknown error occurred.", "error", theme);
       }
     } finally {
       dispatch(userActions.updateUserUid(null));
