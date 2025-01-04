@@ -25,10 +25,15 @@ const ForgotPassword = () => {
     }
 
     const email = inputEmail.current.value;
-    console.log(email);
 
     try {
-      await sendPasswordResetEmail(auth, email);
+      const actionCodeSettings = {
+        url: import.meta.env.VITE_FIREBASE_REDIRECT_URL,
+        // url: import.meta.env.VITE_FIREBASE_REDIRECT_URL_DEV,
+        handleCodeInApp: true,
+      };
+
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
 
       showNotification(
         "Password reset email sent successfully!",
