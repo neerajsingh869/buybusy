@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { CircleMinus, CirclePlus } from "lucide-react";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { userSelector } from "../redux/slices/userSlice";
 import { cartActions, cartSelector } from "../redux/slices/cartSlice";
@@ -142,10 +144,18 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
       className="flex flex-col justify-between gap-4 p-4 xl:p-6 rounded-xl shadow-xl min-w-56 dark:bg-neutral-800"
     >
       <div className="h-56">
-        <img
+        {/* <img
           className="h-full w-full object-contain flex items-center justify-center"
           src={product.image}
           alt={product.title}
+        /> */}
+        <LazyLoadImage
+          src={product.image}
+          alt={product.title}
+          placeholderSrc={product.imageLow}
+          effect="blur"
+          wrapperClassName="h-full w-full !bg-contain bg-center bg-no-repeat"
+          className="h-full w-full object-contain flex items-center justify-center"
         />
       </div>
       <div className="font-medium text-xl dark:text-white">{product.title}</div>

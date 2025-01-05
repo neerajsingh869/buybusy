@@ -1,5 +1,6 @@
 export interface ProductDB {
   image: string;
+  imageLow: string;
   price: number;
   title: string;
   category: string;
