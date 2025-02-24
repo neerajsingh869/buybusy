@@ -147,11 +147,12 @@ const ProductCard = ({ product, index, homeOrCart }: Props) => {
       className="flex flex-col justify-between gap-4 p-4 xl:p-6 rounded-xl shadow-xl min-w-56 dark:bg-neutral-800"
     >
       <div className="h-56">
-        {index > priorityImagesCount ? (
+        {index < priorityImagesCount ? (
           <img
             className="h-full w-full object-contain flex items-center justify-center"
             src={product.image}
             alt={product.title}
+            fetchPriority="high"
           />
         ) : (
           <LazyLoadImage
