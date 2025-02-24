@@ -152,7 +152,6 @@ const ProductCard = ({ product, index, homeOrCart }: Props) => {
             className="h-full w-full object-contain flex items-center justify-center"
             src={product.image}
             alt={product.title}
-            fetchPriority="high"
           />
         ) : (
           <LazyLoadImage
