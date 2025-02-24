@@ -176,11 +176,12 @@ const Home = () => {
       </aside>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ml-16 md:ml-[272px] pt-8 gap-4 pr-4">
         {!loading
-          ? filteredProducts.map((product) => {
+          ? filteredProducts.map((product, index) => {
               return (
                 <ProductCard
                   key={product.id}
                   product={product}
+                  index={index}
                   homeOrCart="home"
                 />
               );

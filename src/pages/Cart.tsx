@@ -93,11 +93,12 @@ const Cart = () => {
       </aside>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 ml-16 md:ml-56 py-9 pr-4">
         {!loading
-          ? cart.map((product: CartItem) => {
+          ? cart.map((product: CartItem, index) => {
               return (
                 <ProductCard
                   key={product.id}
                   product={product}
+                  index={index}
                   homeOrCart="cart"
                 />
               );
