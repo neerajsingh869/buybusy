@@ -11,7 +11,6 @@ import { showNotification } from "../utility/showNotifications";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { CartItem, Product } from "../types";
 import { ThemeContext } from "../contexts/themeContext";
-import { Helmet } from "react-helmet-async";
 
 type Props = {
   product: Product | CartItem;
@@ -149,25 +148,15 @@ const ProductCard = ({ product, index, homeOrCart }: Props) => {
     >
       <div className="h-56">
         {index < priorityImagesCount ? (
-          <>
-            <Helmet>
-              <link
-                rel="preload"
-                fetchPriority="high"
-                as="image"
-                href={product.imageWebp}
-              />
-            </Helmet>
-            <picture>
-              <source type="image/webp" srcSet={product.imageWebp} />
-              <img
-                className="h-full w-full object-contain flex items-center justify-center"
-                src={product.image}
-                alt={product.title}
-                fetchPriority="high"
-              />
-            </picture>
-          </>
+          <picture>
+            <source type="image/webp" srcSet={product.imageWebp} />
+            <img
+              className="h-full w-full object-contain flex items-center justify-center"
+              src={product.image}
+              alt={product.title}
+              fetchPriority="high"
+            />
+          </picture>
         ) : (
           <LazyLoadImage
             src={product.imageWebp}
