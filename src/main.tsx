@@ -13,6 +13,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <HelmetProvider>
         <Helmet>
+          <meta
+            name="description"
+            content="Buybusy is an e-commerce app for browsing, cart management, and purchases. Users can filter/search products and sign in with email or Google IDs."
+          />
+          <meta name="keywords" content="BuyBusy,E-Commerce,Search Filter,Personal Project,React,Firebase,Open Source,TailwindCSS,Vite,Authorization,Authentication,TypeScript,JavaScript,CSS3,HTML5,Toast"></meta>
           <link rel="preconnect" href="https://firestore.googleapis.com" />
         </Helmet>
         <App />
