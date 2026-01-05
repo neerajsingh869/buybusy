@@ -11,8 +11,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Navbar from "./components/Navbar";
 import Page404 from "./pages/Page404";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Orders from "./pages/Orders";
 import { userActions, userSelector } from "./redux/slices/userSlice";
 import { getInitialOrdersAsync } from "./redux/slices/ordersSlice";
@@ -20,9 +18,11 @@ import { getInitialCartAsync } from "./redux/slices/cartSlice";
 import NonPrivateRoute from "./components/NonPrivateRoute";
 import Loader from "./components/Loader";
 import { useAppDispatch, useAppSelector } from "./hook";
-import ForgotPassword from "./pages/ForgotPassword";
 
 const Cart = lazy(() => import("./pages/Cart"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
 function App() {
   const routes = createRoutesFromElements(
@@ -32,7 +32,9 @@ function App() {
         path="signin"
         element={
           <NonPrivateRoute>
-            <Login />
+            <Suspense fallback={<Loader />}>
+              <Login />
+            </Suspense>
           </NonPrivateRoute>
         }
       />
@@ -40,7 +42,9 @@ function App() {
         path="forgot-password"
         element={
           <NonPrivateRoute>
-            <ForgotPassword />
+            <Suspense fallback={<Loader />}>
+              <ForgotPassword />
+            </Suspense>
           </NonPrivateRoute>
         }
       />
@@ -48,7 +52,9 @@ function App() {
         path="signup"
         element={
           <NonPrivateRoute>
-            <Register />
+            <Suspense fallback={<Loader />}>
+              <Register />
+            </Suspense>
           </NonPrivateRoute>
         }
       />

@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 
-import cartImage from "../assets/cart.png";
-import homeImage from "../assets/home.png";
-import logoutImage from "../assets/logout.png";
+import cartImage from "../assets/cart.webp";
+import homeImage from "../assets/home.webp";
+import logoutImage from "../assets/logout.webp";
 import ordersImage from "../assets/orders.png";
-import signinImage from "../assets/signin.png";
+import signinImage from "../assets/signin.webp";
 import { userSelector } from "../redux/slices/userSlice";
 import { useAppSelector } from "../hook";
 

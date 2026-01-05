@@ -10,7 +10,7 @@ import { BeatLoader } from "react-spinners";
 import { userActions } from "../redux/slices/userSlice";
 import { showNotification } from "../utility/showNotifications";
 import { provider } from "../configs/firebase";
-import googleLogo from "../assets/google.png";
+import googleLogo from "../assets/google.webp";
 import { cartActions, cartSelector } from "../redux/slices/cartSlice";
 import { updateCartAndSaveIntoDatabase } from "../utility/updateCartAndSaveIntoDatabase";
 import { useAppDispatch, useAppSelector } from "../hook";

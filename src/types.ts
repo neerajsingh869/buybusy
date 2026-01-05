@@ -1,6 +1,8 @@
 export interface ProductDB {
   image: string;
   imageLow: string;
+  imageWebp: string;
+  imageLowWeb: string;
   price: number;
   title: string;
   category: string;

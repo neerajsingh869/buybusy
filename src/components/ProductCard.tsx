@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CircleMinus, CirclePlus } from "lucide-react";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { userSelector } from "../redux/slices/userSlice";
 import { cartActions, cartSelector } from "../redux/slices/cartSlice";
@@ -14,12 +14,15 @@ import { ThemeContext } from "../contexts/themeContext";
 
 type Props = {
   product: Product | CartItem;
+  index: number;
   homeOrCart: string;
 };
 
-const ProductCard = ({ product, homeOrCart }: Props) => {
+const ProductCard = ({ product, index, homeOrCart }: Props) => {
   const { cart } = useAppSelector(cartSelector);
   const { userUid } = useAppSelector(userSelector);
+  // TODO: Need to dynamically calculate count on the basis of viewport width
+  const priorityImagesCount = 5;
 
   const theme = useContext(ThemeContext);
 
@@ -144,19 +147,26 @@ const ProductCard = ({ product, homeOrCart }: Props) => {
       className="flex flex-col justify-between gap-4 p-4 xl:p-6 rounded-xl shadow-xl min-w-56 dark:bg-neutral-800"
     >
       <div className="h-56">
-        {/* <img
-          className="h-full w-full object-contain flex items-center justify-center"
-          src={product.image}
-          alt={product.title}
-        /> */}
-        <LazyLoadImage
-          src={product.image}
-          alt={product.title}
-          placeholderSrc={product.imageLow}
-          effect="blur"
-          wrapperClassName="h-full w-full !bg-contain bg-center bg-no-repeat"
-          className="h-full w-full object-contain flex items-center justify-center"
-        />
+        {index < priorityImagesCount ? (
+          <picture>
+            <source type="image/webp" srcSet={product.imageWebp} />
+            <img
+              className="h-full w-full object-contain flex items-center justify-center"
+              src={product.image}
+              alt={product.title}
+              fetchPriority="high"
+            />
+          </picture>
+        ) : (
+          <LazyLoadImage
+            src={product.imageWebp}
+            alt={product.title}
+            placeholderSrc={product.imageLowWeb}
+            effect="blur"
+            wrapperClassName="h-full w-full !bg-contain bg-center bg-no-repeat"
+            className="h-full w-full object-contain flex items-center justify-center"
+          />
+        )}
       </div>
       <div className="font-medium text-xl dark:text-white">{product.title}</div>
       <div className="flex items-center justify-between font-bold text-xl dark:text-white">
